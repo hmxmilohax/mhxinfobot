@@ -268,5 +268,10 @@
         "triggers": ["!syntax", "!sublime"],
         "text": "# DTA Syntax Highlighting for Sublime Text",
         "files": ["media/DataArray.sublime-syntax"]
+    },
+    "response54": {
+        "triggers": ["!jan28"],
+        "text": "",
+        "files": ["media/jan28.png"]
     }
 }
