@@ -20,7 +20,7 @@
         "files": ["media/arguing.mp4"]
     },
     "response5": {
-        "triggers": ["!charname"],
+        "triggers": ["!charname", "!text"],
         "text": "Game not responding after entering a character name or other text in RPCS3?\nEither disconnect and reconnect your controller, or turn off `native interface` in the games custom config emulator settings tab",
         "files": ["media/charname.png"]
     },
