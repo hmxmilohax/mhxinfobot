@@ -258,5 +258,10 @@
         "triggers": ["!piss"],
         "text": "",
         "files": ["media/piss.mp4"]
+    },
+    "response53": {
+        "triggers": ["!decomp"],
+        "text": "# Check out the Rock Band 3 Decomp and if you are able, consider contributing!\nhttps://discord.com/channels/961352072140324924/1149118233555779595\nhttps://rb3dx.milohax.org/decomp",
+        "files": []
     }
 }
