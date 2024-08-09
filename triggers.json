@@ -190,7 +190,7 @@
         "files": []
     },
     "response39": {
-        "triggers": ["!skillissue", "!calibration", "!calibrating"],
+        "triggers": ["!skillissue", "!calibration", "!calibrating", "!calibrate"],
         "text": "To assist in calibrating Rock Band 3, you can download this chart. Available in both Xbox 360 and PS3/RPCS3 formats.\nA readme with instructions is included. ",
         "files": ["media/RB3_Calibration_Test_Chart.zip", "media/Note_Reference.jpg"]
     },
