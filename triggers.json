@@ -263,5 +263,10 @@
         "triggers": ["!decomp"],
         "text": "# Check out the Rock Band 3 Decomp and if you are able, consider contributing!\nhttps://discord.com/channels/961352072140324924/1149118233555779595\nhttps://rb3dx.milohax.org/decomp",
         "files": []
+    },
+    "response54": {
+        "triggers": ["!syntax", "!sublime"],
+        "text": "# DTA Syntax Highlighting for Sublime Text",
+        "files": ["media/DataArray.sublime-syntax"]
     }
 }
