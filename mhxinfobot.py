@@ -1,6 +1,7 @@
 import discord
 import json
 import os
+import math
 
 # Load the config file
 with open('config.json') as config_file:
@@ -28,6 +29,29 @@ async def on_message(message):
         return
 
     normalized_content = message.content.lower().split()
+
+    if "!list" in normalized_content:
+        # Create an embedded message
+        embed = discord.Embed(title="Available Triggers", color=discord.Color.blue())
+
+        # Flatten and alphabetize the trigger list
+        all_triggers = []
+        for value in triggers.values():
+            all_triggers.extend(value['triggers'])
+
+        all_triggers = sorted(all_triggers)
+
+        # Determine the number of columns and rows
+        num_columns = 3  # Number of desired columns
+        num_rows = math.ceil(len(all_triggers) / num_columns)
+
+        # Add fields to the embed by splitting the triggers_list into columns
+        for i in range(num_columns):
+            column_content = "\n".join(all_triggers[i * num_rows:(i + 1) * num_rows])
+            embed.add_field(name="\u200B", value=column_content, inline=True)
+
+        await message.channel.send(embed=embed)
+        return
 
     for response in triggers.values():
         # Check if any of the triggers match exactly as a whole word
