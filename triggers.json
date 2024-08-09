@@ -30,7 +30,7 @@
         "files": []
     },
     "response7": {
-        "triggers": ["!dlcinstall"],
+        "triggers": ["!dlcinstall", "!export", "!exports", "!dlc"],
         "text": "https://youtu.be/UhLywQeK7zw",
         "files": []
     },
@@ -50,8 +50,8 @@
         "files": []
     },
     "response11": {
-        "triggers": ["!export"],
-        "text": "https://youtu.be/UhLywQeK7zw",
+        "triggers": ["!unified"],
+        "text": "# Guitar Hero II Deluxe Unified\nNote: This project is massively unfinished and contains very few modifications.\nhttps://github.com/hmxmilohax/Guitar-Hero-II-Deluxe-Unified",
         "files": []
     },
     "response12": {
@@ -269,7 +269,7 @@
         "text": "# DTA Syntax Highlighting for Sublime Text",
         "files": ["media/DataArray.sublime-syntax"]
     },
-    "response54": {
+    "response55": {
         "triggers": ["!jan28"],
         "text": "",
         "files": ["media/jan28.png"]
