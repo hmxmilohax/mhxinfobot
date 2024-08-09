@@ -253,5 +253,10 @@
         "triggers": ["!xenia"],
         "text": "Xenia for the most part is not recommended unless you are a solo player who only plays guitar / bass\n\n* No mic support\n* No online play\n* Adding a 2nd player crashes the emulator\n* Pro instruments (even native Xbox 360 ones) don't work\n* Fixing the broken textures will tank your FPS unless you have a beefy PC",
         "files": []
+    },
+    "response52": {
+        "triggers": ["!piss"],
+        "text": "",
+        "files": ["media/piss.mp4"]
     }
 }
