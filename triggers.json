@@ -278,5 +278,10 @@
         "triggers": ["!dolphin"],
         "text": "Dolphin NAND and 64gb SD card with all DLC preinstalled to the SD card\nThis is because Dolphin and dlc is so annoyingly confusing.\nThis should even work with the vanilla game.\nThe vanilla game cant transfer content to the SD if the nand is full.\nDolphin will install wads to the nand, there isnt a good way to install to the SD.\nThen you get locked out of saving and caching in game, and there is nothing you can do.\nand one pack specifically is even more annoying to install.\nThis has it all pre-done so you dont have to suffer as I have suffered.\nhttps://drive.google.com/drive/folders/19x_Y_1HgZ9mj7iJSfVEADRyrsigz0Rdi?usp=sharing",
         "files": ["media/dolphin.png"]
+    },
+    "response57": {
+        "triggers": ["!richpresence"],
+        "text": "Xbox 360 hardware:\n### Note: This requires RB3Enhanced to be installed\nThere are a couple of steps to get this working:\n* **Download rb3e_index.html below** and put it in the same place as RB3 on the Xbox.\n* **Grab the latest RB3E nightly (NoDebug)** [RB3Enhanced Nightly](https://nightly.link/RBEnhanced/RB3Enhanced/workflows/build/master)\n* Add this to your `rb3.ini`\n```\n[HTTP]\nEnableHTTPServer = true\n```\nIn the DX repo **on the develop branch** in the `scripts` folder, you will want to add a new line to your `config.ini`, or copy from `config_default.ini` (replacing with the IP to your Xbox)\n```\nxbox_console_ip = 192.168.0.36\n```\nWhen set, the Rich Presence script will attempt to connect to the Xbox when launched first, and if that fails, it will automatically fall back to the RPCS3 Rich Presence like normal.\nTo run Rich Presence, in a command prompt inside the `scripts` folder, run:\n```\npython dx_discordrp.py\n```\nYou will need a couple of packages to run this script:\n```\npip install pypresence requests\n```",
+        "files": ["media/rb3e_index.html", "media/richpresence.png"]
     }
 }
