@@ -220,7 +220,7 @@
         "files": []
     },
     "response45": {
-        "triggers": ["!themeats", "!meat", "!arbys", "!arbyshasthemeats"],
+        "triggers": ["!themeats", "!meat", "!meats", "!arbys", "!arbyshasthemeats"],
         "text": "Piracy is **strongly** discouraged. Please read more here:",
         "files": ["media/themeats.png"]
     },
