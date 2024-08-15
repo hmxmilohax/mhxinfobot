@@ -85,7 +85,7 @@ class PaginatorView(discord.ui.View):
             
             for i, col in enumerate(alias_columns):
                 if col:
-                    value = "\n\n".join(f"**{trigger}**\n{', '.join(aliases)}" for trigger, aliases in col)
+                    value = "\n".join(f"**{trigger}**\n{', '.join(aliases)}" for trigger, aliases in col)
                 else:
                     value = "\u200B"
                 embed.add_field(name="Aliases" if i == 0 else "\u200B", value=value, inline=True)
@@ -95,7 +95,7 @@ class PaginatorView(discord.ui.View):
 
             for i, col in enumerate(trigger_columns):
                 if col:
-                    value = "\n\n".join(col)
+                    value = "\n".join(col)
                 else:
                     value = "\u200B"
                 embed.add_field(name="Triggers" if i == 0 else "\u200B", value=value, inline=True)
