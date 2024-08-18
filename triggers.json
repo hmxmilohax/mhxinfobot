@@ -288,5 +288,10 @@
         "triggers": ["!teleport", "!teleporting", "!floating", "!hair"],
     "text": "Glitching/teleporting instruments is a vanilla Rock Band 3 bug present in **PS3**, made worse in **RPCS3**.\nLinked below is a file you can extract and patch your\n**Vanilla Base RB3 extracted disc game files**\nto fix the issue for almost all guitars and basses.\nAlso below is a very detailed guide of items that **ARE** affected by the teleporting. Besides the clear microphone, this is a list of items to avoid.\nCurrently the only fix for microphones is using the transparent microphone.\n[PS3 Guitar/Bass Patch Files](https://github.com/hmxmilohax/rock-band-3-deluxe/raw/main/dependencies/ps3_patcher/rb3_ps3_guitar_glitch_fix.7z)\nhttps://carlmylo.github.io/docu-rpcs3/trbl_teleprob",
         "files": []
+    },
+    "response59": {
+        "triggers": ["!wcb", "!buffers", "!colorbuffers", "!writecolorbuffers"],
+    "text": "If your characters appear bugged, you need to enable 'Write Color Buffers' in the RPCS3 GPU settings menu.",
+        "files": ["media/wcbon.png"]
     }
 }
