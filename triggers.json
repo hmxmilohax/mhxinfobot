@@ -90,7 +90,7 @@
         "files": []
     },
     "response19": {
-        "triggers": ["!log"],
+        "triggers": ["!log", "!logs"],
         "text": "To upload a log:\n* Run into the crash or problem first then close out RPCS3.\n* **DO NOT REOPEN IT!**\n* Send `RPCS3.log` or `RPCS3.log.gz`\n* On Windows, it's in the folder you have RPCS3 in.\n* On Linux, it's in `~/.cache/rpcs3/`.\n* On macOS, it's in `~/Library/Caches/rpcs3`. (May require you to show hidden folders)\nhttps://cdn.discordapp.com/attachments/1146938356664639589/1222340270545436753/BrowserPreview_tmp.png",
         "files": []
     },
