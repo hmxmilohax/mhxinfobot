@@ -293,5 +293,15 @@
         "triggers": ["!wcb", "!buffers", "!colorbuffers", "!writecolorbuffers"],
     "text": "If your characters appear bugged, you need to enable 'Write Color Buffers' in the RPCS3 GPU settings menu.",
         "files": ["media/wcbon.png"]
+    },
+    "response60": {
+        "triggers": ["!linos"],
+    "text": "",
+        "files": ["media/linos_keys.mp4"]
+    },
+    "response61": {
+        "triggers": ["!scott", "!itsworking", "!working"],
+    "text": "",
+        "files": ["media/scott_working.mov"]
     }
 }
