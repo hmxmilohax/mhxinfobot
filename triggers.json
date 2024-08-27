@@ -66,7 +66,7 @@
     },
     "response14": {
         "triggers": ["!gocentral"],
-        "text": "There is a single IP address for all platforms to keep things easy and simple:\n`45.33.44.103`\nIf you need to use a domain, use the gocentral-`platform`.rbenhanced.rocks domain. For example:\n`gocentral-xbox.rbenhanced.rocks`\n`gocentral-wii.rbenhanced.rocks`\n`gocentral-ps3.rbenhanced.rocks`\nSee the guide in https://discord.com/channels/953085263008129064/1076031372185042984 for information about how to connect on your preferred platform.",
+        "text": "There is a single IP address for all platforms to keep things easy and simple:\n`45.33.44.103`\nIf you need to use a domain, use the gocentral-`platform`.rbenhanced.rocks domain. For example:\n`gocentral-xbox.rbenhanced.rocks`\n`gocentral-wii.rbenhanced.rocks`\n`gocentral-ps3.rbenhanced.rocks`\nSee the guide in https://discord.com/channels/953085263008129064/1076031372185042984 for information about how to connect on your preferred platform. https://discord.gg/wyMHERMZvE",
         "files": []
     },
     "response15": {
