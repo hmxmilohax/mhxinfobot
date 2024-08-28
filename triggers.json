@@ -308,5 +308,10 @@
         "triggers": ["!guitars"],
     "text": "Despite the click bait thumbnail, the riffmaster is also a great purchase in the proper scenario.\nhttps://www.youtube.com/watch?v=YudkMhOIU_8",
         "files": []
+    },
+    "response63": {
+        "triggers": ["!fig"],
+    "text": "media/scott_working.mp4",
+        "files": []
     }
 }
