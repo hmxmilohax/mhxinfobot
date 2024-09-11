@@ -4,6 +4,10 @@ import os
 import math
 import tempfile
 from analyze_log import analyze_log_file
+import gzip
+import shutil
+import uuid
+
 
 # Load the config file
 with open('config.json') as config_file:
@@ -25,6 +29,9 @@ if not os.path.exists(TEMP_FOLDER):
 COLUMNS = 3  # Number of columns to display
 COLUMNS_ALIAS = 2  # Number of columns to display for aliases
 EMBED_TIMEOUT = 60  # Timeout in seconds
+
+def generate_session_hash():
+    return str(uuid.uuid4())[:8]  # Generate a short unique hash
 
 class PaginatorView(discord.ui.View):
     def __init__(self, triggers, alias_triggers_dict, user_id, show_aliases=False):
@@ -186,6 +193,60 @@ class ViewTriggersButton(discord.ui.Button):
 async def on_ready():
     print(f'Logged in as {client.user}!')
 
+async def handle_log_file(message):
+    if len(message.attachments) == 0:
+        for response in triggers.values():
+            if any(trigger.lower() in message.content.lower() for trigger in response['triggers']):
+                await handle_response(message.channel, response)
+                break  # Stop after sending one trigger action
+        return
+
+    log_file = message.attachments[0]
+    session_hash = generate_session_hash()
+
+    # Check if the file is a valid log or gzipped log file
+    if not log_file.filename.endswith((".log", ".log.gz")):
+        await message.channel.send("Invalid file type. Please upload a `.log` or `.log.gz` file.")
+        return
+
+    # Generate a unique log file name by appending the session hash
+    log_file_name = f"{os.path.splitext(log_file.filename)[0]}_{session_hash}.log"
+    log_file_path = os.path.join(TEMP_FOLDER, log_file_name)
+
+    # Save the file to a temporary location
+    await log_file.save(log_file_path if not log_file.filename.endswith(".gz") else log_file_path + ".gz")
+
+    decompressed_log_path = log_file_path
+
+    # If the file is a .gz file, extract it
+    if log_file.filename.endswith(".gz"):
+        decompressed_log_path = log_file_path  # Remove ".gz" from the final path
+        with gzip.open(log_file_path + ".gz", 'rb') as f_in:
+            with open(decompressed_log_path, 'wb') as f_out:
+                shutil.copyfileobj(f_in, f_out)
+        os.remove(log_file_path + ".gz")  # Clean up the original .gz file after decompression
+
+    # Call the analyze_log_file function directly
+    try:
+        # Analyze the log file and capture the result
+        output = analyze_log_file(decompressed_log_path)
+
+        # Create a Discord embed to format the output nicely
+        embed = discord.Embed(title="Log Analysis Result", color=discord.Color.blue())
+        embed.description = output[:4096]  # Discord embed description limit is 4096 chars
+
+        await message.channel.send(embed=embed)
+
+    except Exception as e:
+        await message.channel.send(f"Error analyzing log file: {e}")
+
+    finally:
+        # Clean up the temporary directory
+        if os.path.exists(decompressed_log_path):
+            os.remove(decompressed_log_path)
+
+    return
+
 @client.event
 async def on_message(message):
     if message.author == client.user:
@@ -194,41 +255,7 @@ async def on_message(message):
     normalized_content = message.content.lower().split()
 
     if "!log" in normalized_content:
-        if len(message.attachments) == 0:
-            for response in triggers.values():
-                if any(trigger.lower() in normalized_content for trigger in response['triggers']):
-                    await handle_response(message.channel, response)
-                    break  # Stop after sending one trigger action
-            return
-
-        log_file = message.attachments[0]
-
-        # Check if the file is a valid log file (optional)
-        if not log_file.filename.endswith(".log"):
-            await message.channel.send("Invalid file type. Please upload a `.log` file.")
-            return
-
-        # Save the file to a temporary location
-        log_file_path = os.path.join(TEMP_FOLDER, log_file.filename)
-        await log_file.save(log_file_path)
-
-        # Call the analyze_log_file function directly
-        try:
-            # Analyze the log file and capture the result
-            output = analyze_log_file(log_file_path)
-
-            # Create a Discord embed to format the output nicely
-            embed = discord.Embed(title="Log Analysis Result", color=discord.Color.blue())
-            embed.description = output[:4096]  # Discord embed description limit is 4096 chars
-
-            await message.channel.send(embed=embed)
-
-        except Exception as e:
-            await message.channel.send(f"Error analyzing log file: {e}")
-
-        finally:
-            # Clean up the temporary directory
-            os.remove(log_file_path)
+        await handle_log_file(message)
         return
 
     if "!list" in normalized_content:
