@@ -66,7 +66,7 @@ def analyze_log_file(log_file_path):
         for i, line in enumerate(core_section_lines, start=last_core_index + 1):
             # Non-critical issues
             if 'CELL_ENOENT, "/dev_hdd0/game/BLUS30463/USRDIR/dx_high_memory.dta"' in line:
-                game_issues[f"**High memory missing**"].append(f"L-{i}")
+                game_issues[f"**High memory file is missing**"].append(f"L-{i}")
 
             # Frame limit settings
             if "Frame limit" in line:
@@ -90,14 +90,14 @@ def analyze_log_file(log_file_path):
                 if vblank_frequency < 60:
                     critical_issues[f"**Vblank should not be below 60**"].append(f"L-{i}")
                 elif vblank_frequency > 60:
-                    game_issues[f"**Playing a Vblank above 60 may make pitch detection unreliable and online unstable**"].append(f"L-{i}")
+                    game_issues[f"**Playing on a Vblank above 60 may make pitch detection unreliable and online unstable**"].append(f"L-{i}")
 
             # High Audio Buffer Duration
             match = re.search(r"\*\*Desired Audio Buffer Duration:\*\* (\d+)", line)
             if match:
                 buffer_duration = int(match.group(1))
                 if buffer_duration >= 100:
-                    game_issues[f"**High Audio Buffer detected: Duration:** {buffer_duration}"].append(f"L-{i}")
+                    game_issues[f"**High Audio Buffer detected. Consider lowering it. It's set to ** {buffer_duration} ms"].append(f"L-{i}")
 
             # Fullscreen settings
             if "Exclusive Fullscreen Mode: Enable" in line or "Exclusive Fullscreen Mode: Automatic" in line:
