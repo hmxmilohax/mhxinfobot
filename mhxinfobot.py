@@ -2,6 +2,8 @@ import discord
 import json
 import os
 import math
+import tempfile
+from analyze_log import analyze_log_file
 
 # Load the config file
 with open('config.json') as config_file:
@@ -14,6 +16,10 @@ client = discord.Client(intents=intents)
 # Load triggers from the JSON file once at startup
 with open('triggers.json') as triggers_file:
     triggers = json.load(triggers_file)
+
+TEMP_FOLDER = "out/"
+if not os.path.exists(TEMP_FOLDER):
+    os.makedirs(TEMP_FOLDER)
 
 # Constants
 COLUMNS = 3  # Number of columns to display
@@ -186,6 +192,44 @@ async def on_message(message):
         return
 
     normalized_content = message.content.lower().split()
+
+    if "!log" in normalized_content:
+        if len(message.attachments) == 0:
+            for response in triggers.values():
+                if any(trigger.lower() in normalized_content for trigger in response['triggers']):
+                    await handle_response(message.channel, response)
+                    break  # Stop after sending one trigger action
+            return
+
+        log_file = message.attachments[0]
+
+        # Check if the file is a valid log file (optional)
+        if not log_file.filename.endswith(".log"):
+            await message.channel.send("Invalid file type. Please upload a `.log` file.")
+            return
+
+        # Save the file to a temporary location
+        log_file_path = os.path.join(TEMP_FOLDER, log_file.filename)
+        await log_file.save(log_file_path)
+
+        # Call the analyze_log_file function directly
+        try:
+            # Analyze the log file and capture the result
+            output = analyze_log_file(log_file_path)
+
+            # Create a Discord embed to format the output nicely
+            embed = discord.Embed(title="Log Analysis Result", color=discord.Color.blue())
+            embed.description = output[:4096]  # Discord embed description limit is 4096 chars
+
+            await message.channel.send(embed=embed)
+
+        except Exception as e:
+            await message.channel.send(f"Error analyzing log file: {e}")
+
+        finally:
+            # Clean up the temporary directory
+            os.remove(log_file_path)
+        return
 
     if "!list" in normalized_content:
         await send_trigger_list(message.channel, message.author.id)
