@@ -91,7 +91,7 @@
     },
     "response19": {
         "triggers": ["!log", "!logs"],
-        "text": "To upload a log, type `!log` and:\n* Run into the crash or problem first then close out RPCS3.\n* **DO NOT REOPEN IT!**\n* Send `RPCS3.log` or `RPCS3.log.gz`\n* On Windows, it's in the folder you have RPCS3 in.\n* On Linux, it's in `~/.cache/rpcs3/`.\n* On macOS, it's in `~/Library/Caches/rpcs3`. (May require you to show hidden folders)\nThe bot should be able to process your log to help you understand what may be wrong.",
+        "text": "Error: User provided no rpcs3.log.\nTo upload a log, type `!log` and:\n* Run into the crash or problem first then close out RPCS3.\n* **DO NOT REOPEN IT!**\n* Send `RPCS3.log` or `RPCS3.log.gz`\n* On Windows, it's in the folder you have RPCS3 in.\n* On Linux, it's in `~/.cache/rpcs3/`.\n* On macOS, it's in `~/Library/Caches/rpcs3`. (May require you to show hidden folders)\nThe bot should be able to process your log to help you understand what may be wrong.",
         "files": ["media/log.png"]
     },
     "response20": {
