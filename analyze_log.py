@@ -184,7 +184,6 @@ def analyze_log_file(log_file_path):
             "Strict Rendering Mode: false",
             "Disable Vertex Cache: false",
             "Disable On-Disk Shader Cache: false",
-            "Multithreaded RSX: false",
             "Force Hardware MSAA Resolve: false",
             "Shader Compiler Threads: 0",
             "Allow Host GPU Labels: false",
