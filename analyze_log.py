@@ -15,6 +15,7 @@ def analyze_log_file(log_file_path):
     
     # Sets to track duplicate issues
     onedrive_issues = set()
+    save_issues = set()
     graphics_device_notifications = set()
 
     # Attempt to open and read the log file with different encodings
@@ -105,6 +106,12 @@ def analyze_log_file(log_file_path):
                 if "OneDrive install detected" not in onedrive_issues:
                     onedrive_issues.add("- **OneDrive detected!** Please move files to C:\\Games**")
                     game_issues[f"- **OneDrive detected!** Please move files to C:\\Games"].append(f"L-{i}")
+
+            # Busted save
+            if "dev_hdd0/home/00000001/savedata/BLUS30463-AUTOSAVE/ (Already exists)" in line:
+                if "Busted save detected" not in save_issues:
+                    save_issues.add("- **Busted Save detected!** Move BLUS30463-AUTOSAVE out of savedata folder in dev_hdd0")
+                    critical_issues[f"- **Busted Save detected!** Move BLUS30463-AUTOSAVE out dev_hdd0\\home\\00000001\\savedata"].append(f"L-{i}")
 
             # Vblank Rate
             if re.search(r"Vblank Rate: (\d+)", line):
