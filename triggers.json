@@ -100,7 +100,7 @@
         "files": ["media/lore.mov"]
     },
     "response21": {
-        "triggers": ["!mem"],
+        "triggers": ["!mem", "!himem", "!memory"],
         "text": "# RPCS3 High Memory Mode #\nThis will increase your song limit to 16,000 and should allow for better stability and less crashes by allowing RB3 to use extra memory in your system.\n\nStep 1: Right click Rock Band 3 and select `Change Custom Configuration`\nStep 2: Enable `Debug Console Mode` under the Advanced tab\nStep 3: Download the dx_high_memory.dta file at the bottom of this post into: `dev_hdd0/game/BLUS30463/USRDIR`\n\n*if you already installed the pre-made recommended configuration from the rb3pc guide, you will already have this*\n\nDO NOT ATTEMPT TO USE THIS ON HARDWARE",
         "files": ["media/mem.png", "media/dx_high_memory.dta"]
     },
@@ -291,7 +291,7 @@
     },
     "response59": {
         "triggers": ["!wcb", "!buffers", "!colorbuffers", "!writecolorbuffers"],
-    "text": "If your characters appear bugged, you need to enable 'Write Color Buffers' in the RPCS3 GPU settings menu.",
+    "text": "To fix buggy character textures, you need to enable 'Write Color Buffers' under the GPU tab in Rock Band 3's Custom Configuration.",
         "files": ["media/wcbon.png"]
     },
     "response60": {
@@ -313,5 +313,25 @@
         "triggers": ["!fig"],
     "text": "",
         "files": ["media/fig.mp4"]
+    },
+    "response64": {
+        "triggers": ["!dwd"],
+    "text": "To fix crashes after songs, you need to set Driver Wake-Up Delay 20 or a multiple of 20 under the Advanced tab in Rock Band 3's Custom Configuration.",
+        "files": ["media/dwd.png"]
+    },
+    "response65": {
+        "triggers": ["!global"],
+    "text": "All tweaks to Rock Band 3 should be done in the game's custom configuration, not the global one.",
+        "files": ["media/custnotglobal.png"]
+    },
+    "response66": {
+        "triggers": ["!netset"],
+    "text": "To fix freezing while scrolling the song library, set Network Status to Connected under the Network tab in Rock Band 3's Custom Configuration.",
+        "files": ["media/dwd.png"]
+    },
+    "response67": {
+        "triggers": ["!caca"],
+        "text": "",
+        "files": ["media/caca.mp4"]
     }
 }
