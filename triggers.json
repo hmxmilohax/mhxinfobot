@@ -333,5 +333,10 @@
         "triggers": ["!caca"],
         "text": "",
         "files": ["media/caca.mp4"]
+    },
+    "response68": {
+        "triggers": ["!content", "!confiles", "!livefiles"],
+        "text": "* Rock Band 1/2 DLC\n`/Hdd1/Content/0000000000000000/45410829/00000001`\n`/Hdd1/Content/0000000000000000/45410829/00000002`\n* Rock Band 3 DLC\n`/Hdd1/Content/0000000000000000/45410914/00000001`\n`/Hdd1/Content/0000000000000000/45410914/00000002`\nCON files go in `00000001`\nLIVE files go in `00000002`\nUse RBtoUSB from [Nautilus](https://nemosnautilus.com/nautilus/) to place files in the correct place for you on a flash drive if unsure",
+        "files": []
     }
 }
