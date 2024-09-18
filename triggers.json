@@ -338,5 +338,10 @@
         "triggers": ["!content", "!confiles", "!livefiles"],
         "text": "* Rock Band 1/2 DLC\n`/Hdd1/Content/0000000000000000/45410829/00000001`\n`/Hdd1/Content/0000000000000000/45410829/00000002`\n* Rock Band 3 DLC\n`/Hdd1/Content/0000000000000000/45410914/00000001`\n`/Hdd1/Content/0000000000000000/45410914/00000002`\n\nCON files go in `00000001`\nLIVE files go in `00000002`\n\nUse RBtoUSB from [Nautilus](https://nemosnautilus.com/nautilus/) to place files in the correct place for you on a flash drive if unsure",
         "files": []
+    },
+    "response69": {
+        "triggers": ["!liveless"],
+        "text": "# __Liveless Setup (RB3)__ #\n\nRequired Rock Band 3 Enhanced\n(Install instructions included in a .txt file):\nhttps://rb3e.rbenhanced.rocks/download.html\n\nAlong with the latest enhanced nightly, `RB3Enhanced-Xbox-NoDebug`\nhttps://nightly.link/RBEnhanced/RB3Enhanced/workflows/build/master\n\n\nIn the rb3.ini remove the # from both STUNServer and STUNServerPort and add:\n```ini\n[Xbox360]\nLivelessAddress = liveless-testing.ipg.pw\n\n[Network]\nEnableUPnP = true\n```\n*If you're having trouble connecting to other users or experience ghost players (seeing their highway but score not go up), port forward 9103 UDP to your Xbox*\n\nBoth Liveless & Leaderboards will NOT work with the following:\n* Stealth servers\n* Freestyle Dash 3\n\nIn Dashlaunch, make sure of the following:\nliveblock on, sockpatch on, fakelive off\n\n## __Leaderboards__ ##\n\nReplace the `[GoCentral]` field with the following:\n\n```ini\n[GoCentral]\n# Enables redirecting Rock Central servers to a custom server.\n# This also re-enables Audition Mode if enabled.\n# (This setting is ignored if using an Xbox 360 and connected to official services.)\nEnableGoCentral = true\n# The IP address of the GoCentral server.\nGoCentralAddress = 45.33.44.103\n```",
+        "files": ["media/liveless1.png", "media/liveless2.png"]
     }
 }
