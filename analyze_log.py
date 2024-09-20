@@ -34,7 +34,7 @@ def analyze_log_file(log_file_path):
     # Check if this is a Rock Band 3 log
     if not any("SYS: Title: Rock Band 3" in line for line in lines) or \
        not any("SYS: Serial: BLUS30463" in line for line in lines):
-        return "**Yuck!** This isn't a log for Rock Band 3. Feed me something better."
+        return "**Yuck!** This isn't a log for Rock Band 3. Feed me something better, or boot the game first to generate a log."
 
     # Extract emulator information
     emulator_info["version"] = lines[0].strip() if lines else ""
@@ -100,6 +100,10 @@ def analyze_log_file(log_file_path):
             # OpenGL Detect
             if "Renderer: OpenGL" in line:
                 game_issues[f"- **You're using OpenGL!** You should really be on Vulkan."].append(f"L-{i}")
+
+            # 1920x1080 Detect
+            if "Resolution: 1920x1080" in line:
+                critical_issues[f"- **Forcing Rock Band to run at 1920x1080 will cause crashes!** You should really set this to 1280x720."].append(f"L-{i}")
 
             # OneDrive install detection
             if "OneDrive" in line:
@@ -178,7 +182,6 @@ def analyze_log_file(log_file_path):
             "PPU Decoder: Recompiler (LLVM)",
             "SPU Decoder: Recompiler (LLVM)",
             "Shader Mode: Async Shader Recompiler",
-            "Resolution: 1280x720",
             "Accurate SPU DMA: false",
             "Accurate RSX reservation access: false",
             "SPU Profiler: false",
@@ -231,7 +234,7 @@ def analyze_log_file(log_file_path):
         output += "## No issues found. That was a yummy log file."
 
     # Add emulator information
-    output += f"\n\n**Other:**\n**Version:** {emulator_info['version']}\n**CPU:** {emulator_info['cpu']}\n**GPU:** {emulator_info['gpu']}\n{emulator_info['os']}"
+    output += f"\n\n**Other:**\n**Version:** {emulator_info['version']}\n**CPU:** {emulator_info['cpu']}\n**GPU:** {emulator_info['gpu']}\n{emulator_info['os']}\nLet us know what's wrong."
 
     if language_message:
         output += f"\n\n{language_message}"
