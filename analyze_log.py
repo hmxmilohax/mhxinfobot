@@ -34,7 +34,7 @@ def analyze_log_file(log_file_path):
     # Check if this is a Rock Band 3 log
     if not any("SYS: Title: Rock Band 3" in line for line in lines) or \
        not any("SYS: Serial: BLUS30463" in line for line in lines):
-        return "**Yuck!** This isn't a log for Rock Band 3. Feed me something better."
+        return "**Yuck!** This isn't a log for Rock Band 3. Feed me something better, or boot the game first to generate a log."
 
     # Extract emulator information
     emulator_info["version"] = lines[0].strip() if lines else ""
