@@ -101,6 +101,10 @@ def analyze_log_file(log_file_path):
             if "Renderer: OpenGL" in line:
                 game_issues[f"- **You're using OpenGL!** You should really be on Vulkan."].append(f"L-{i}")
 
+            # 1920x1080 Detect
+            if "Resolution: 1920x1080" in line:
+                critical_issues[f"- **Forcing Rock Band to run at 1920x1080 will cause crashes!** You should really set this to 1280x720."].append(f"L-{i}")
+
             # OneDrive install detection
             if "OneDrive" in line:
                 if "OneDrive install detected" not in onedrive_issues:
@@ -178,7 +182,6 @@ def analyze_log_file(log_file_path):
             "PPU Decoder: Recompiler (LLVM)",
             "SPU Decoder: Recompiler (LLVM)",
             "Shader Mode: Async Shader Recompiler",
-            "Resolution: 1280x720",
             "Accurate SPU DMA: false",
             "Accurate RSX reservation access: false",
             "SPU Profiler: false",
@@ -231,7 +234,7 @@ def analyze_log_file(log_file_path):
         output += "## No issues found. That was a yummy log file."
 
     # Add emulator information
-    output += f"\n\n**Other:**\n**Version:** {emulator_info['version']}\n**CPU:** {emulator_info['cpu']}\n**GPU:** {emulator_info['gpu']}\n{emulator_info['os']}"
+    output += f"\n\n**Other:**\n**Version:** {emulator_info['version']}\n**CPU:** {emulator_info['cpu']}\n**GPU:** {emulator_info['gpu']}\n{emulator_info['os']}\nLet us know what's wrong."
 
     if language_message:
         output += f"\n\n{language_message}"
