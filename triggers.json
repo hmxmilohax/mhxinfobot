@@ -377,12 +377,12 @@
     "response76": {
         "triggers": ["!configuracion"],
     "text": "Para subir el archivo de configuracion:\n* Ve a la carpeta donde tienes RPCS3\n* Entra a la carpeta `config` y luego en `custom_configs`\n* Para Rock Band 2, manda `config_BLUS30147.yml`\n* Para Rock Band 3, manda `config_BLUS30463.yml`",
-        "files": ["media/milk.mp4"]
+        "files": []
     },
     "response76": {
         "triggers": ["!gris"],
     "text": "# Jugadores en PS3:\n\n ¿Tienes customs que estan grises? Desactiva el `Control paterno` en PS3 y debe de arreglarlo! Por defecto, esta en `Nivel 9`, cual no te va a dejar elegir canciones sin clasificaciones como muchas customs y hasta Rock Band Network.\n\nXMB: [ Ajustes ] -> [ Ajustes de seguridad ] -> [ Control Paterno ] -> [ **No** ]",
-        "files": ["media/milk.mp4"]
+        "files": ["media/gris.png"]
     },
     "response77": {
         "triggers": ["!ps3es", "!ps3customses"],
