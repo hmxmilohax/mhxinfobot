@@ -379,17 +379,17 @@
     "text": "Para subir el archivo de configuracion:\n* Ve a la carpeta donde tienes RPCS3\n* Entra a la carpeta `config` y luego en `custom_configs`\n* Para Rock Band 2, manda `config_BLUS30147.yml`\n* Para Rock Band 3, manda `config_BLUS30463.yml`",
         "files": []
     },
-    "response76": {
+    "response77": {
         "triggers": ["!gris"],
     "text": "# Jugadores en PS3:\n\n ¿Tienes customs que estan grises? Desactiva el `Control paterno` en PS3 y debe de arreglarlo! Por defecto, esta en `Nivel 9`, cual no te va a dejar elegir canciones sin clasificaciones como muchas customs y hasta Rock Band Network.\n\nXMB: [ Ajustes ] -> [ Ajustes de seguridad ] -> [ Control Paterno ] -> [ **No** ]",
         "files": ["media/gris.png"]
     },
-    "response77": {
+    "response78": {
         "triggers": ["!ps3es", "!ps3customses"],
     "text": "# Tutorial de Canciones Customs de Rock Band para PS3/RPCS3\n<https://docs.google.com/document/d/1kx3-NN2lzQUFXX31KcLQ4sJ35a6pq4pnkPujm6-O2Jw>",
         "files": []
     },
-    "response78": {
+    "response79": {
         "triggers": ["!canciones"],
     "text": "# Lista de DLCs para Rock Band y Guitar Hero\n<https://docs.google.com/spreadsheets/d/1-3lo2ASxM-3yVr_JH14F7-Lc1v2_FcS5Rv_yDCANEmk>\n## Tambien mira esta lista de paquetes hechos por la comunidad para jugar en linea.\n<https://docs.google.com/spreadsheets/d/1uFJDQPMLa-FspQ6WtbotTIy6u1YSB79i2sp9nSZVSfc>\n### Igualmente, esta este repo de Github de customs hechas por la comunidad de RB2 Deluxe.\n<https://github.com/Rock-Band-Road-Crew/rbrc-customs/tree/main>",
         "files": []
