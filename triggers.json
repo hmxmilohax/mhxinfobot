@@ -81,12 +81,12 @@
     },
     "response17": {
         "triggers": ["!instruments"],
-        "text": "https://rb3pc.milohax.org/english/controllers/",
+        "text": "https://rb3pc.milohax.org/ctrls",
         "files": []
     },
     "response18": {
         "triggers": ["!keynav"],
-        "text": "https://media.discordapp.net/attachments/961395228655374376/1199173410027229305/7-f404526bcf.gif",
+        "text": "https://rb3pc.milohax.org/images/instruments/xtra/midi/rbkeysoctshift.gif",
         "files": []
     },
     "response19": {
@@ -186,7 +186,7 @@
     },
     "response38": {
         "triggers": ["!rpcs3"],
-        "text": "## How to set up Rock Band 3 for RPCS3\n**Includes instrument configuration, recommended settings, and how to play online.**\n<https://rb3pc.milohax.org/gs_disc>\n## Como configurar a Rock Band 3 para RPCS3\n**Incluye instrucciones para instrumentos, ajustes recomendados y tambien como jugar en línea.**\n<https://rb3pc.milohax.org/gs_disc_es>",
+        "text": "## How to set up Rock Band 3 for RPCS3\n**Includes instrument configuration, recommended settings, and how to play online.**\n<https://rb3pc.milohax.org/gs_disc>\n## Como configurar a Rock Band 3 para RPCS3\n**Incluye instrucciones para instrumentos, ajustes recomendados y tambien como jugar en linea.**\n<https://rb3pc.milohax.org/gs_disc_es>",
         "files": []
     },
     "response39": {
@@ -286,7 +286,7 @@
     },
     "response58": {
         "triggers": ["!teleport", "!teleporting", "!floating", "!hair"],
-    "text": "Glitching/teleporting instruments is a vanilla Rock Band 3 bug present in **PS3**, made worse in **RPCS3**.\nLinked below is a file you can extract and patch your\n**Vanilla Base RB3 extracted disc game files**\nto fix the issue for almost all guitars and basses.\nAlso below is a very detailed guide of items that **ARE** affected by the teleporting. Besides the clear microphone, this is a list of items to avoid.\nCurrently the only fix for microphones is using the transparent microphone.\n[PS3 Guitar/Bass Patch Files](https://github.com/hmxmilohax/rock-band-3-deluxe/raw/main/dependencies/ps3_patcher/rb3_ps3_guitar_glitch_fix.7z)\nhttps://carlmylo.github.io/docu-rpcs3/trbl_teleprob",
+    "text": "Glitching/teleporting instruments is a vanilla Rock Band 3 bug present in **PS3**, made worse in **RPCS3**.\nLinked below is a file you can extract and patch your\n**Vanilla Base RB3 extracted disc game files**\nto fix the issue for almost all guitars and basses.\nAlso below is a very detailed guide of items that **ARE** affected by the teleporting. Besides the clear microphone, this is a list of items to avoid.\nCurrently the only fix for microphones is using the transparent microphone.\n[PS3 Guitar/Bass Patch Files](https://github.com/hmxmilohax/rock-band-3-deluxe/raw/main/dependencies/ps3_patcher/rb3_ps3_guitar_glitch_fix.7z)\nhttps://rb3pc.milohax.org/trbl_teleprob",
         "files": []
     },
     "response59": {
@@ -361,12 +361,47 @@
     },
     "response73": {
         "triggers": ["!globales"],
-    "text": "Cualquier ajuste a Rock Band 3 debe de ser hecho en la configuración personalizada del juego, no en la global.",
+    "text": "Cualquier ajuste a Rock Band 3 debe de ser hecho en la configuracion personalizada del juego, no en la global.",
         "files": ["media/custnotglobal_es.png"]
     },
     "response74": {
         "triggers": ["!milk"],
     "text": "",
         "files": ["media/milk.mp4"]
+    },
+    "response75": {
+        "triggers": ["!memalta", "!memoria"],
+    "text": "# Modo de alta memoria para RPCS3 #\nEsto va aumentar el numero de canciones a 16.000 y tambien ayudada con la estabilidad de Rock Band 3 gracias a la memoria adicional.\n\nPaso 1: Haz click en Rock Band 3 y selecciona `Change Custom Configuration`\nPaso 2: En la pestaña de `Advanced`, activa `Debug Console Mode`\nPaso 3: Descarga el archivo `dx_high_memory.dta` abajo de este mensaje\nPaso 4: Haz click derecho en Rock Band 3 en RPCS3 y luego en `Open Folder > Open Game Data Folder`\nPaso 5: Arrastra el archivo `dx_high_memory.dta` dentro de `USRDIR`\n\n*Si usaste una Configuracion Rapida de la guia rb3pc, ya tienes esto.*\n\nNO INTENTES USAR ESTE ARCHIVO EN UNA CONSOLA",
+        "files": ["media/mem.png", "media/dx_high_memory.dta"]
+    },
+    "response76": {
+        "triggers": ["!configuracion"],
+    "text": "Para subir el archivo de configuracion:\n* Ve a la carpeta donde tienes RPCS3\n* Entra a la carpeta `config` y luego en `custom_configs`\n* Para Rock Band 2, manda `config_BLUS30147.yml`\n* Para Rock Band 3, manda `config_BLUS30463.yml`",
+        "files": []
+    },
+    "response77": {
+        "triggers": ["!gris"],
+    "text": "# Jugadores en PS3:\n\n ¿Tienes customs que estan grises? Desactiva el `Control paterno` en PS3 y debe de arreglarlo! Por defecto, esta en `Nivel 9`, cual no te va a dejar elegir canciones sin clasificaciones como muchas customs y hasta Rock Band Network.\n\nXMB: [ Ajustes ] -> [ Ajustes de seguridad ] -> [ Control Paterno ] -> [ **No** ]",
+        "files": ["media/gris.png"]
+    },
+    "response78": {
+        "triggers": ["!ps3es", "!ps3customses"],
+    "text": "# Tutorial de Canciones Customs de Rock Band para PS3/RPCS3\n<https://docs.google.com/document/d/1kx3-NN2lzQUFXX31KcLQ4sJ35a6pq4pnkPujm6-O2Jw>",
+        "files": []
+    },
+    "response79": {
+        "triggers": ["!canciones"],
+    "text": "# Lista de DLCs para Rock Band y Guitar Hero\n<https://docs.google.com/spreadsheets/d/1-3lo2ASxM-3yVr_JH14F7-Lc1v2_FcS5Rv_yDCANEmk>\n## Tambien mira esta lista de paquetes hechos por la comunidad para jugar en linea.\n<https://docs.google.com/spreadsheets/d/1uFJDQPMLa-FspQ6WtbotTIy6u1YSB79i2sp9nSZVSfc>\n### Igualmente, esta este repo de Github de customs hechas por la comunidad de RB2 Deluxe.\n<https://github.com/Rock-Band-Road-Crew/rbrc-customs/tree/main>",
+        "files": []
+    },
+    "response80": {
+        "triggers": ["!dejaver", "!analizar"],
+    "text": "Manda un historial (log) para ver que paso con el emulador.\nPara subir un historial (log), escribe `!log` y:\n* Trata de replicar el problema o crasheo y cierra RPCS3.\n* **¡NO LO ABRAS DE VUELTA!**\n* Manda el archivo `RPCS3.log` o `RPCS3.log.gz`\n* En Windows, esta en la carpeta donde tienes RPCS3.\n* En Linux, esta en `~/.cache/rpcs3/`.\n* En macOS, esta en `~/Library/Caches/rpcs3`. (Es posible que necitas activar archivos escondidos)\nDespues de esto, el bot va a analizar el historial para ver donde esta el problema.",
+        "files": ["media/log.png"]
+    },
+    "response81": {
+        "triggers": ["!pr"],
+    "text": "",
+        "files": ["media/plsapprovepr.mp4"]
     }
 }
