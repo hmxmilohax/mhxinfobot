@@ -398,9 +398,10 @@
         "triggers": ["!dejaver", "!analizar"],
     "text": "Manda un historial (log) para ver que paso con el emulador.\nPara subir un historial (log), escribe `!log` y:\n* Trata de replicar el problema o crasheo y cierra RPCS3.\n* **¡NO LO ABRAS DE VUELTA!**\n* Manda el archivo `RPCS3.log` o `RPCS3.log.gz`\n* En Windows, esta en la carpeta donde tienes RPCS3.\n* En Linux, esta en `~/.cache/rpcs3/`.\n* En macOS, esta en `~/Library/Caches/rpcs3`. (Es posible que necitas activar archivos escondidos)\nDespues de esto, el bot va a analizar el historial para ver donde esta el problema.",
         "files": ["media/log.png"]
+    },
+    "response81": {
+        "triggers": ["!pr"],
+    "text": "",
+        "files": ["media/plsapprovepr.mp4"]
     }
 }
-
-
-
-
