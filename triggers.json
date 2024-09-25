@@ -363,5 +363,10 @@
         "triggers": ["!globales"],
     "text": "Cualquier ajuste a Rock Band 3 debe de ser hecho en la configuración personalizada del juego, no en la global.",
         "files": ["media/custnotglobal_es.png"]
+    },
+    "response74": {
+        "triggers": ["!milk"],
+    "text": "",
+        "files": ["media/milk.mp4"]
     }
 }
