@@ -393,5 +393,14 @@
         "triggers": ["!canciones"],
     "text": "# Lista de DLCs para Rock Band y Guitar Hero\n<https://docs.google.com/spreadsheets/d/1-3lo2ASxM-3yVr_JH14F7-Lc1v2_FcS5Rv_yDCANEmk>\n## Tambien mira esta lista de paquetes hechos por la comunidad para jugar en linea.\n<https://docs.google.com/spreadsheets/d/1uFJDQPMLa-FspQ6WtbotTIy6u1YSB79i2sp9nSZVSfc>\n### Igualmente, esta este repo de Github de customs hechas por la comunidad de RB2 Deluxe.\n<https://github.com/Rock-Band-Road-Crew/rbrc-customs/tree/main>",
         "files": []
+    },
+    "response80": {
+        "triggers": ["!dejaver", "!analizar"],
+    "text": "Manda un historial (log) para ver que paso con el emulador.\nPara subir un historial (log), escribe `!log` y:\n* Trata de replicar el problema o crasheo y cierra RPCS3.\n* **¡NO LO ABRAS DE VUELTA!**\n* Manda el archivo `RPCS3.log` o `RPCS3.log.gz`\n* En Windows, esta en la carpeta donde tienes RPCS3.\n* En Linux, esta en `~/.cache/rpcs3/`.\n* En macOS, esta en `~/Library/Caches/rpcs3`. (Es posible que necitas activar archivos escondidos)\nDespues de esto, el bot va a analizar el historial para ver donde esta el problema.",
+        "files": ["media/log.png"]
     }
 }
+
+
+
+
