@@ -403,5 +403,11 @@
         "triggers": ["!pr"],
     "text": "",
         "files": ["media/plsapprovepr.mp4"]
+    },
+    "response82": {
+        "triggers": ["!convertir", "!conversiones"],
+    "text": "Las opciones de `Batch recompile`, `Load a song` o `Batch process` reconstruyes las canciones, borrando todo los datos especiales de Rock Band. \nEsto resulta en una perdida de ID, cual hace que funcionen en linea y con los tableros de calificaciones. Igualmente, no tendras mejoras de Deluxe (armonias, mejoras Pro, actualizaciones de RB4). \n**NUNCA uses esas opciones si vas a instalar canciones en formato Rock Band en un juego de Rock Band.** Usa la opcion de `Quick convert/pack`",
+        "files": ["media/quickconvert.png", "media/quickconvert2.png"]
     }
 }
+
