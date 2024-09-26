@@ -142,7 +142,7 @@
     "response29": {
         "triggers": ["!quickconvert", "!batchprocess", "!recompile"],
         "text": "Batch recompile, Load a song, and Batch process, all rebuild the songs from scratch, losing all metadata originally associated with the song.\nThis means the song will not be correct for leaderboards, online play, or dx song upgrades (harmonies, pro upgrades, rb4 chart updates).\n**Never recompile songs already existing in Rock Band format back to Rock Band.**",
-        "files": ["media/quickconvert.png"]
+        "files": ["media/quickconvert.png", "media/quickconvert2.png"]
     },
     "response30": {
         "triggers": ["!rb2dx"],
