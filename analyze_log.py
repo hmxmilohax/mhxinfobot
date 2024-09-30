@@ -80,6 +80,8 @@ def analyze_log_file(log_file_path):
 
         high_memory_detected = False
         debug_console_mode_off = False
+        enable_upnp = False
+        upnp_error_detected = False
 
         # Check for specific conditions in the extracted section
         for i, line in enumerate(core_section_lines, start=last_core_index + 1):
@@ -172,10 +174,17 @@ def analyze_log_file(log_file_path):
                 critical_issues[f"- **Usbd error.** Too many PS3 instruments or passthrough devices connected?"].append(f"L-{i}")
             if any(error in line for error in ["Thread terminated due to fatal error: Verification failed", "VM: Access violation reading location"]):
                 critical_issues[f"- **Crash detected.** Tell us what you were doing before crashing."].append(f"L-{i}")
+            if "UPNP Enabled: true" in line:
+                enable_upnp = True
+            if "No UPNP device was found" in line:
+                upnp_error_detected = True
 
         # Check for combined issues
         if high_memory_detected and debug_console_mode_off:
             critical_issues[f"- **dx_high_memory is installed but Debug Console is off! YOUR GAME WILL CRASH!**"].append(f"L-{i}")
+
+        if enable_upnp and upnp_error_detected:
+            critical_issues[f"- **UPNP error detected! You will probably crash while online!**"].append(f"L-{i}")
 
         # Non-default settings detection
         non_default_settings_keywords = [
@@ -231,10 +240,10 @@ def analyze_log_file(log_file_path):
             output += f"  {setting}\n"
     
     if not critical_issues and not game_issues and not non_default_settings:
-        output += "## No issues found. That was a yummy log file."
+        output += "## No issues detected. Let us know if this is wrong."
 
     # Add emulator information
-    output += f"\n\n**Other:**\n**Version:** {emulator_info['version']}\n**CPU:** {emulator_info['cpu']}\n**GPU:** {emulator_info['gpu']}\n{emulator_info['os']}\nLet us know what's wrong."
+    output += f"\n\n**Other:**\n**Version:** {emulator_info['version']}\n**CPU:** {emulator_info['cpu']}\n**GPU:** {emulator_info['gpu']}\n{emulator_info['os']}"
 
     if language_message:
         output += f"\n\n{language_message}"
