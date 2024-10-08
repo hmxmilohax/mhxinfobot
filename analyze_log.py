@@ -140,7 +140,7 @@ def analyze_log_file(log_file_path):
 
             # PSF Broken
             if "PSF: Error loading PSF" in line:
-                critical_issues[f"- **PSF file is busted!** DLC will probably not load! Replace them with working ones."].append(f"L-{i}")
+                critical_issues[f"- **PARAM.SFO file is busted!** DLC will probably not load! Replace them with working ones."].append(f"L-{i}")
 
             if "Debug Console Mode: false" in line:
                 debug_console_mode_off = True
