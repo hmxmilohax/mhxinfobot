@@ -54,14 +54,9 @@
         "text": "# Guitar Hero II Deluxe Unified\nNote: This project is massively unfinished and contains very few modifications.\nhttps://github.com/hmxmilohax/Guitar-Hero-II-Deluxe-Unified",
         "files": []
     },
-    "response12": {
-        "triggers": ["!fogjuice"],
-        "text": "",
-        "files": ["media/here_come_the_fog_juice_1.mp4"]
-    },
     "response13": {
         "triggers": ["!gh2dx"],
-        "text": "# Guitar Hero II Deluxe\nhttps://gh2.neocities.org/",
+        "text": "# Guitar Hero II Deluxe\nhttps://gh2dx.milohax.org/",
         "files": []
     },
     "response14": {
@@ -121,7 +116,7 @@
     },
     "response25": {
         "triggers": ["!nautilus", "!c3contools", "!c3tools"],
-        "text": "# Latest Nautilus\n<#1154040502845444277>\nhttps://bit.ly/nemoNAUTILUS",
+        "text": "# Latest Nautilus\n<#1154040502845444277>\nhttps://nemosnautilus.com/nautilus/",
         "files": []
     },
     "response26": {
