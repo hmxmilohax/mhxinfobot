@@ -407,7 +407,7 @@
     "response83": {
         "triggers": ["!boardgame", "!rbboardgame"],
     "text": "",
-        "files": ["media/boardgame.webm"]
+        "files": ["media/boardgame.webm", "media/boardgame.webp"]
     }
 }
 
