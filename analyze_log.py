@@ -134,6 +134,10 @@ def analyze_log_file(log_file_path):
                 if buffer_duration >= 100:
                     game_issues[f"- **Audio Buffer is quite high.** Consider lowering it to 32. It's set to {buffer_duration} ms"].append(f"L-{i}")
 
+            # Audio Broken
+            if "cellAudio: Failed to open audio backend" in line:
+                critical_issues[f"- **Audio device doesn't work!** Check to make you selecte the proper audio device in Rock Band 3's Custom Configuration."].append(f"L-{i}")
+
             # Fullscreen settings
             if "Exclusive Fullscreen Mode: Enable" in line or "Exclusive Fullscreen Mode: Automatic" in line:
                 game_issues[f"- **Risky Fullscreen settings detected. Consider setting it to `Prefer Borderless Fullscreen`.**"].append(f"L-{i}")
