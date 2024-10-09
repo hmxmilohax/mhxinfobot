@@ -111,7 +111,7 @@ def analyze_log_file(log_file_path):
             if "OneDrive" in line:
                 if "OneDrive install detected" not in onedrive_issues:
                     onedrive_issues.add("- **OneDrive detected!** Please move files to C:\\Games**")
-                    game_issues[f"- **OneDrive detected!** Please move files to C:\\Games"].append(f"L-{i}")
+                    critical_issues[f"- **OneDrive detected!** Please move files to C:\\Games"].append(f"L-{i}")
 
             # Busted save
             if "dev_hdd0/home/00000001/savedata/BLUS30463-AUTOSAVE/ (Already exists)" in line:
@@ -134,11 +134,18 @@ def analyze_log_file(log_file_path):
                 if buffer_duration >= 100:
                     game_issues[f"- **Audio Buffer is quite high.** Consider lowering it to 32. It's set to {buffer_duration} ms"].append(f"L-{i}")
 
+            # Audio Broken
+            if "cellAudio: Failed to open audio backend" in line:
+                critical_issues[f"- **Audio device doesn't work!** Check to make you selecte the proper audio device in Rock Band 3's Custom Configuration."].append(f"L-{i}")
+
             # Fullscreen settings
             if "Exclusive Fullscreen Mode: Enable" in line or "Exclusive Fullscreen Mode: Automatic" in line:
                 game_issues[f"- **Risky Fullscreen settings detected. Consider setting it to `Prefer Borderless Fullscreen`.**"].append(f"L-{i}")
 
-            # Critical issues
+            # PSF Broken
+            if "PSF: Error loading PSF" in line:
+                critical_issues[f"- **PARAM.SFO file is busted!** DLC will probably not load! Replace them with working ones."].append(f"L-{i}")
+
             if "Debug Console Mode: false" in line:
                 debug_console_mode_off = True
                 game_issues[f"- **Debug Console Mode is off. Why?** Use `!mem`"].append(f"L-{i}")
@@ -159,7 +166,7 @@ def analyze_log_file(log_file_path):
             if "SPU Block Size: Giga" in line:
                 critical_issues[f"- **SPU Block Size is on Giga**. Set it back to Auto or Mega."].append(f"L-{i}")
             if any(buffer_setting in line for buffer_setting in ["Write Depth Buffer: true", "Read Color Buffers: true", "Read Depth Buffer: true"]):
-                critical_issues[f"- **You enabled the wrong buffer settings.** Disable them in the Advanced tab."].append(f"L-{i}")
+                game_issues[f"- **You enabled the wrong buffer settings.** Disable them in the Advanced tab of Rock Band 3's Custom Configuration."].append(f"L-{i}")
             if "Network Status: Disconnected" in line:
                 critical_issues[f"- **Incorrect Network settings.** Use `!netset`"].append(f"L-{i}")
             if "Regular file, “/dev_hdd0/game/BLUS30463/USRDIR/dx_high_memory.dta”" in line:
@@ -169,7 +176,7 @@ def analyze_log_file(log_file_path):
                     graphics_device_notifications.add("- **Graphics device issue!** Get a nerd to check this out.")
                     game_issues[f"- **Graphics device issue!** Get a nerd to check this out."].append(f"L-{i}")
             if "Your GPU does not support" in line:
-                critical_issues[f"- **Graphics card below minimum requirements.**"].append(f"L-{i}")
+                critical_issues[f"- **Graphics card is missing features.**"].append(f"L-{i}")
             if "sys_usbd: Transfer Error" in line:
                 critical_issues[f"- **Usbd error.** Too many PS3 instruments or passthrough devices connected?"].append(f"L-{i}")
             if any(error in line for error in ["Thread terminated due to fatal error: Verification failed", "VM: Access violation reading location"]):
