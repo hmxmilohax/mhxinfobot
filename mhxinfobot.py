@@ -252,6 +252,14 @@ async def on_message(message):
     if message.author == client.user:
         return
 
+    if message.channel.id == 979895152367771668:
+        try:
+            await message.publish()
+            print(f"Published message {message.id} in channel {message.channel.id}")
+        except Exception as e:
+            print(f"Failed to publish message {message.id} in channel {message.channel.id}: {e}")
+        return  # Optionally, return here if you don't want further processing
+
     normalized_content = message.content.lower().split()
 
     if "!log" in normalized_content:
