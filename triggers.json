@@ -408,6 +408,11 @@
         "triggers": ["!boardgame", "!rbboardgame"],
     "text": "",
         "files": ["media/boardgame.webm", "media/boardgame.webp"]
+    },
+    "response84": {
+        "triggers": ["!goodluck"],
+    "text": "",
+        "files": ["media/goodluck.png"]
     }
 }
 
