@@ -286,7 +286,7 @@
     },
     "response59": {
         "triggers": ["!wcb", "!buffers", "!colorbuffers", "!writecolorbuffers"],
-    "text": "To fix buggy character textures, you need to enable 'Write Color Buffers' under the GPU tab in Rock Band 3's Custom Configuration.",
+    "text": "To fix buggy character textures, you need to enable 'Write Color Buffers' under the GPU tab in Rock Band 3's Custom Configuration.\n\nThis and many other settings are covered in the RPCS3 setup guide so check it out to properly setup your config.\nhttps://rb3pc.milohax.org/",
         "files": ["media/wcbon.png"]
     },
     "response60": {
