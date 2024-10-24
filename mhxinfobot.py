@@ -266,23 +266,7 @@ async def on_message(message):
         await handle_log_file(message)
         return
 
-    if "!list" in normalized_content:
-        await send_trigger_list(message.channel, message.author.id)
-        return
-
-    if "!triggers" in normalized_content:
-        await send_trigger_list(message.channel, message.author.id)
-        return
-
-    if "!commands" in normalized_content:
-        await send_trigger_list(message.channel, message.author.id)
-        return
-
-    if "!help" in normalized_content:
-        await send_trigger_list(message.channel, message.author.id)
-        return
-
-    if "!cmd" in normalized_content:
+    if any(command in normalized_content for command in ["!list", "!triggers", "!commands", "!help", "!cmd"]):
         await send_trigger_list(message.channel, message.author.id)
         return
 
