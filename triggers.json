@@ -131,7 +131,7 @@
     },
     "response28": {
         "triggers": ["!ps3", "!ps3customs"],
-        "text": "# Rock Band Custom Song Tutorial for PS3\n<https://docs.google.com/document/d/1YwGNT1oPUgfek-p3sLCZv4b-PsO8Yv9eobx5fV6W2vQ/>",
+        "text": "# Rock Band Custom Song Tutorial for PS3\nhttps://rb3pc.milohax.org/customs_intro",
         "files": []
     },
     "response29": {
@@ -371,12 +371,12 @@
     },
     "response77": {
         "triggers": ["!gris"],
-    "text": "# Jugadores en PS3:\n\n ¿Tienes customs que estan grises? Desactiva el `Control paterno` en PS3 y debe de arreglarlo! Por defecto, esta en `Nivel 9`, cual no te va a dejar elegir canciones sin clasificaciones como muchas customs y hasta Rock Band Network.\n\nXMB: [ Ajustes ] -> [ Ajustes de seguridad ] -> [ Control Paterno ] -> [ **No** ]",
+    "text": "# Jugadores en PS3:\n\n Tienes customs que estan grises? Desactiva el `Control paterno` en PS3 y debe de arreglarlo! Por defecto, esta en `Nivel 9`, cual no te va a dejar elegir canciones sin clasificaciones como muchas customs y hasta Rock Band Network.\n\nXMB: [ Ajustes ] -> [ Ajustes de seguridad ] -> [ Control Paterno ] -> [ **No** ]",
         "files": ["media/gris.png"]
     },
     "response78": {
         "triggers": ["!ps3es", "!ps3customses"],
-    "text": "# Tutorial de Canciones Customs de Rock Band para PS3/RPCS3\n<https://docs.google.com/document/d/1kx3-NN2lzQUFXX31KcLQ4sJ35a6pq4pnkPujm6-O2Jw>",
+    "text": "# Tutorial de Canciones Customs de Rock Band para PS3/RPCS3\nhttps://rb3pc.milohax.org/customs_intro_es",
         "files": []
     },
     "response79": {
@@ -408,6 +408,21 @@
         "triggers": ["!goodluck"],
     "text": "",
         "files": ["media/goodluck.png"]
+    },
+    "response85": {
+        "triggers": ["!practice"],
+    "text": "I feel like practice mode is a way of cheating. You play to play the game, not to FC everything. And you can still FC it by practising the song all over again. Practice mode just takes away the momentum and the charm. It may be frustrating, but that's how it is.",
+        "files": []
+    },
+    "response86": {
+        "triggers": ["!mergesongs"],
+    "text": "Too many songs making your startup take forever? If you're on PS3/RPCS3, you can merge song folders to load faster!\nCheck out the guide here: https://rb3pc.milohax.org/customs_merging",
+        "files": []
+    },
+    "response87": {
+        "triggers": ["!mergesongses"],
+    "text": "Tarda mucho en iniciar tu juego por cargar tus descargas? Puedes combinar paquetes de canciones para que cargue mas rapido si estas en PS3/RPCS3!\nLee la guia aqui:: https://rb3pc.milohax.org/customs_merging_es",
+        "files": []
     }
 }
 

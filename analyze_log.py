@@ -41,6 +41,14 @@ def analyze_log_file(log_file_path):
     emulator_info["cpu"] = lines[1].strip() if len(lines) > 1 else ""
     emulator_info["os"] = lines[2].strip() if len(lines) > 2 else ""
 
+    # Detect emulator version number and flag if in the range 16920-17034
+    version_match = re.search(r"RPCS3 v0\.0\.\d+-(\d+)-[a-f0-9]+", emulator_info["version"])
+    if version_match:
+        version_number = int(version_match.group(1))
+        if 16920 <= version_number <= 17034:
+            critical_issues["- **The version you're on is prone to crashing!** Update your RPCS3 as soon as possible!"] \
+                .append("L-1")  # Assuming the version is always on the first line
+
     # Check for GPU information
     gpu_found = False
     for i, line in enumerate(lines):
@@ -60,8 +68,8 @@ def analyze_log_file(log_file_path):
         if firmware_match:
             firmware_version = firmware_match.group(1)
             firmware_detected = True
-            if float(firmware_version) < 4.91:
-                game_issues[f"- **Outdated firmware.** You are on `{firmware_version}`. **Please update to `4.91`.**"].append(f"L-{lines.index(line) + 1}")
+            if float(firmware_version) < 4.88:
+                game_issues[f"- **Outdated firmware.** You are on `{firmware_version}`. **Please update to the latest PS3 firmware!**"].append(f"L-{lines.index(line) + 1}")
 
         # Check for language setting
         if "Language: Spanish" in line:
@@ -82,6 +90,10 @@ def analyze_log_file(log_file_path):
         debug_console_mode_off = False
         enable_upnp = False
         upnp_error_detected = False
+        ipadd_found = False
+        bindadd_found = False
+        dns_found = False
+        gocentral_found = False
 
         # Check for specific conditions in the extracted section
         for i, line in enumerate(core_section_lines, start=last_core_index + 1):
@@ -94,8 +106,8 @@ def analyze_log_file(log_file_path):
                 match = re.search(r"Frame limit:\s*(\d+|Auto|Off)", line, re.IGNORECASE)
                 if match:
                     frame_value = match.group(1)
-                    if frame_value not in ["Auto", "Off", "60"]:
-                        game_issues[f"- **Weird Framelimit settings. Set it to `Auto`, `Off`, or `60`.** Yours is on {frame_value}"].append(f"L-{i}")
+                    if frame_value not in ["Auto", "Off", "Display"]:
+                        game_issues[f"- **Weird Framelimit settings. Set it to `Auto`, `Off`, or `Display`.** Yours is on {frame_value}"].append(f"L-{i}")
                 else:
                     game_issues[f"- **Weird framerate settings detected:** Unknown"].append(f"L-{i}")
 
@@ -185,6 +197,18 @@ def analyze_log_file(log_file_path):
                 enable_upnp = True
             if "No UPNP device was found" in line:
                 upnp_error_detected = True
+            # IP address detection
+            if "IP address: 0.0.0.0" in line:
+                ipadd_found = True
+            # Bind address detection
+            if "Bind address: 0.0.0.0" in line:
+                bindadd_found = True
+            # DNS address detection
+            if "DNS address: 8.8.8.8" in line:
+                dns_found = True
+            # GoCentral address detection
+            if "IP swap list: rb3ps3live.hmxservices.com=45.33.44.103" in line:
+                gocentral_found = True
 
         # Check for combined issues
         if high_memory_detected and debug_console_mode_off:
@@ -192,6 +216,15 @@ def analyze_log_file(log_file_path):
 
         if enable_upnp and upnp_error_detected:
             critical_issues[f"- **UPNP error detected! You will probably crash while online!**"].append(f"L-{i}")
+
+        if not ipadd_found:
+            game_issues[f"- **Your network settings are weird.**. Open RB3's config .yml file and set `IP address` to `0.0.0.0`"].append(f"L-{i}")
+        if not bindadd_found:
+            game_issues[f"- **Your network settings are weird.**. Set the Bind address in RB3's Custom Config to `0.0.0.0`"].append(f"L-{i}")
+        if not dns_found:
+            game_issues[f"- **Your network settings are weird.**. Set the DNS in RB3's Custom Config to `8.8.8.8`"].append(f"L-{i}")
+        if not gocentral_found:
+            game_issues[f"- **You're not on GoCentral :(.**. Why not join the fun? !rpcs3 can walk you through this."].append(f"L-{i}")
 
         # Non-default settings detection
         non_default_settings_keywords = [
