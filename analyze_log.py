@@ -201,7 +201,7 @@ def analyze_log_file(log_file_path):
             if "SPU Block Size: Giga" in line:
                 critical_issues[f"- **SPU Block Size is on Giga, which is very unstable!** Set it back to Auto or Mega in the GPU tab of RB3's Custom Configuration."].append(f"L-{i}")
             if any(buffer_setting in line for buffer_setting in ["Write Depth Buffer: true", "Read Color Buffers: true", "Read Depth Buffer: true"]):
-                game_issues[f"- **You enabled the wrong buffer settings.** Disable them in the Advanced tab of RB3's Custom Configuration."].append(f"L-{i}")
+                game_issues[f"- **You enabled the wrong buffer settings.** Disable them under the `GPU` section in the Advanced tab of RB3's Custom Configuration."].append(f"L-{i}")
             if "Network Status: Disconnected" in line:
                 critical_issues[f"- **Incorrect Network settings.** Use `!netset`"].append(f"L-{i}")
             if "Regular file, “/dev_hdd0/game/BLUS30463/USRDIR/dx_high_memory.dta”" in line:
