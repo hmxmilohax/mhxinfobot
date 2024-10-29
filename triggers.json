@@ -317,7 +317,7 @@
     "response66": {
         "triggers": ["!netset"],
     "text": "To fix freezing while scrolling the song library, set Network Status to Connected under the Network tab in Rock Band 3's Custom Configuration.",
-        "files": ["media/dwd.png"]
+        "files": ["media/netset.png"]
     },
     "response67": {
         "triggers": ["!caca"],
