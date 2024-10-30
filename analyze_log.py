@@ -281,55 +281,55 @@ def analyze_log_file(log_file_path):
 
         # Network stuff
         if not ipadd_found:
-            game_issues[f"- **Your network settings are weird.**. Open RB3's config .yml file and set `IP address` to `0.0.0.0`"].append(f"L-{i}")
+            game_issues[f"- **Your network settings are weird.** Open RB3's config .yml file and set `IP address` to `0.0.0.0`"].append(f"L-{i}")
         if not bindadd_found:
-            game_issues[f"- **Your network settings are weird.**. Set the Bind address to `0.0.0.0` in the Network tab of RB3's Custom Configuration."].append(f"L-{i}")
+            game_issues[f"- **Your network settings are weird.** Set the Bind address to `0.0.0.0` in the Network tab of RB3's Custom Configuration."].append(f"L-{i}")
         if not dns_found:
-            game_issues[f"- **Your network settings are weird.**. Set the DNS in to `8.8.8.8` in the Network tab of RB3's Custom Configuration."].append(f"L-{i}")
+            game_issues[f"- **Your network settings are weird.** Set the DNS in to `8.8.8.8` in the Network tab of RB3's Custom Configuration."].append(f"L-{i}")
         if not gocentral_found:
-            game_issues[f"- **You're not on GoCentral :(.**. Why not join the fun? !rpcs3 can walk you through this."].append(f"L-{i}")
+            game_issues[f"- **You're not on GoCentral :(.** Why not join the fun? !rpcs3 can walk you through this."].append(f"L-{i}")
 
         # Non-default settings log
         if not ppudef_found:
-            non_default_settings[f"- **Non-default setting detected.**. Set `PPU Decoder` back to `Recompiler (LLVM)` in the CPU tab of RB3's Custom Configuration."].append(f"L-{i}")
+            non_default_settings[f"- **Non-default setting detected.** Set `PPU Decoder` back to `Recompiler (LLVM)` in the CPU tab of RB3's Custom Configuration."].append(f"L-{i}")
         if not spudef_found:
-            non_default_settings[f"- **Non-default setting detected.**. Set `SPU Decoder` back to `Recompiler (LLVM)` in the CPU tab of RB3's Custom Configuration."].append(f"L-{i}")
+            non_default_settings[f"- **Non-default setting detected.** Set `SPU Decoder` back to `Recompiler (LLVM)` in the CPU tab of RB3's Custom Configuration."].append(f"L-{i}")
         if not shaderdef_found:
-            non_default_settings[f"- **Non-default setting detected.**. Set `Shader Mode` back to `Async (multi threaded)` in the GPU tab of RB3's Custom Configuration."].append(f"L-{i}")
+            non_default_settings[f"- **Non-default setting detected.** Set `Shader Mode` back to `Async (multi threaded)` in the GPU tab of RB3's Custom Configuration."].append(f"L-{i}")
         if not spudmadef_found:
-            non_default_settings[f"- **Non-default setting detected.**. Disable `Accurate SPU DMA` under the `Core` section in the Advanced tab of RB3's Custom Configuration."].append(f"L-{i}")
+            non_default_settings[f"- **Non-default setting detected.** Disable `Accurate SPU DMA` under the `Core` section in the Advanced tab of RB3's Custom Configuration."].append(f"L-{i}")
         if not rsxresdef_found:
-            non_default_settings[f"- **Non-default setting detected.**. Disable `Accurate RSX reservation access` under the `Core` section in the Advanced tab of RB3's Custom Configuration."].append(f"L-{i}")
+            non_default_settings[f"- **Non-default setting detected.** Disable `Accurate RSX reservation access` under the `Core` section in the Advanced tab of RB3's Custom Configuration."].append(f"L-{i}")
         if not spuprofdef_found:
-            non_default_settings[f"- **Non-default setting detected.**. Disable `SPU Profiler` under the `Core` section in the Advanced tab of RB3's Custom Configuration."].append(f"L-{i}")
+            non_default_settings[f"- **Non-default setting detected.** Disable `SPU Profiler` under the `Core` section in the Advanced tab of RB3's Custom Configuration."].append(f"L-{i}")
         if not mfcdef_found:
-            non_default_settings[f"- **Non-default setting detected.**. You changed `MFC Commands Shuffling Limit` in the config file for RB3. Why? Set it back."].append(f"L-{i}")
+            non_default_settings[f"- **Non-default setting detected.** You changed `MFC Commands Shuffling Limit` in the config file for RB3. Why? Set it back."].append(f"L-{i}")
         if not xfloatdef_found:
-            non_default_settings[f"- **Non-default setting detected.**. Set `SPU XFloat Accuracy` back to `Approximate XFloat` in the CPU tab of RB3's Custom Configuration."].append(f"L-{i}")
+            non_default_settings[f"- **Non-default setting detected.** Set `SPU XFloat Accuracy` back to `Approximate XFloat` in the CPU tab of RB3's Custom Configuration."].append(f"L-{i}")
         if not ppufixdef_found:
-            non_default_settings[f"- **Non-default setting detected.**. Disable `PPU Fixup Vector NaN Values` under the `Core` section in the Advanced tab of RB3's Custom Configuration."].append(f"L-{i}")
+            non_default_settings[f"- **Non-default setting detected.** Disable `PPU Fixup Vector NaN Values` under the `Core` section in the Advanced tab of RB3's Custom Configuration."].append(f"L-{i}")
         if not clocksdef_found:
-            non_default_settings[f"- **Non-default setting detected.**. Set `Clocks scale` back to `100%` in the Advanced tab of RB3's Custom Configuration."].append(f"L-{i}")
+            non_default_settings[f"- **Non-default setting detected.** Set `Clocks scale` back to `100%` in the Advanced tab of RB3's Custom Configuration."].append(f"L-{i}")
         if not maxcpudef_found:
-            non_default_settings[f"- **Non-default setting detected.**. Set `Max Power Saving CPU-preemptions` back to `0` in the CPU tab of RB3's Custom Configuration."].append(f"L-{i}")
+            non_default_settings[f"- **Non-default setting detected.** Set `Max Power Saving CPU-preemptions` back to `0` in the CPU tab of RB3's Custom Configuration."].append(f"L-{i}")
         if not rsxtiledef_found:
-            non_default_settings[f"- **Non-default setting detected.**. Disable `Handle RSX Memory Tiling` under the `GPU` section in the Advanced tab of RB3's Custom Configuration."].append(f"L-{i}")
+            non_default_settings[f"- **Non-default setting detected.** Disable `Handle RSX Memory Tiling` under the `GPU` section in the Advanced tab of RB3's Custom Configuration."].append(f"L-{i}")
         if not strictrenderdef_found:
-            non_default_settings[f"- **Non-default setting detected.**. Disable `Strict Rendering Mode` under the `Additional Settings` section in the GPU tab of RB3's Custom Configuration."].append(f"L-{i}")
+            non_default_settings[f"- **Non-default setting detected.** Disable `Strict Rendering Mode` under the `Additional Settings` section in the GPU tab of RB3's Custom Configuration."].append(f"L-{i}")
         if not disvercachedef_found:
-            non_default_settings[f"- **Non-default setting detected.**. Disable `Disable Vertex Cache` under the `GPU` section in the Advanced tab of RB3's Custom Configuration."].append(f"L-{i}")
+            non_default_settings[f"- **Non-default setting detected.** Disable `Disable Vertex Cache` under the `GPU` section in the Advanced tab of RB3's Custom Configuration."].append(f"L-{i}")
         if not disdiskshaderdef_found:
-            non_default_settings[f"- **Non-default setting detected.**. Disable `Disable On-Disk Shader Cache` under the `GPU` section in the Advanced tab of RB3's Custom Configuration."].append(f"L-{i}")
+            non_default_settings[f"- **Non-default setting detected.** Disable `Disable On-Disk Shader Cache` under the `GPU` section in the Advanced tab of RB3's Custom Configuration."].append(f"L-{i}")
         if not msaaresolvedef_found:
-            non_default_settings[f"- **Non-default setting detected.**. Disable `Force Hardware MSAA Resolve` under the `GPU` section in the Advanced tab of RB3's Custom Configuration."].append(f"L-{i}")
+            non_default_settings[f"- **Non-default setting detected.** Disable `Force Hardware MSAA Resolve` under the `GPU` section in the Advanced tab of RB3's Custom Configuration."].append(f"L-{i}")
         if not shaderthreadsdef_found:
-            non_default_settings[f"- **Non-default setting detected.**. Set `Number of Shader Compiler Threads` back to `Auto` in the GPU tab of RB3's Custom Configuration."].append(f"L-{i}")
+            non_default_settings[f"- **Non-default setting detected.** Set `Number of Shader Compiler Threads` back to `Auto` in the GPU tab of RB3's Custom Configuration."].append(f"L-{i}")
         if not gpulabelsdef_found:
-            non_default_settings[f"- **Non-default setting detected.**. Disable `Allow Host GPU Labels (Experimental)` under the `GPU` section in the Advanced tab of RB3's Custom Configuration."].append(f"L-{i}")
+            non_default_settings[f"- **Non-default setting detected.** Disable `Allow Host GPU Labels (Experimental)` under the `GPU` section in the Advanced tab of RB3's Custom Configuration."].append(f"L-{i}")
         if not asynchtexdef_found:
             non_default_settings[f"- You have enabled `Asynchronous Texture Streaming` under the `Additional Settings` section in the GPU tab of RB3's Custom Configuration. Only do this if you have a new GPU and MTRSX enabled for your CPU."].append(f"L-{i}")
         if not startpausedef_found:
-            non_default_settings[f"- **Non-default setting detected.**. Disable `Pause emulation after loading savestates` under the `Emulator Settings` section in the Emulator tab of RB3's Custom Configuration."].append(f"L-{i}")
+            non_default_settings[f"- **Non-default setting detected.** Disable `Pause emulation after loading savestates` under the `Emulator Settings` section in the Emulator tab of RB3's Custom Configuration."].append(f"L-{i}")
         if not pausefocusdef_found:
             non_default_settings[f"- You enabled `Pause emulation on RPCS3 focus loss` under the `Emulator Settings` section in the Emulator tab of RB3's Custom Configuration. This makes your emulator pause whenever you click out of it. Are you sure about this?"].append(f"L-{i}")
         if not pausehomedef_found:
