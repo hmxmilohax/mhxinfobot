@@ -369,7 +369,7 @@ def analyze_log_file(log_file_path):
             output += f"{issue} (on {line_info})\n"
 
     if non_default_settings:
-        output += "\n## Non-default settings :question:\n_Set these back in Rock Band 3's Custom Configuration. Use `!global` for more information._\n"
+        output += "\n## Non-default settings :question:\n_Set these in Rock Band 3's Custom Configuration. Use `!global` for more information._\n"
         for issue, lines in non_default_settings.items():
             line_info = ", ".join(lines)  # Combine all line numbers
             output += f"{issue} (on {line_info})\n"
