@@ -7,7 +7,7 @@ def analyze_log_file(log_file_path):
     last_core_index = -1
     critical_issues = defaultdict(list)
     game_issues = defaultdict(list)
-    non_default_settings = []
+    non_default_settings = defaultdict(list)
     firmware_detected = False
     firmware_version = None
     emulator_info = {"version": "", "cpu": "", "os": "", "gpu": ""}
@@ -60,7 +60,7 @@ def analyze_log_file(log_file_path):
             break  # Stop searching once found
     
     if not gpu_found:
-        critical_issues[f"- **Vulkan compatible GPU not found!**"].append(f"L-{i}")
+        critical_issues[f"- **Vulkan compatible GPU not found!** We can't really help you with this one."].append(f"L-{i}")
 
     # Check log for firmware version and language, with firmware first
     for line in lines:
@@ -94,12 +94,38 @@ def analyze_log_file(log_file_path):
         bindadd_found = False
         dns_found = False
         gocentral_found = False
+        # Non-default stuff
+        ppudef_found = False
+        spudef_found = False
+        shaderdef_found = False
+        spudmadef_found = False
+        rsxresdef_found = False
+        spuprofdef_found = False
+        mfcdef_found = False
+        xfloatdef_found = False
+        ppufixdef_found = False
+        clocksdef_found = False
+        maxcpudef_found = False
+        rsxtiledef_found = False
+        strictrenderdef_found = False
+        disvercachedef_found = False
+        disdiskshaderdef_found = False
+        msaaresolvedef_found = False
+        shaderthreadsdef_found = False
+        gpulabelsdef_found = False
+        asynchtexdef_found = False
+        startpausedef_found = False
+        pausefocusdef_found = False
+        pausehomedef_found = False
+        wrdbufdef_found = False
+        rcbufdef_found = False
+        rdbufdef_found = False
 
         # Check for specific conditions in the extracted section
         for i, line in enumerate(core_section_lines, start=last_core_index + 1):
-            # Non-critical issues
+            # Check for high memory
             if 'CELL_ENOENT, "/dev_hdd0/game/BLUS30463/USRDIR/dx_high_memory.dta"' in line:
-                game_issues[f"- **High memory file is missing!** Use `!mem`"].append(f"L-{i}")
+                game_issues[f"- **High memory file is missing!** Check out !mem for more information."].append(f"L-{i}")
 
             # Frame limit settings
             if "Frame limit" in line:
@@ -107,17 +133,17 @@ def analyze_log_file(log_file_path):
                 if match:
                     frame_value = match.group(1)
                     if frame_value not in ["Auto", "Off", "Display"]:
-                        game_issues[f"- **Weird Framelimit settings. Set it to `Auto`, `Off`, or `Display`.** Yours is on {frame_value}"].append(f"L-{i}")
+                        game_issues[f"- **Weird Framelimit settings.** Set it to `Auto`, `Off`, or `Display` in the GPU tab of RB3's Custom Configuration. Yours is on {frame_value}"].append(f"L-{i}")
                 else:
-                    game_issues[f"- **Weird framerate settings detected:** Unknown"].append(f"L-{i}")
+                    game_issues[f"- **Weird framerate settings:** Unknown"].append(f"L-{i}")
 
             # OpenGL Detect
             if "Renderer: OpenGL" in line:
-                game_issues[f"- **You're using OpenGL!** You should really be on Vulkan."].append(f"L-{i}")
+                game_issues[f"- **You're using OpenGL!** You should really be on Vulkan. Set this in the GPU tab of RB3's Custom Configuration."].append(f"L-{i}")
 
             # 1920x1080 Detect
             if "Resolution: 1920x1080" in line:
-                critical_issues[f"- **Forcing Rock Band to run at 1920x1080 will cause crashes!** You should really set this to 1280x720."].append(f"L-{i}")
+                critical_issues[f"- **Forcing Rock Band to run at 1920x1080 will cause crashes!** You should really set this back to 1280x720."].append(f"L-{i}")
 
             # OneDrive install detection
             if "OneDrive" in line:
@@ -135,7 +161,7 @@ def analyze_log_file(log_file_path):
             if re.search(r"Vblank Rate: (\d+)", line):
                 vblank_frequency  = int(re.search(r"\d+", line).group())
                 if vblank_frequency < 60:
-                    critical_issues[f"- **Vblank should not be below 60**. Set it back to at least 60."].append(f"L-{i}")
+                    critical_issues[f"- **Vblank should not be below 60**. Set it back to at least 60 in the Advanced tab of RB3's Custom Configuration."].append(f"L-{i}")
                 elif vblank_frequency > 60:
                     game_issues[f"- Playing on a Vblank above 60 may make pitch detection unreliable and online unstable. I hope you know what you're doing."].append(f"L-{i}")
 
@@ -144,15 +170,15 @@ def analyze_log_file(log_file_path):
             if match:
                 buffer_duration = int(match.group(1))
                 if buffer_duration >= 100:
-                    game_issues[f"- **Audio Buffer is quite high.** Consider lowering it to 32. It's set to {buffer_duration} ms"].append(f"L-{i}")
+                    game_issues[f"- **Audio Buffer is quite high.** Consider lowering it to 32 in the Audio tab of RB3's Custom Configuration. It's set to {buffer_duration} ms"].append(f"L-{i}")
 
             # Audio Broken
             if "cellAudio: Failed to open audio backend" in line:
-                critical_issues[f"- **Audio device doesn't work!** Check to make you selecte the proper audio device in Rock Band 3's Custom Configuration."].append(f"L-{i}")
+                critical_issues[f"- **Audio device doesn't work!** Check to make you selected the proper audio device in the Audio tab of RB3's Custom Configuration."].append(f"L-{i}")
 
             # Fullscreen settings
             if "Exclusive Fullscreen Mode: Enable" in line or "Exclusive Fullscreen Mode: Automatic" in line:
-                game_issues[f"- **Risky Fullscreen settings detected. Consider setting it to `Prefer Borderless Fullscreen`.**"].append(f"L-{i}")
+                game_issues[f"- Depending on your graphics driver, **you may experience issues with the Automatic or Exclusive Fullscreen settings** when clicking in and out of RPCS3. Consider setting it to `Prefer Borderless Fullscreen` in the Advanced tab of RB3's Custom Configuration."].append(f"L-{i}")
 
             # PSF Broken
             if "PSF: Error loading PSF" in line:
@@ -160,9 +186,9 @@ def analyze_log_file(log_file_path):
 
             if "Debug Console Mode: false" in line:
                 debug_console_mode_off = True
-                game_issues[f"- **Debug Console Mode is off. Why?** Use `!mem`"].append(f"L-{i}")
+                game_issues[f"- **Debug Console Mode is off. Why?** Use !mem"].append(f"L-{i}")
             if 'Selected config: mode=custom config, path=""' in line:
-                critical_issues[f"- **Custom config not found**. Use `!rpcs3`"].append(f"L-{i}")
+                critical_issues[f"- **Custom config not found**. Use !rpcs3"].append(f"L-{i}")
             if "log: Could not open port" in line:
                 critical_issues[f"- **MIDI device failed**. Close out any other programs using MIDI or restart computer."].append(f"L-{i}")
             if re.search(r"- Driver Wake-Up Delay is too low. Use `!ddw`. (Yours is on \d+)", line):
@@ -170,17 +196,15 @@ def analyze_log_file(log_file_path):
                 if delay_value < 20:
                     critical_issues[f"- **Driver Wake-Up Delay is too low. Use `!ddw`. Yours is set to ({delay_value})"].append(f"L-{i}")
                 elif delay_value % 20 != 0:
-                    game_issues[f"- **Driver Delay Wake-Up Settings isn't a multiple of 20**. Please fix it. Yours is at (value: {delay_value})"].append(f"L-{i}")
+                    game_issues[f"- **Driver Delay Wake-Up Settings isn't a multiple of 20**. Please fix it using !ddw. Yours is at (value: {delay_value})"].append(f"L-{i}")
             if "Write Color Buffers: false" in line:
-                critical_issues[f"- **Write Color Buffers isn't on**. Check the guide at `!rpcs3`"].append(f"L-{i}")
+                critical_issues[f"- **Write Color Buffers isn't on**. Check the guide at !rpcs3"].append(f"L-{i}")
             if "SYS: Missing Firmware" in line:
-                critical_issues[f"- **No firmware installed**. Check the guide at `!rpcs3`"].append(f"L-{i}")
+                critical_issues[f"- **No firmware installed**. Check the guide at !rpcs3"].append(f"L-{i}")
             if "SPU Block Size: Giga" in line:
-                critical_issues[f"- **SPU Block Size is on Giga**. Set it back to Auto or Mega."].append(f"L-{i}")
-            if any(buffer_setting in line for buffer_setting in ["Write Depth Buffer: true", "Read Color Buffers: true", "Read Depth Buffer: true"]):
-                game_issues[f"- **You enabled the wrong buffer settings.** Disable them in the Advanced tab of Rock Band 3's Custom Configuration."].append(f"L-{i}")
+                critical_issues[f"- **SPU Block Size is on Giga, which is very unstable!** Set it back to Auto or Mega in the GPU tab of RB3's Custom Configuration."].append(f"L-{i}")
             if "Network Status: Disconnected" in line:
-                critical_issues[f"- **Incorrect Network settings.** Use `!netset`"].append(f"L-{i}")
+                critical_issues[f"- **Incorrect Network settings.** Use !netset"].append(f"L-{i}")
             if "Regular file, “/dev_hdd0/game/BLUS30463/USRDIR/dx_high_memory.dta”" in line:
                 high_memory_detected = True
             if any(gpu_issue in line for gpu_issue in ["Physical device reports a low amount of allowed deferred descriptor updates", "Will use graphics queue instead"]):
@@ -209,6 +233,118 @@ def analyze_log_file(log_file_path):
             # GoCentral address detection
             if "IP swap list: rb3ps3live.hmxservices.com=45.33.44.103" in line:
                 gocentral_found = True
+            # Non-default settings detection
+            if "PPU Decoder: Recompiler (LLVM)" in line:
+                ppudef_found = True
+            if "SPU Decoder: Recompiler (LLVM)" in line:
+                spudef_found = True
+            if "Shader Mode: Async Shader Recompiler" in line:
+                shaderdef_found = True
+            if "Accurate SPU DMA: false" in line:
+                spudmadef_found = True
+            if "Accurate RSX reservation access: false" in line:
+                rsxresdef_found = True
+            if "SPU Profiler: false" in line:
+                spuprofdef_found = True
+            if "MFC Commands Shuffling Limit: 0" in line:
+                mfcdef_found = True
+            if "XFloat Accuracy: Approximate" in line:
+                xfloatdef_found = True
+            if "PPU Fixup Vector NaN Values: false" in line:
+                ppufixdef_found = True
+            if "Clocks scale: 100" in line:
+                clocksdef_found = True
+            if "Max CPU Preempt Count: 0" in line:
+                maxcpudef_found = True
+            if "Handle RSX Memory Tiling: false" in line:
+                rsxtiledef_found = True
+            if "Strict Rendering Mode: false" in line:
+                strictrenderdef_found = True
+            if "Disable Vertex Cache: false" in line:
+                disvercachedef_found = True
+            if "Disable On-Disk Shader Cache: false" in line:
+                disdiskshaderdef_found = True
+            if "Write Depth Buffer: false" in line:
+                wrdbufdef_found = True
+            if "Read Color Buffers: false" in line:
+                rcbufdef_found = True
+            if "Read Depth Buffer: false" in line:
+                rdbufdef_found = True
+            if "Force Hardware MSAA Resolve: false" in line:
+                msaaresolvedef_found = True
+            if "Shader Compiler Threads: 0" in line:
+                shaderthreadsdef_found = True
+            if "Allow Host GPU Labels: false" in line:
+                gpulabelsdef_found = True
+            if "Asynchronous Texture Streaming 2: false" in line:
+                asynchtexdef_found = True
+            if "Start Paused: false" in line:
+                startpausedef_found = True
+            if "Pause emulation on RPCS3 focus loss: false" in line:
+                pausefocusdef_found = True
+            if "Pause Emulation During Home Menu: false" in line:
+                pausehomedef_found = True
+
+        if not gocentral_found:
+            game_issues[f"- **You're not on GoCentral :(.** Why not join the fun? The guide at `!rpcs3` can walk you through this."].append(f"L-{i}")
+
+        # Non-default settings log
+        if not ppudef_found:
+            non_default_settings[f"- **CPU tab:** Set `PPU Decoder` back to `Recompiler (LLVM)`."].append(f"L-{i}")
+        if not spudef_found:
+            non_default_settings[f"- **CPU tab:** Set `SPU Decoder` back to `Recompiler (LLVM)`."].append(f"L-{i}")
+        if not maxcpudef_found:
+            non_default_settings[f"- **CPU tab:** Set `Max Power Saving CPU-preemptions` back to `0`."].append(f"L-{i}")
+        if not xfloatdef_found:
+            non_default_settings[f"- **CPU tab:** Set `SPU XFloat Accuracy` back to `Approximate XFloat`."].append(f"L-{i}")
+        if not shaderdef_found:
+            non_default_settings[f"- **GPU tab:** Set `Shader Mode` back to `Async (multi threaded)`."].append(f"L-{i}")
+        if not strictrenderdef_found:
+            non_default_settings[f"- **GPU tab:** Disable `Strict Rendering Mode` under the `Additional Settings` section."].append(f"L-{i}")
+        if not shaderthreadsdef_found:
+            non_default_settings[f"- **GPU tab:** Set `Number of Shader Compiler Threads` back to `Auto`."].append(f"L-{i}")
+        if not asynchtexdef_found:
+            non_default_settings[f"- **GPU tab:** You have enabled `Asynchronous Texture Streaming` under the `Additional Settings`. Only do this if you have a newer GPU and MTRSX enabled for your CPU."].append(f"L-{i}")
+        if not bindadd_found:
+            non_default_settings[f"- **Network tab:** Unless you have a good reason, `Bind address` should be set to `0.0.0.0`"].append(f"L-{i}")
+        if not dns_found:
+            non_default_settings[f"- **Network tab:** Unless you have a good reason, `DNS` should be set to `8.8.8.8`"].append(f"L-{i}")
+        if not spudmadef_found:
+            non_default_settings[f"- **Advanced tab:** Disable `Accurate SPU DMA` under the `Core` section."].append(f"L-{i}")
+        if not rsxresdef_found:
+            non_default_settings[f"- **Advanced tab:** Disable `Accurate RSX reservation access` under the `Core` section."].append(f"L-{i}")
+        if not spuprofdef_found:
+            non_default_settings[f"- **Advanced tab:** Disable `SPU Profiler` under the `Core` section."].append(f"L-{i}")
+        if not ppufixdef_found:
+            non_default_settings[f"- **Advanced tab:** Disable `PPU Fixup Vector NaN Values` under the `Core` section."].append(f"L-{i}")
+        if not clocksdef_found:
+            non_default_settings[f"- **Advanced tab:** Set `Clocks scale` back to `100%`."].append(f"L-{i}")
+        if not wrdbufdef_found:
+            non_default_settings[f"- **Advanced tab:** Disable `Write Depth Buffer` under the `GPU` section."].append(f"L-{i}")
+        if not rcbufdef_found:
+            non_default_settings[f"- **Advanced tab:** Disable `Read Color Buffers DMA` under the `GPU` section."].append(f"L-{i}")
+        if not rdbufdef_found:
+            non_default_settings[f"- **Advanced tab:** Disable `Read Depth Buffer` under the `GPU` section."].append(f"L-{i}")
+        if not rsxtiledef_found:
+            non_default_settings[f"- **Advanced tab:** Disable `Handle RSX Memory Tiling` under the `GPU` section."].append(f"L-{i}")
+        if not disvercachedef_found:
+            non_default_settings[f"- **Advanced tab:** Disable `Disable Vertex Cache` under the `GPU` section."].append(f"L-{i}")
+        if not disdiskshaderdef_found:
+            non_default_settings[f"- **Advanced tab:** Disable `Disable On-Disk Shader Cache` under the `GPU` section."].append(f"L-{i}")
+        if not msaaresolvedef_found:
+            non_default_settings[f"- **Advanced tab:** Disable `Force Hardware MSAA Resolve` under the `GPU` section."].append(f"L-{i}")
+        if not gpulabelsdef_found:
+            non_default_settings[f"- **Advanced tab:** Disable `Allow Host GPU Labels (Experimental)` under the `GPU` section."].append(f"L-{i}")
+        if not startpausedef_found:
+            non_default_settings[f"- **Emulator tab:** Disable `Pause emulation after loading savestates` under the `Emulator Settings` section."].append(f"L-{i}")
+        if not pausefocusdef_found:
+            non_default_settings[f"- **Emulator tab:** You enabled `Pause emulation on RPCS3 focus loss` under the `Emulator Settings` section. This makes your emulator pause whenever you click out of it. Are you sure about this?"].append(f"L-{i}")
+        if not pausehomedef_found:
+            non_default_settings[f"- **Emulator tab:** You enabled `Pause emulation during home menu` under the `Emulator Settings` section. This makes your emulator pause whenever you bring up the home menu. Are you sure about this?"].append(f"L-{i}")
+        if not ipadd_found:
+            non_default_settings[f"- You have somehow changed the `IP address` in the config file. Unless you have a good reason, set it back to `0.0.0.0`"].append(f"L-{i}")
+        if not mfcdef_found:
+            non_default_settings[f"- You changed `MFC Commands Shuffling Limit` in the config file for RB3. Why? Set it back."].append(f"L-{i}")
 
         # Check for combined issues
         if high_memory_detected and debug_console_mode_off:
@@ -217,73 +353,32 @@ def analyze_log_file(log_file_path):
         if enable_upnp and upnp_error_detected:
             critical_issues[f"- **UPNP error detected! You will probably crash while online!**"].append(f"L-{i}")
 
-        if not ipadd_found:
-            game_issues[f"- **Your network settings are weird.**. Open RB3's config .yml file and set `IP address` to `0.0.0.0`"].append(f"L-{i}")
-        if not bindadd_found:
-            game_issues[f"- **Your network settings are weird.**. Set the Bind address in RB3's Custom Config to `0.0.0.0`"].append(f"L-{i}")
-        if not dns_found:
-            game_issues[f"- **Your network settings are weird.**. Set the DNS in RB3's Custom Config to `8.8.8.8`"].append(f"L-{i}")
-        if not gocentral_found:
-            game_issues[f"- **You're not on GoCentral :(.**. Why not join the fun? !rpcs3 can walk you through this."].append(f"L-{i}")
-
-        # Non-default settings detection
-        non_default_settings_keywords = [
-            "PPU Decoder: Recompiler (LLVM)",
-            "SPU Decoder: Recompiler (LLVM)",
-            "Shader Mode: Async Shader Recompiler",
-            "Accurate SPU DMA: false",
-            "Accurate RSX reservation access: false",
-            "SPU Profiler: false",
-            "MFC Commands Shuffling Limit: 0",
-            "XFloat Accuracy: Approximate",
-            "PPU Fixup Vector NaN Values: false",
-            "Clocks scale: 100",
-            "Max CPU Preempt Count: 0",
-            "Handle RSX Memory Tiling: false",
-            "Strict Rendering Mode: false",
-            "Disable Vertex Cache: false",
-            "Disable On-Disk Shader Cache: false",
-            "Force Hardware MSAA Resolve: false",
-            "Shader Compiler Threads: 0",
-            "Allow Host GPU Labels: false",
-            "Asynchronous Texture Streaming 2: false",
-            "Start Paused: false",
-            "Suspend Emulation Savestate Mode: false",
-            "Compatible Savestate Mode: false",
-            "Pause emulation on RPCS3 focus loss: false",
-            "Pause Emulation During Home Menu: false"
-        ]
-        
-        # Check for non-default settings
-        for keyword in non_default_settings_keywords:
-            if not any(keyword in line for line in core_section_lines):
-                non_default_settings.append(f"{keyword}")
-
     # Preparing the output
     output = ""
 
     if critical_issues:
-        output += "## Critical :exclamation:\n"
+        output += "## Critical :exclamation:\n_Guaranteed to be a problem!_\n"
         for issue, lines in critical_issues.items():
             line_info = ", ".join(lines)  # Combine all line numbers
-            output += f"  {issue} (on {line_info})\n"
+            output += f"{issue} (on {line_info})\n"
 
     if game_issues:
-        output += "\n## Warning :warning:\n"
+        output += "\n## Warning :warning:\n_May or may not cause issues._\n"
         for issue, lines in game_issues.items():
             line_info = ", ".join(lines)  # Combine all line numbers
-            output += f"  {issue} (on {line_info})\n"
+            output += f"{issue} (on {line_info})\n"
 
     if non_default_settings:
-        output += "\n### Non-Default Settings detected! Set them to:\n"
-        for setting in non_default_settings:
-            output += f"  {setting}\n"
+        output += "\n## Non-default settings :question:\n_Set these in Rock Band 3's Custom Configuration. Use `!global` for more information._\n"
+        for issue, lines in non_default_settings.items():
+            line_info = ", ".join(lines)  # Combine all line numbers
+            output += f"{issue} (on {line_info})\n"
     
     if not critical_issues and not game_issues and not non_default_settings:
         output += "## No issues detected. Let us know if this is wrong."
 
     # Add emulator information
-    output += f"\n\n**Other:**\n**Version:** {emulator_info['version']}\n**CPU:** {emulator_info['cpu']}\n**GPU:** {emulator_info['gpu']}\n{emulator_info['os']}"
+    output += f"\n\n**Version:** {emulator_info['version']}\n**CPU:** {emulator_info['cpu']}\n**GPU:** {emulator_info['gpu']}\n{emulator_info['os']}"
 
     if language_message:
         output += f"\n\n{language_message}"

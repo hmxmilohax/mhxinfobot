@@ -317,7 +317,7 @@
     "response66": {
         "triggers": ["!netset"],
     "text": "To fix freezing while scrolling the song library, set Network Status to Connected under the Network tab in Rock Band 3's Custom Configuration.",
-        "files": ["media/dwd.png"]
+        "files": ["media/netset.png"]
     },
     "response67": {
         "triggers": ["!caca"],
@@ -422,6 +422,16 @@
     "response87": {
         "triggers": ["!mergesongses"],
     "text": "Tarda mucho en iniciar tu juego por cargar tus descargas? Puedes combinar paquetes de canciones para que cargue mas rapido si estas en PS3/RPCS3!\nLee la guia aqui:: https://rb3pc.milohax.org/customs_merging_es",
+        "files": []
+    },
+    "response88": {
+        "triggers": ["!vkdiag"],
+    "text": "1. Download [vkDiag tool](https://github.com/13xforever/vkdiag/releases/latest) from GitHub.\n2. Run the tool and post a screenshot of the results.\n\nThis tool is useful for resolving Vulkan related driver issues, such as:\n- Receiving an error relating to `vulkan-1.dll` on startup.\n- Vulkan renderer not appearing.\n- Receiving a segfault relating to some .dll file that RPCS3 does not use, such as `nvoglv64.dll` or `bdcamvk64.dll`.",
+        "files": []
+    },
+    "response89": {
+        "triggers": ["!vkdiages"],
+    "text": "1. Descarga la herramienta de [vkDiag](https://github.com/13xforever/vkdiag/releases/latest) de GitHub.\n2. Abre el programa y manda una captura de los resultados.\n\nEsta herramienta ayuda con problemas de Vulkan, como:\n- Errores con el archivo `vulkan-1.dll` al inicio.\n- Problemas eligiendo el renderizador de Vulkan.\n- Errores ''Segfault'' con archivos .dll que RPCS3 no usa como `nvoglv64.dll` o `bdcamvk64.dll`.",
         "files": []
     }
 }
