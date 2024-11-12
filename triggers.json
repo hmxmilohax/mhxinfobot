@@ -204,6 +204,11 @@
         "text": "",
         "files": ["media/focus.mp4"]
     },
+    "response43": {
+        "triggers": ["!hiring"],
+        "text": "",
+        "files": ["media/focus-1.mp4"]
+    },
     "response44": {
         "triggers": ["!textures"],
         "text": "# RB3DX Custom Textures Tutorial\n<https://docs.google.com/document/d/1ELUI8Q2W7PH9tdugeKnsjhqa-IH3T-oy6uGTDY_8z30>",
