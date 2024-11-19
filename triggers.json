@@ -438,6 +438,11 @@
         "triggers": ["!vkdiages"],
     "text": "1. Descarga la herramienta de [vkDiag](https://github.com/13xforever/vkdiag/releases/latest) de GitHub.\n2. Abre el programa y manda una captura de los resultados.\n\nEsta herramienta ayuda con problemas de Vulkan, como:\n- Errores con el archivo `vulkan-1.dll` al inicio.\n- Problemas eligiendo el renderizador de Vulkan.\n- Errores ''Segfault'' con archivos .dll que RPCS3 no usa como `nvoglv64.dll` o `bdcamvk64.dll`.",
         "files": []
+    },
+    "response90": {
+        "triggers": ["!vim", "!nvim", "!neovim"],
+        "text": "# DTA Syntax Highlighting for (neo)vim\nhttps://git.halcyoncollective.dev/dark/dta.vim",
+        "files": [""]
     }
 }
 
