@@ -442,7 +442,7 @@
     "response90": {
         "triggers": ["!vim", "!nvim", "!neovim"],
         "text": "# DTA Syntax Highlighting for (neo)vim\nhttps://git.halcyoncollective.dev/dark/dta.vim",
-        "files": [""]
+        "files": []
     }
 }
 
