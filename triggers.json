@@ -311,7 +311,7 @@
     },
     "response64": {
         "triggers": ["!dwd"],
-    "text": "To fix crashes after songs, you need to set Driver Wake-Up Delay 20 or a multiple of 20 under the Advanced tab in Rock Band 3's Custom Configuration.",
+    "text": "To fix crashes after songs, you need to set Driver Wake-Up Delay 20 or a multiple of 20 under the Advanced tab in Rock Band 3's Custom Configuration.\n\nThis and many other settings are covered in the RPCS3 setup guide so check it out to properly setup your config.\nhttps://rb3pc.milohax.org/",
         "files": ["media/dwd.png"]
     },
     "response65": {
@@ -321,7 +321,7 @@
     },
     "response66": {
         "triggers": ["!netset"],
-    "text": "To fix freezing while scrolling the song library, set Network Status to Connected under the Network tab in Rock Band 3's Custom Configuration.",
+    "text": "To fix freezing while scrolling the song library, set `Network Status` to `Connected` under the Network tab in Rock Band 3's Custom Configuration.\n\nThis and many other settings are covered in the RPCS3 setup guide so check it out to properly setup your config.\nhttps://rb3pc.milohax.org/",
         "files": ["media/netset.png"]
     },
     "response67": {
@@ -365,7 +365,7 @@
         "files": ["media/milk.mp4"]
     },
     "response75": {
-        "triggers": ["!memalta", "!memoria"],
+        "triggers": ["!memalta", "!memoria", "!mem_es"],
     "text": "# Modo de alta memoria para RPCS3 #\nEsto va aumentar el numero de canciones a 16.000 y tambien ayudada con la estabilidad de Rock Band 3 gracias a la memoria adicional.\n\nPaso 1: Haz click en Rock Band 3 y selecciona `Change Custom Configuration`\nPaso 2: En la pestaña de `Advanced`, activa `Debug Console Mode`\nPaso 3: Descarga el archivo `dx_high_memory.dta` abajo de este mensaje\nPaso 4: Haz click derecho en Rock Band 3 en RPCS3 y luego en `Open Folder > Open Game Data Folder`\nPaso 5: Arrastra el archivo `dx_high_memory.dta` dentro de `USRDIR`\n\n*Si usaste una Configuracion Rapida de la guia rb3pc, ya tienes esto.*\n\nNO INTENTES USAR ESTE ARCHIVO EN UNA CONSOLA",
         "files": ["media/mem.png", "media/dx_high_memory.dta"]
     },
@@ -391,7 +391,7 @@
     },
     "response80": {
         "triggers": ["!dejaver", "!analizar"],
-    "text": "Manda un historial (log) para ver que paso con el emulador.\nPara subir un historial (log), escribe `!log` y:\n* Trata de replicar el problema o crasheo y cierra RPCS3.\n* **¡NO LO ABRAS DE VUELTA!**\n* Manda el archivo `RPCS3.log` o `RPCS3.log.gz`\n* En Windows, esta en la carpeta donde tienes RPCS3.\n* En Linux, esta en `~/.cache/rpcs3/`.\n* En macOS, esta en `~/Library/Caches/rpcs3`. (Es posible que necitas activar archivos escondidos)\nDespues de esto, el bot va a analizar el historial para ver donde esta el problema.",
+    "text": "Manda un historial (log) para ver que paso con el emulador.\nPara subir un historial (log), escribe `!log` y:\n* Trata de replicar el problema o crasheo y cierra RPCS3.\n* **NO LO ABRAS DE VUELTA!**\n* Manda el archivo `RPCS3.log` o `RPCS3.log.gz`\n* En Windows, esta en la carpeta donde tienes RPCS3.\n* En Linux, esta en `~/.cache/rpcs3/`.\n* En macOS, esta en `~/Library/Caches/rpcs3`. (Es posible que necitas activar archivos escondidos)\nDespues de esto, el bot va a analizar el historial para ver donde esta el problema.",
         "files": ["media/log.png"]
     },
     "response81": {
@@ -443,6 +443,61 @@
         "triggers": ["!vim", "!nvim", "!neovim"],
         "text": "# DTA Syntax Highlighting for (neo)vim\nhttps://git.halcyoncollective.dev/dark/dta.vim",
         "files": []
+    },
+    "response91": {
+        "triggers": ["!caches"],
+        "text": "Your cache files may become problematic as RPCS3 updates to improve emulation quality. You can force RPCS3 to generate new ones by removing them.\nSimply right click Rock Band 3 in RPCS3's game list then go to `Remove` and select which cache to remove. You can also remove all caches.",
+        "files": ["media/caches.png"]
+    },
+    "response92": {
+        "triggers": ["!caches_es"],
+        "text": "Con el paso del tiempo, actualizaciones de RPCS3 pueden causar problemas con tus archivos de cache. Puedes generar nuevos.\n* Set RPCS3's `Framelimit` to `Off` in Rock Band 3's Custom Configuration\n* Set RPCS3's `Framelimit` to `Off` in Rock Band 3's Custom Configuration\n* Set RPCS3's `Framelimit` to `Off` in Rock Band 3's Custom Configuration",
+        "files": ["media/caches.png"]
+    },
+    "response93": {
+        "triggers": ["!vsyncmeta"],
+        "text": "To have a smooth framerate in RPCS3, it's suggested to:\n* Set RPCS3's `Framelimit` to `Off` in Rock Band 3's Custom Configuration\n* Enable RPCS3's `VSync` in Rock Band 3's Custom Configuration\n* Disable `VSync` within Rock Band 3 Deluxe\nAdditionally, you can use [[RTSS]](https://rb3pc.milohax.org/adv_rtss) but it is more complicated.",
+        "files": ["media/vsyncmeta.png"]
+    },
+    "response94": {
+        "triggers": ["!vsyncmetaes", "!vsyncmeta_es", "!vsyncmetastasis"],
+        "text": "Para la mejor experiencia en RPCS3:\n* Cambia el `Framelimit` de RPCS3 a `Off` en la configuracion de Rock Band 3\n* Activa `VSync` de RPCS3 en la configuracion de Rock Band 3\n* Desactiva`VSync` dentro de el menu de graficos en la configuracion Deluxe\nAlternativamente, puedes usar [[RTSS]](https://rb3pc.milohax.org/adv_rtss_es) per es mas complicado configurarlo.",
+        "files": ["media/vsyncmetaes.png"]
+    },
+    "response95": {
+        "triggers": ["!l2", "!L2"],
+        "text": "Is your Guitar Hero guitar auto-strumming during solos? Simply unbind the `L2` button by right clicking the `L2` button in the Pads menu.",
+        "files": ["media/l2unmap.gif"]
+    },
+    "response96": {
+        "triggers": ["!l2es", "!L2es", "!l2_es", "!L2_es"],
+        "text": "Tu guitarra de Guitar Hero esta auto-rasgueando/haciendo auto-strum? Simplemente borra el boton que tienes en `L2` en el menu de Pads.",
+        "files": ["media/l2unmap.gif"]
+    },
+    "response97": {
+        "triggers": ["!padprofiles"],
+        "text": "Using a Custom Gamepad Configurations for Rock Band 3 is not suggested as you can't make pad profile changes while the game is running.\nYou can tell if you have a Custom Gamepad Configuration if Rock Band 3 has a Joypad icon next to it in RPCS3's gamelist.\nYou can remove it by right clicking it then `Remove > Remove Custom Gamepad Configuration`.\nIt's suggested to use the `Pads` menu at the top and to create profiles depending on what instrument setup you have.\nYou'll be able to use [[profiles from the RPCS3 guide page]](https://rb3pc.milohax.org/ctrls#using-profiles) this way too.",
+        "files": ["media/padoverwrite.png"]
+    },
+    "response98": {
+        "triggers": ["!padprofiles_es", "!perfilesdepad"],
+        "text": "No es recomendado crear una configuracion personalizada de controles (`Custom Gamepad Configuration`) para Rock Band 3 porque no puedes cambiar el perfil de controles mientras esta corriendo el juego.\nSe puede notar si tienes una configuracion personalizada de controles si tienes un icono de mando al lado de Rock Band 3 en la lista de juegos de RPCS3.\nPuedes borrarlo haciendo click derecho en Rock Band 3 y luego `Remove > Remove Gamepad Configuration`.\nEs recomenado que uses el menu de `Pads` hacia a arriba para crear perfiles de tus configuraciones de instrumentos.\nTambien podras usar [[perfiles de la guia de RPCS3]](https://rb3pc.milohax.org/ctrls_es#usando-perfiles).",
+        "files": ["media/padoverwritees.png"]
+    },
+    "response99": {
+        "triggers": ["!dwdes", "!dwd_es"],
+        "text": "Para arreglar el crasheo despues de canciones, necesitas cambiar `Driver Wake-Up Delay` a `20` o a un multiple de 20 bajo la pestana de `Advanced` en la configuracion personalizada de Rock Band 3.\n\nEsto y otros ajustes recomendados estan en la guia de RPCS3. Revisala aqui:\nhttps://rb3pc.milohax.org/",
+        "files": ["media/dwd.png"]
+    },
+    "response100": {
+        "triggers": ["!wcbes", "!wcb_es"],
+        "text": "Para arreglar personajes con texturas corruptas, necesitas activar `Write Color Buffers` bajo la pestana de `GPU` en la configuracion personalizada de Rock Band 3.\n\nEsto y otros ajustes recomendados estan en la guia de RPCS3. Revisala aqui:\nhttps://rb3pc.milohax.org/",
+        "files": ["media/wcbon.png"]
+    },
+    "response101": {
+        "triggers": ["!netsetes", "!netset_es"],
+        "text": "Para arreglar lo del juego congelandose en la biblioteca de musica, cambia `Network Status` a `Connected` bajo la pestana de Network en la configuracion de Rock Band 3.\n\nEsto y otros ajustes recomendados estan en la guia de RPCS3. Revisala aqui:\nhttps://rb3pc.milohax.org/",
+        "files": ["media/netset.png.png"]
     }
 }
 
