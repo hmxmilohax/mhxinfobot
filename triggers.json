@@ -497,7 +497,12 @@
     "response101": {
         "triggers": ["!netsetes", "!netset_es"],
         "text": "Para arreglar lo del juego congelandose en la biblioteca de musica, cambia `Network Status` a `Connected` bajo la pestana de Network en la configuracion de Rock Band 3.\n\nEsto y otros ajustes recomendados estan en la guia de RPCS3. Revisala aqui:\nhttps://rb3pc.milohax.org/",
-        "files": ["media/netset.png.png"]
+        "files": ["media/netset.png"]
+    },
+    "response102": {
+        "triggers": ["!reading"],
+        "text": "",
+        "files": ["media/reading.png"]
     }
 }
 
