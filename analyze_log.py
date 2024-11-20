@@ -8,6 +8,7 @@ def analyze_log_file(log_file_path):
     critical_issues = defaultdict(list)
     game_issues = defaultdict(list)
     non_default_settings = defaultdict(list)
+    pad_issues = defaultdict(list)
     firmware_detected = False
     firmware_version = None
     emulator_info = {"version": "", "cpu": "", "os": "", "gpu": ""}
@@ -94,6 +95,8 @@ def analyze_log_file(log_file_path):
         bindadd_found = False
         dns_found = False
         gocentral_found = False
+        vsyncoff_found = False
+        above60_vblank_found = False
         # Non-default stuff
         ppudef_found = False
         spudef_found = False
@@ -125,7 +128,7 @@ def analyze_log_file(log_file_path):
         for i, line in enumerate(core_section_lines, start=last_core_index + 1):
             # Check for high memory
             if 'CELL_ENOENT, "/dev_hdd0/game/BLUS30463/USRDIR/dx_high_memory.dta"' in line:
-                game_issues[f"- **High memory file is missing!** Check out !mem for more information."].append(f"L-{i}")
+                game_issues[f"- **High memory file is missing!** Check out `!mem` for more information."].append(f"L-{i}")
 
             # Frame limit settings
             if "Frame limit" in line:
@@ -148,22 +151,31 @@ def analyze_log_file(log_file_path):
             # OneDrive install detection
             if "OneDrive" in line:
                 if "OneDrive install detected" not in onedrive_issues:
-                    onedrive_issues.add("- **OneDrive detected!** Please move files to C:\\Games**")
-                    critical_issues[f"- **OneDrive detected!** Please move files to C:\\Games"].append(f"L-{i}")
+                    onedrive_issues.add("- **OneDrive detected! This can lead to corrupted files and saves!** Please move files to `C:\\Games`**")
+                    critical_issues[f"- **OneDrive detected! This can lead to corrupted files and saves!** Please move files to `C:\\Games`"].append(f"L-{i}")
 
             # Busted save
             if "dev_hdd0/home/00000001/savedata/BLUS30463-AUTOSAVE/ (Already exists)" in line:
                 if "Busted save detected" not in save_issues:
-                    save_issues.add("- **Busted Save detected!** Move BLUS30463-AUTOSAVE out of savedata folder in dev_hdd0")
-                    critical_issues[f"- **Busted Save detected!** Move BLUS30463-AUTOSAVE out dev_hdd0\\home\\00000001\\savedata"].append(f"L-{i}")
+                    save_issues.add("- **Busted save detected!** Move the `BLUS30463-AUTOSAVE`folder out of savedata folder in `dev_hdd0`.")
+                    critical_issues[f"- **Busted save detected!** Move the `BLUS30463-AUTOSAVE` folder out of `dev_hdd0\\home\\00000001\\savedata`."].append(f"L-{i}")
 
             # Vblank Rate
             if re.search(r"Vblank Rate: (\d+)", line):
                 vblank_frequency  = int(re.search(r"\d+", line).group())
                 if vblank_frequency < 60:
-                    critical_issues[f"- **Vblank should not be below 60**. Set it back to at least 60 in the Advanced tab of RB3's Custom Configuration."].append(f"L-{i}")
+                    critical_issues[f"- **VBlank should not be below 60**. Set it back to at least 60 in the Advanced tab of RB3's Custom Configuration."].append(f"L-{i}")
                 elif vblank_frequency > 60:
-                    game_issues[f"- Playing on a Vblank above 60 may make pitch detection unreliable and online unstable. I hope you know what you're doing."].append(f"L-{i}")
+                    above60_vblank_found = True
+                    game_issues[f"- Playing on a VBlank higher than 60 is not suggested. Use `!vsyncmeta` for more information."].append(f"L-{i}")
+
+            # VSync False
+            if "VSync: false" in line:
+                vsyncoff_found = True
+            
+            # OpenGL
+            if "Renderer: OpenGL" in line:
+                game_issues[f"- **You're using OpenGL!** You should really be on Vulkan. Set this in the GPU tab of RB3's Custom Configuration."].append(f"L-{i}")
 
             # High Audio Buffer Duration
             match = re.search(r"Desired Audio Buffer Duration: (\d+)", line)
@@ -180,43 +192,70 @@ def analyze_log_file(log_file_path):
             if "Exclusive Fullscreen Mode: Enable" in line or "Exclusive Fullscreen Mode: Automatic" in line:
                 game_issues[f"- Depending on your graphics driver, **you may experience issues with the Automatic or Exclusive Fullscreen settings** when clicking in and out of RPCS3. Consider setting it to `Prefer Borderless Fullscreen` in the Advanced tab of RB3's Custom Configuration."].append(f"L-{i}")
 
+            # Shader Compilation Broke
+            if "Shader does not write to any output register and will be NOPed" in line:
+                critical_issues[f"- **Shader compilation failed!** Clear the cache and update RPCS3 if you haven't. Use `!caches` for more information."].append(f"L-{i}")
+
+            # Vulkan Device Lost
+            if "Driver crashed with unspecified error or stopped responding and recovered" in line:
+                critical_issues[f"- **Display error!** Check your graphics card drivers. Use `!vkdiag` for more information."].append(f"L-{i}")
+
             # PSF Broken
             if "PSF: Error loading PSF" in line:
                 critical_issues[f"- **PARAM.SFO file is busted!** DLC will probably not load! Replace them with working ones."].append(f"L-{i}")
-
+            # Debug Console
             if "Debug Console Mode: false" in line:
                 debug_console_mode_off = True
-                game_issues[f"- **Debug Console Mode is off. Why?** Use !mem"].append(f"L-{i}")
+                game_issues[f"- **Debug Console Mode is off. Why?** Use `!mem`"].append(f"L-{i}")
+            # Configuration not found
             if 'Selected config: mode=custom config, path=""' in line:
-                critical_issues[f"- **Custom config not found**. Use !rpcs3"].append(f"L-{i}")
+                critical_issues[f"- **Custom config not found**. Use `!rpcs3`"].append(f"L-{i}")
+            # Pad profile
+            if 'input_configs/BLUS30463/Default.yml' in line:
+                pad_issues[f"- **Per-game pad profile detected**. This will lock you out of being able to switch profiles. Use `!padprofiles`."].append(f"L-{i}")
+            # MIDI Detection
             if "log: Could not open port" in line:
                 critical_issues[f"- **MIDI device failed**. Close out any other programs using MIDI or restart computer."].append(f"L-{i}")
-            if re.search(r"- Driver Wake-Up Delay is too low. Use `!ddw`. (Yours is on \d+)", line):
+            # Driver Wake-Up Delay
+            if re.search(r"Driver Wake-Up Delay: (\d+)", line):
                 delay_value = int(re.search(r"\d+", line).group())
                 if delay_value < 20:
-                    critical_issues[f"- **Driver Wake-Up Delay is too low. Use `!ddw`. Yours is set to ({delay_value})"].append(f"L-{i}")
+                    critical_issues[f"- **Driver Wake-Up Delay is too low. Yours is set to ({delay_value}). Use `!dwd`"].append(f"L-{i}")
                 elif delay_value % 20 != 0:
-                    game_issues[f"- **Driver Delay Wake-Up Settings isn't a multiple of 20**. Please fix it using !ddw. Yours is at (value: {delay_value})"].append(f"L-{i}")
+                    game_issues[f"- **Driver Delay Wake-Up Settings isn't a multiple of 20**. Yours is at (value: {delay_value}). Use `!dwd`"].append(f"L-{i}")
+            # WCB
             if "Write Color Buffers: false" in line:
-                critical_issues[f"- **Write Color Buffers isn't on**. Check the guide at !rpcs3"].append(f"L-{i}")
+                critical_issues[f"- **Write Color Buffers isn't on**. Use `!wcb`"].append(f"L-{i}")
+            # Firmware missing
             if "SYS: Missing Firmware" in line:
-                critical_issues[f"- **No firmware installed**. Check the guide at !rpcs3"].append(f"L-{i}")
+                critical_issues[f"- **No firmware installed**. Check the guide at `!rpcs3`"].append(f"L-{i}")
+            # SPU Block Size
             if "SPU Block Size: Giga" in line:
                 critical_issues[f"- **SPU Block Size is on Giga, which is very unstable!** Set it back to Auto or Mega in the GPU tab of RB3's Custom Configuration."].append(f"L-{i}")
+            # Network Status
             if "Network Status: Disconnected" in line:
                 critical_issues[f"- **Incorrect Network settings.** Use !netset"].append(f"L-{i}")
+            # High Memory file
             if "Regular file, “/dev_hdd0/game/BLUS30463/USRDIR/dx_high_memory.dta”" in line:
                 high_memory_detected = True
+            # GPU features
             if any(gpu_issue in line for gpu_issue in ["Physical device reports a low amount of allowed deferred descriptor updates", "Will use graphics queue instead"]):
                 if "Graphics device notice" not in graphics_device_notifications:
                     graphics_device_notifications.add("- **Graphics device issue!** Get a nerd to check this out.")
                     game_issues[f"- **Graphics device issue!** Get a nerd to check this out."].append(f"L-{i}")
+            # GPU does not feature
             if "Your GPU does not support" in line:
                 critical_issues[f"- **Graphics card is missing features.**"].append(f"L-{i}")
+            # USB overload
             if "sys_usbd: Transfer Error" in line:
                 critical_issues[f"- **Usbd error.** Too many PS3 instruments or passthrough devices connected?"].append(f"L-{i}")
+            # Crash
             if any(error in line for error in ["Thread terminated due to fatal error: Verification failed", "VM: Access violation reading location"]):
                 critical_issues[f"- **Crash detected.** Tell us what you were doing before crashing."].append(f"L-{i}")
+
+            #Network stuff
+            if "rpcn: User is already logged in" in line:
+                critical_issues[f"- **Zombie RPCN login!** You lost connection to RPCN and it did not log out correctly. Wait around 20 minutes before trying again."].append(f"L-{i}")
             if "UPNP Enabled: true" in line:
                 enable_upnp = True
             if "No UPNP device was found" in line:
@@ -353,6 +392,9 @@ def analyze_log_file(log_file_path):
         if enable_upnp and upnp_error_detected:
             critical_issues[f"- **UPNP error detected! You will probably crash while online!**"].append(f"L-{i}")
 
+        if vsyncoff_found and above60_vblank_found:
+            game_issues[f"- **It could be better!** You may get a smoother experience with the new VSync meta. Use `!vsyncmeta` for more information."].append(f"L-{i}")
+
     # Preparing the output
     output = ""
 
@@ -373,8 +415,14 @@ def analyze_log_file(log_file_path):
         for issue, lines in non_default_settings.items():
             line_info = ", ".join(lines)  # Combine all line numbers
             output += f"{issue} (on {line_info})\n"
+
+    if pad_issues:
+        output += "\n## Pad Issues :guitar:\n_Your controller might not be setup correctly._\n"
+        for issue, lines in non_default_settings.items():
+            line_info = ", ".join(lines)  # Combine all line numbers
+            output += f"{issue} (on {line_info})\n"
     
-    if not critical_issues and not game_issues and not non_default_settings:
+    if not critical_issues and not game_issues and not non_default_settings and not pad_issues:
         output += "## No issues detected. Let us know if this is wrong."
 
     # Add emulator information
