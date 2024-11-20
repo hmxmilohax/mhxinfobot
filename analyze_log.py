@@ -158,7 +158,7 @@ def analyze_log_file(log_file_path):
             if "dev_hdd0/home/00000001/savedata/BLUS30463-AUTOSAVE/ (Already exists)" in line:
                 if "Busted save detected" not in save_issues:
                     save_issues.add("- **Busted save detected!** Move the `BLUS30463-AUTOSAVE`folder out of savedata folder in `dev_hdd0`.")
-                    critical_issues[f"- **Busted save detected!** Move `BLUS30463-AUTOSAVE` out `dev_hdd0\\home\\00000001\\savedata`."].append(f"L-{i}")
+                    critical_issues[f"- **Busted save detected!** Move the `BLUS30463-AUTOSAVE` folder out of `dev_hdd0\\home\\00000001\\savedata`."].append(f"L-{i}")
 
             # Vblank Rate
             if re.search(r"Vblank Rate: (\d+)", line):
