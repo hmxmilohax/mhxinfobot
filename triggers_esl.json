@@ -85,7 +85,7 @@
     },
     "response92": {
         "triggers": ["caches_es"],
-        "text": "Con el paso del tiempo, actualizaciones de RPCS3 pueden causar problemas con tus archivos de cache. Puedes generar nuevos.\n* Set RPCS3's `Framelimit` to `Off` in Rock Band 3's Custom Configuration\n* Set RPCS3's `Framelimit` to `Off` in Rock Band 3's Custom Configuration\n* Set RPCS3's `Framelimit` to `Off` in Rock Band 3's Custom Configuration",
+        "text": "Con el paso del tiempo, actualizaciones de RPCS3 pueden causar problemas con tus archivos de cache. Puedes generar nuevos.\n* Set RPCS3's `Framelimit` to `Off` in Rock Band 3's Custom Configuration",
         "link": "response91",
         "files": ["media/caches.png"]
     },

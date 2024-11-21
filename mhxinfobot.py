@@ -226,10 +226,7 @@ async def on_ready():
 
 async def handle_log_file(message):
     if len(message.attachments) == 0:
-        for response in triggers.values():
-            if any(trigger.lower() in message.content.lower() for trigger in response['triggers']):
-                await handle_response(message.channel, response)
-                break  # Stop after sending one trigger action
+        await message.channel.send("Please attach a log file.")
         return
 
     log_file = message.attachments[0]
