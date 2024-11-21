@@ -84,43 +84,43 @@
         "files": []
     },
     "response92": {
-        "triggers": ["!caches_es"],
+        "triggers": ["caches_es"],
         "text": "Con el paso del tiempo, actualizaciones de RPCS3 pueden causar problemas con tus archivos de cache. Puedes generar nuevos.\n* Set RPCS3's `Framelimit` to `Off` in Rock Band 3's Custom Configuration\n* Set RPCS3's `Framelimit` to `Off` in Rock Band 3's Custom Configuration\n* Set RPCS3's `Framelimit` to `Off` in Rock Band 3's Custom Configuration",
         "link": "response91",
         "files": ["media/caches.png"]
     },
     "response94": {
-        "triggers": ["!vsyncmetaes", "!vsyncmeta_es", "!vsyncmetastasis"],
+        "triggers": ["vsyncmetaes", "vsyncmeta_es", "vsyncmetastasis"],
         "text": "Para la mejor experiencia en RPCS3:\n* Cambia el `Framelimit` de RPCS3 a `Off` en la configuracion de Rock Band 3\n* Activa `VSync` de RPCS3 en la configuracion de Rock Band 3\n* Desactiva`VSync` dentro de el menu de graficos en la configuracion Deluxe\nAlternativamente, puedes usar [[RTSS]](https://rb3pc.milohax.org/adv_rtss_es) per es mas complicado configurarlo.",
         "link": "response93",
         "files": ["media/vsyncmetaes.png"]
     },
     "response96": {
-        "triggers": ["!l2es", "!L2es", "!l2_es", "!L2_es"],
+        "triggers": ["l2es", "L2es", "l2_es", "L2_es"],
         "text": "Tu guitarra de Guitar Hero esta auto-rasgueando/haciendo auto-strum? Simplemente borra el boton que tienes en `L2` en el menu de Pads.",
         "link": "response95",
         "files": ["media/l2unmap.gif"]
     },
     "response98": {
-        "triggers": ["!padprofiles_es", "!perfilesdepad"],
+        "triggers": ["padprofiles_es", "perfilesdepad"],
         "text": "No es recomendado crear una configuracion personalizada de controles (`Custom Gamepad Configuration`) para Rock Band 3 porque no puedes cambiar el perfil de controles mientras esta corriendo el juego.\nSe puede notar si tienes una configuracion personalizada de controles si tienes un icono de mando al lado de Rock Band 3 en la lista de juegos de RPCS3.\nPuedes borrarlo haciendo click derecho en Rock Band 3 y luego `Remove > Remove Gamepad Configuration`.\nEs recomenado que uses el menu de `Pads` hacia a arriba para crear perfiles de tus configuraciones de instrumentos.\nTambien podras usar [[perfiles de la guia de RPCS3]](https://rb3pc.milohax.org/ctrls_es#usando-perfiles).",
         "link": "response97",
         "files": ["media/padoverwritees.png"]
     },
     "response99": {
-        "triggers": ["!dwdes", "!dwd_es"],
+        "triggers": ["dwdes", "dwd_es"],
         "text": "Para arreglar el crasheo despues de canciones, necesitas cambiar `Driver Wake-Up Delay` a `20` o a un multiple de 20 bajo la pestana de `Advanced` en la configuracion personalizada de Rock Band 3.\n\nEsto y otros ajustes recomendados estan en la guia de RPCS3. Revisala aqui:\nhttps://rb3pc.milohax.org/",
         "link": "response64",
         "files": ["media/dwd.png"]
     },
     "response100": {
-        "triggers": ["!wcbes", "!wcb_es"],
+        "triggers": ["wcbes", "wcb_es"],
         "text": "Para arreglar personajes con texturas corruptas, necesitas activar `Write Color Buffers` bajo la pestana de `GPU` en la configuracion personalizada de Rock Band 3.\n\nEsto y otros ajustes recomendados estan en la guia de RPCS3. Revisala aqui:\nhttps://rb3pc.milohax.org/",
         "link": "response59",
         "files": ["media/wcbon.png"]
     },
     "response101": {
-        "triggers": ["!netsetes", "!netset_es"],
+        "triggers": ["netsetes", "netset_es"],
         "text": "Para arreglar lo del juego congelandose en la biblioteca de musica, cambia `Network Status` a `Connected` bajo la pestana de Network en la configuracion de Rock Band 3.\n\nEsto y otros ajustes recomendados estan en la guia de RPCS3. Revisala aqui:\nhttps://rb3pc.milohax.org/",
         "link": "response66",
         "files": ["media/netset.png"]

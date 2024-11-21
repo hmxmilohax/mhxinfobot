@@ -64,12 +64,13 @@ def generate_session_hash():
     return str(uuid.uuid4())[:8]  # Generate a short unique hash
 
 class PaginatorView(discord.ui.View):
-    def __init__(self, triggers, alias_triggers_dict, user_id, show_aliases=False):
+    def __init__(self, triggers, alias_triggers_dict, user_id, show_aliases=False, title="Available Triggers"):
         super().__init__(timeout=EMBED_TIMEOUT)
         self.triggers = triggers
         self.alias_triggers_dict = alias_triggers_dict
         self.user_id = user_id
         self.show_aliases = show_aliases
+        self.title = title
         self.current_page = 0
         self.items_per_page = self.calculate_items_per_page()
         self.total_pages = self.calculate_total_pages()
@@ -117,7 +118,7 @@ class PaginatorView(discord.ui.View):
         self.add_buttons()
 
     def get_embed(self):
-        embed = discord.Embed(title="Available Triggers" if not self.show_aliases else "Alias Triggers", color=discord.Color.blue())
+        embed = discord.Embed(title=self.title if not self.show_aliases else f"{self.title} - Aliases", color=discord.Color.blue())
         
         start_idx = self.current_page * self.items_per_page * (COLUMNS if not self.show_aliases else COLUMNS_ALIAS)
         end_idx = start_idx + self.items_per_page * (COLUMNS if not self.show_aliases else COLUMNS_ALIAS)
@@ -295,32 +296,42 @@ async def on_message(message):
     if not message_content:
         return
 
-    # Check for command prefixes
-    if message_content.startswith('!') or message_content.startswith('¡'):
-        prefix = message_content[0]
-        command = message_content[1:].strip()
+    # Normalize the message content to lower case
+    message_content_lower = message_content.lower()
 
-        # Handle special commands like !log
-        if command.lower() == 'log':
-            await handle_log_file(message)
-            return
+    # List of valid prefixes
+    prefixes = ['!', '¡']
 
-        # Handle special commands like !list
-        if command.lower() in ["list", "triggers", "commands", "help", "cmd", "cmds"]:
-            await send_trigger_list(message.channel, message.author.id)
-            return
+    # Check for commands anywhere in the message
+    words = message_content_lower.split()
 
-        # Now handle triggers
-        if prefix == '!':
-            # Process English triggers
-            await process_trigger(message.channel, command, triggers_map, esl_triggers_with_exclamation_map)
-        elif prefix == '¡':
-            # Process ESL triggers
-            await process_esl_trigger(message.channel, command, triggers_esl_map)
-    else:
-        # Handle messages that don't start with '!' or '¡'
-        # Optionally, you can process triggers without prefixes here if needed
-        pass
+    for word in words:
+        if any(word.startswith(prefix) for prefix in prefixes):
+            # Identify the prefix used
+            for prefix in prefixes:
+                if word.startswith(prefix):
+                    command = word[len(prefix):].strip()
+                    break
+
+            # Handle special commands like log
+            if command == 'log':
+                await handle_log_file(message)
+                return
+
+            # Handle special commands like list
+            if command in ["list", "triggers", "commands", "help", "cmd", "cmds"]:
+                await send_trigger_list(message.channel, message.author.id)
+                return
+
+            # Now handle triggers
+            if prefix in ['!']:
+                # Process English triggers
+                await process_trigger(message.channel, command, triggers_map, esl_triggers_with_exclamation_map)
+                return  # Exit after processing a command
+            elif prefix == '¡':
+                # Process ESL triggers
+                await process_esl_trigger(message.channel, command, triggers_esl_map)
+                return  # Exit after processing a command
 
 async def process_trigger(channel, command, triggers_map, esl_triggers_with_exclamation_map):
     command_lower = command.lower()
@@ -340,7 +351,7 @@ async def process_trigger(channel, command, triggers_map, esl_triggers_with_excl
         await handle_response(channel, response)
         return
 
-    await channel.send(f"Command '!{command}' not found.")
+    print(f"Command '!{command}' not found.")
 
 async def process_esl_trigger(channel, command, triggers_esl_map):
     command_lower = command.lower()
@@ -350,27 +361,44 @@ async def process_esl_trigger(channel, command, triggers_esl_map):
         await handle_response(channel, response)
         return
 
-    await channel.send(f"Comando '¡{command}' no encontrado.")
+    print(f"Command '¡{command}' not found.")
 
 async def send_trigger_list(channel, user_id):
-    unique_triggers = []
-    alias_triggers_dict = {}
-
+    # Collect English triggers and aliases
+    english_triggers = []
+    english_aliases_dict = {}
     for value in triggers.values():
         if value['triggers']:
-            original_trigger = value['triggers'][0]  # Original trigger
-            unique_triggers.append(original_trigger)
+            original_trigger = value['triggers'][0]
+            english_triggers.append(original_trigger)
             if len(value['triggers']) > 1:
-                alias_triggers_dict[original_trigger] = value['triggers'][1:]  # Aliases
+                english_aliases_dict[original_trigger] = value['triggers'][1:]
 
-    # Sort triggers and aliases
-    unique_triggers = sorted(unique_triggers)
-    alias_triggers_dict = {key: alias_triggers_dict[key] for key in sorted(alias_triggers_dict)}
+    # Collect Spanish triggers and aliases
+    spanish_triggers = []
+    spanish_aliases_dict = {}
+    for value in triggers_esl.values():
+        if value['triggers']:
+            original_trigger = value['triggers'][0]
+            spanish_triggers.append(original_trigger)
+            if len(value['triggers']) > 1:
+                spanish_aliases_dict[original_trigger] = value['triggers'][1:]
+
+    # Remove duplicates and sort triggers
+    english_triggers = sorted(set(english_triggers))
+    spanish_triggers = sorted(set(spanish_triggers))
+    english_aliases_dict = {key: sorted(english_aliases_dict[key]) for key in sorted(english_aliases_dict)}
+    spanish_aliases_dict = {key: sorted(spanish_aliases_dict[key]) for key in sorted(spanish_aliases_dict)}
+
+    # Combine English and Spanish triggers
+    unique_triggers = english_triggers + spanish_triggers
+    alias_triggers_dict = {**english_aliases_dict, **spanish_aliases_dict}
 
     # Create pagination view
     view = PaginatorView(unique_triggers, alias_triggers_dict, user_id=user_id)
     embed = view.get_embed()
     view.message = await channel.send(embed=embed, view=view)
+
 
 async def handle_response(channel, response):
     if text := response.get("text"):
