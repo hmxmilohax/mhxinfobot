@@ -8,7 +8,6 @@ import gzip
 import shutil
 import uuid
 
-
 # Load the config file
 with open('config.json') as config_file:
     config = json.load(config_file)
@@ -17,9 +16,40 @@ intents = discord.Intents.default()
 intents.message_content = True
 client = discord.Client(intents=intents)
 
-# Load triggers from the JSON file once at startup
+# Load triggers from the JSON files once at startup
 with open('triggers.json') as triggers_file:
     triggers = json.load(triggers_file)
+
+with open('triggers_esl.json') as triggers_esl_file:
+    triggers_esl = json.load(triggers_esl_file)
+
+# Build mapping from triggers to responses
+triggers_map = {}
+for response in triggers.values():
+    for trigger in response['triggers']:
+        triggers_map[trigger.lower()] = response
+
+# Build mapping from ESL triggers to responses
+triggers_esl_map = {}
+esl_triggers_with_exclamation_map = {}
+for response in triggers_esl.values():
+    for trigger in response['triggers']:
+        if trigger.startswith('!'):
+            # Remove '!' from the trigger
+            esl_triggers_with_exclamation_map[trigger[1:].lower()] = response
+        else:
+            triggers_esl_map[trigger.lower()] = response
+
+    # For linked triggers, map the linked English trigger to this response
+    if 'link' in response:
+        linked_response_number = response['link']
+        if linked_response_number in triggers:
+            linked_response = triggers[linked_response_number]
+            for trigger in linked_response['triggers']:
+                triggers_esl_map[trigger.lower()] = response
+        else:
+            print(f"Linked response number {linked_response_number} not found in English triggers.")
+
 
 TEMP_FOLDER = "out/"
 if not os.path.exists(TEMP_FOLDER):
@@ -252,28 +282,75 @@ async def on_message(message):
     if message.author == client.user:
         return
 
+    # Handle publishing messages in a specific channel
     if message.channel.id == 979895152367771668:
         try:
             await message.publish()
             print(f"Published message {message.id} in channel {message.channel.id}")
         except Exception as e:
             print(f"Failed to publish message {message.id} in channel {message.channel.id}: {e}")
-        return  # Optionally, return here if you don't want further processing
-
-    normalized_content = message.content.lower().split()
-
-    if "!log" in normalized_content:
-        await handle_log_file(message)
         return
 
-    if any(command in normalized_content for command in ["!list", "!triggers", "!commands", "!help", "!cmd", "!cmds"]):
-        await send_trigger_list(message.channel, message.author.id)
+    message_content = message.content.strip()
+    if not message_content:
         return
 
-    for response in triggers.values():
-        if any(trigger.lower() in normalized_content for trigger in response['triggers']):
-            await handle_response(message.channel, response)
-            break  # Stop after sending one trigger action
+    # Check for command prefixes
+    if message_content.startswith('!') or message_content.startswith('¡'):
+        prefix = message_content[0]
+        command = message_content[1:].strip()
+
+        # Handle special commands like !log
+        if command.lower() == 'log':
+            await handle_log_file(message)
+            return
+
+        # Handle special commands like !list
+        if command.lower() in ["list", "triggers", "commands", "help", "cmd", "cmds"]:
+            await send_trigger_list(message.channel, message.author.id)
+            return
+
+        # Now handle triggers
+        if prefix == '!':
+            # Process English triggers
+            await process_trigger(message.channel, command, triggers_map, esl_triggers_with_exclamation_map)
+        elif prefix == '¡':
+            # Process ESL triggers
+            await process_esl_trigger(message.channel, command, triggers_esl_map)
+    else:
+        # Handle messages that don't start with '!' or '¡'
+        # Optionally, you can process triggers without prefixes here if needed
+        pass
+
+async def process_trigger(channel, command, triggers_map, esl_triggers_with_exclamation_map):
+    command_lower = command.lower()
+
+    if command_lower in triggers_map:
+        response = triggers_map[command_lower]
+        await handle_response(channel, response)
+        return
+
+    if command_lower in esl_triggers_with_exclamation_map:
+        response = esl_triggers_with_exclamation_map[command_lower]
+        await handle_response(channel, response)
+        return
+
+    if command_lower in triggers_esl_map:
+        response = triggers_esl_map[command_lower]
+        await handle_response(channel, response)
+        return
+
+    await channel.send(f"Command '!{command}' not found.")
+
+async def process_esl_trigger(channel, command, triggers_esl_map):
+    command_lower = command.lower()
+
+    if command_lower in triggers_esl_map:
+        response = triggers_esl_map[command_lower]
+        await handle_response(channel, response)
+        return
+
+    await channel.send(f"Comando '¡{command}' no encontrado.")
 
 async def send_trigger_list(channel, user_id):
     unique_triggers = []
