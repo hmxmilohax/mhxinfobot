@@ -398,6 +398,11 @@
         "triggers": ["reading"],
         "text": "",
         "files": ["media/reading.png"]
+    },
+    "response103": {
+        "triggers": ["betasongs"],
+        "text": "To play unreleased songs from the development stages of Rock Band 3, visit this repo that contains ports of songs that Harmonix were planning for the final release of Rock Band 3.\nhttps://github.com/exoticri/rock-band-3-beta-songs",
+        "files": []
     }
 }
 
