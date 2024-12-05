@@ -394,6 +394,26 @@
         "text": "Using a Custom Gamepad Configurations for Rock Band 3 is not suggested as you can't make pad profile changes while the game is running.\nYou can tell if you have a Custom Gamepad Configuration if Rock Band 3 has a Joypad icon next to it in RPCS3's gamelist.\nYou can remove it by right clicking it then `Remove > Remove Custom Gamepad Configuration`.\nIt's suggested to use the `Pads` menu at the top and to create profiles depending on what instrument setup you have.\nYou'll be able to use [[profiles from the RPCS3 guide page]](https://rb3pc.milohax.org/ctrls#using-profiles) this way too.",
         "files": ["media/padoverwrite.png"]
     },
+    "response98": {
+        "triggers": ["updamp", "npub31810"],
+        "text": "**Amplitude update v01.01 (14.73 MB)**\n[AMPLITUDE2015PS3-A0101-V0100-PE.pkg](http://b0.ww.np.dl.playstation.net/tppkg/np/NPUB31810/NPUB31810_T0/c526cf534d8d9a81/UP8802-NPUB31810_00-AMPLITUDE2015PS3-A0101-V0100-PE.pkg)",
+        "files": []
+    },
+    "response99": {
+        "triggers": ["blus30050"],
+        "text": "**Rock Band update v01.07 (12.91 MB)**\n[ROCKBANDPATCH040-A0107-V0100-PE.pkg](http://b0.ww.np.dl.playstation.net/tppkg/np/BLUS30050/BLUS30050_T11/0b831c494b6d26bc/UP0006-BLUS30050_00-ROCKBANDPATCH040-A0107-V0100-PE.pkg)",
+        "files": []
+    },
+    "response100": {
+        "triggers": ["blus30147"],
+        "text": "**Rock Band 2 update v01.02 (26.88 MB)**\n[ROCKBAND2PATCH02-A0102-V0100-PE.pkg](http://b0.ww.np.dl.playstation.net/tppkg/np/BLUS30147/BLUS30147_T1/c8b8d16f692b3672/UP0006-BLUS30147_00-ROCKBAND2PATCH02-A0102-V0100-PE.pkg)",
+        "files": []
+    },
+    "response101": {
+        "triggers": ["blus30382"],
+        "text": "**LEGO Rock Band update v01.01 (13.87 MB)**\n[LEGORCKBPATCH100-A0101-V0101-PE.pkg](http://b0.ww.np.dl.playstation.net/tppkg/np/BLUS30382/BLUS30382_T1/c82765fb977632f6/UP1018-BLUS30382_00-LEGORCKBPATCH100-A0101-V0101-PE.pkg)",
+        "files": []
+    },
     "response102": {
         "triggers": ["reading"],
         "text": "",
