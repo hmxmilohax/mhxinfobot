@@ -424,5 +424,11 @@
         "text": "",
         "files": ["media/reading.png"]
     }
+    ,
+    "response104": {
+        "triggers": ["fortnitebad"],
+        "text": "",
+        "files": ["media/fortnitebad.png"]
+    }
 }
 
