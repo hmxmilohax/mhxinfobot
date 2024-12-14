@@ -13,7 +13,7 @@ def get_decomp_info():
     frogress_json = json.load(urlreq.urlopen("https://progress.decomp.club/data/rb3/SZBE69_B8/dol/"))
     # remove wrapper sludge
     frogress_data = frogress_json['rb3']['SZBE69_B8']['dol'][0]
-    return f"Commit {frogress_data['git_hash'][0:6]} has {frogress_data['measures']['matched_code'] / frogress_data['measures']['matched_code/total'] * 100:.2f}% matched code and {frogress_data['measures']['matched_data'] / frogress_data['measures']['matched_data/total'] * 100:.2f}% matched data.\nAdditionally, it has {frogress_data['measures']['matched_functions'] / frogress_data['measures']['matched_functions/total'] * 100:.2f}% matching functions and {frogress_data['measures']['code'] / frogress_data['measures']['code/total'] * 100:.2f}% linked (i.e. fully complete, in-order) code."
+    return f"# Rock Band 3 Decompilation\nCommit *{frogress_data['git_hash'][0:6]}* has **{frogress_data['measures']['matched_code'] / frogress_data['measures']['matched_code/total'] * 100:.2f}%** matched code and **{frogress_data['measures']['matched_data'] / frogress_data['measures']['matched_data/total'] * 100:.2f}%** matched data.\nAdditionally, it has **{frogress_data['measures']['matched_functions'] / frogress_data['measures']['matched_functions/total'] * 100:.2f}%** matching functions and **{frogress_data['measures']['code'] / frogress_data['measures']['code/total'] * 100:.2f}%** linked (i.e. fully complete, in-order) code.\nhttps://rb3dx.milohax.org/decomp"
 
 # Load the config file
 with open('config.json') as config_file:
