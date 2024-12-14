@@ -19,11 +19,11 @@ def get_decomp_info():
     decomp_commit_time = dt.strftime("%B %d %Y, %I:%M:%S %p")
     return (
         f"# Rock Band 3 Decompilation\n"
-        f"Last commit: **{decomp_commit_time}** *({frogress_data['git_hash'][0:6]})*\n"
+        f"Last commit: **{decomp_commit_time}** *({frogress_data['git_hash'][0:6]})*\n\n"
         f"**{frogress_data['measures']['matched_code'] / frogress_data['measures']['matched_code/total'] * 100:.2f}%** matched code\n"
         f"**{frogress_data['measures']['code'] / frogress_data['measures']['code/total'] * 100:.2f}%** linked code. (i.e. fully complete, in-order)\n"
-        f"**{frogress_data['measures']['matched_data'] / frogress_data['measures']['matched_data/total'] * 100:.2f}%** matched data.\n"
-        f"**{frogress_data['measures']['matched_functions'] / frogress_data['measures']['matched_functions/total'] * 100:.2f}%** matching functions\n"
+        f"**{frogress_data['measures']['matched_data'] / frogress_data['measures']['matched_data/total'] * 100:.2f}%** matched data\n"
+        f"**{frogress_data['measures']['matched_functions'] / frogress_data['measures']['matched_functions/total'] * 100:.2f}%** matching functions\n\n"
         "<https://rb3dx.milohax.org/decomp>"
     )
 
