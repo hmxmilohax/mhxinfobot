@@ -434,5 +434,11 @@
         "text": "",
         "files": ["media/grass.mp4"]
     }
+    ,
+    "response106": {
+        "triggers": ["rbvr"],
+        "text": "https://youtu.be/fOkZ6QNBEzw",
+        "files": [""]
+    }
 }
 
