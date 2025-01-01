@@ -423,12 +423,16 @@
         "triggers": ["reading"],
         "text": "",
         "files": ["media/reading.png"]
-    }
-    ,
+    },
     "response104": {
         "triggers": ["fortnitebad"],
         "text": "",
         "files": ["media/fortnitebad.png"]
+    },
+    "response105": {
+        "triggers": ["touchgrass", "grass"],
+        "text": "",
+        "files": ["media/grass.mp4"]
     }
 }
 
