@@ -326,7 +326,7 @@
     },
     "response68": {
         "triggers": ["content", "confiles", "livefiles"],
-        "text": "* Rock Band 1/2 DLC\n`/Hdd1/Content/0000000000000000/45410829/00000001`\n`/Hdd1/Content/0000000000000000/45410829/00000002`\n* Rock Band 3 DLC\n`/Hdd1/Content/0000000000000000/45410914/00000001`\n`/Hdd1/Content/0000000000000000/45410914/00000002`\n\nCON files go in `00000001`\nLIVE files go in `00000002`\n\nUse RBtoUSB from [Nautilus](https://nemosnautilus.com/nautilus/) to place files in the correct place for you on a flash drive if unsure",
+        "text": "* Rock Band 1/2 DLC (CON FILES) / Rock Band 1 Save/SongCache\n`/Hdd1/Content/0000000000000000/45410829/00000001`\n* Rock Band 1/2 DLC (LIVE FILES)\n`/Hdd1/Content/0000000000000000/45410829/00000002`\n* Rock Band 2 Save/SongCache\n`/Hdd1/Content/0000000000000000/45410869/00000001`\n* Rock Band 2 RBN 1.0\n`/Hdd1/Content/0000000000000000/45410869/00000002`\n* Rock Band 3 DLC (CON FILES (tu4/rb3dx/rb3e only)) / Rock Band 3 Save/SongCache\n`/Hdd1/Content/0000000000000000/45410914/00000001`\n* Rock Band 3 DLC (LIVE FILES)\n`/Hdd1/Content/0000000000000000/45410914/00000002`\n\nCON files go in `00000001`\nLIVE files go in `00000002`\n\nUse RBtoUSB from [Nautilus](https://nemosnautilus.com/nautilus/) to place files in the correct place for you on a flash drive if unsure",
         "files": []
     },
     "response69": {
