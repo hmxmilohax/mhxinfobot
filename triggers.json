@@ -216,7 +216,7 @@
     },
     "response45": {
         "triggers": ["themeats", "meat", "meats", "arbys", "arbyshasthemeats"],
-        "text": "Looking for Rock Band song packs? Use '!songs' instead for an easier to navigate experience.\nFor everything else, including rare oddities and goodies, visit the following link.",
+        "text": "Looking for Rock Band song packs? Use `!songs` instead for an easier to navigate experience.\nFor everything else, including rare oddities and goodies, visit the following link.",
         "files": ["media/themeats.png"]
     },
     "response46": {
