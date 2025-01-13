@@ -444,6 +444,11 @@
         "triggers": ["shad", "shadps4", "rb4pc"],
         "text": "# THE RB4/AMP16 SHADPS4 MASTER GUIDE\n*(last updated 2025-01-09, will be edited as development continues)*\n\n## What works:\n- All versions of Rock Band 4 [CUSA02084] (01.08 is recommended right now)\n- All versions of Amplitude (2016) [CUSA02480]\n> ***We cannot provide you with these.***\n\n- [Amplitude (2016) Deluxe](<https://github.com/hmxmilohax/Amplitude-2016-Deluxe#readme>)\n## What doesn't work (yet):\n- FX Switch\n- Vocals\n- Multiplayer (local and online)\n- DLC on RB4 02.21\n- Rock Band 4 Deluxe\n\n## You need to use the [shadPS4 RB4 fork](<https://nightly.link/LlysiX/shadPS4/workflows/build/rb4-new>)\n\n# IMPORTANT RB4 FIX:\n***Navigate to the game's install folder and move both .prx files from the root folder into the GAME'S `sce_module` folder!***\n\n## Emulator Settings\n- Enable Fullscreen if you so desire\n- Set the resolution as you desire, FYI the game natively renders in `1920x1080`\n- Set the Vblank Divider to `1` for 60 FPS or `9999` for unlimited FPS\n - You can use [RivaTuner Statistics Server](<https://www.guru3d.com/download/rtss-rivatuner-statistics-server-download/>) to set a custom FPS cap\n## Instrument Setup\n> *Most Xinput and SDL controllers will just work, other controllers require [x360ce](<https://www.x360ce.com/#Help>) to map to [shadPS4's keyboard controls](<https://github.com/shadps4-emu/shadPS4?tab=readme-ov-file#keyboard-mapping>).*\n\n- Navigate to the newly created `user` folder and open `config.toml` in a text editor\n - Set `useSpecialPad` to `true`\n - Set `specialPadClass` to `1` for guitar or `2` for drums\n## For RB4 01.08:\nThere is no way to activate, you will need the [left d-pad activation patch](<https://drive.google.com/file/d/1qnRMmXzfAYYL23CjMkWGF8aw0cU3SVPH>).\n- Overwrite `main_ps4_0.ark` in your game folder\n\nFollow the following guide for RB4 customs installation.\nhttps://youtu.be/IweevMizZeI",
         "files": []
+    },
+    "response108": {
+        "triggers": ["neverhax", "neversoft"],
+        "text": "# #NeverHax\nLooking for mods and info relating to Neversoft Guitar Hero games?\nJoin the NeverHax Discord here:\nhttps://discord.gg/FcZ7yX3rNY",
+        "files": []
     }
 }
 
