@@ -127,7 +127,7 @@
     },
     "response108": {
         "triggers": ["neverhax", "neversoft"],
-        "text": "Buscas mods o informacion de los Guitar Heros hechos por Neversoft?\nUnete al Discord de NeverHax aqui:\nhttps://discord.gg/FcZ7yX3rNY",
+        "text": "## NeverHax\nBuscas mods o informacion de los Guitar Heros hechos por Neversoft?\nUnete al Discord de NeverHax aqui:\nhttps://discord.gg/FcZ7yX3rNY",
         "link": "response108",
         "files": []
     }
