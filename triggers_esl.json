@@ -124,6 +124,13 @@
         "text": "Para arreglar lo del juego congelandose en la biblioteca de musica, cambia `Network Status` a `Connected` bajo la pestana de Network en la configuracion de Rock Band 3.\n\nEsto y otros ajustes recomendados estan en la guia de RPCS3. Revisala aqui:\nhttps://rb3pc.milohax.org/",
         "link": "response66",
         "files": ["media/netset.png"]
+    },
+    "response108": {
+        "triggers": ["neverhax", "neversoft"],
+        "text": "Buscas mods o informacion de los Guitar Heros hechos por Neversoft?\nUnete al Discord de NeverHax aqui:\nhttps://discord.gg/FcZ7yX3rNY",
+        "link": "response108",
+        "files": []
     }
 }
+
 
