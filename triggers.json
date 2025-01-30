@@ -281,7 +281,7 @@
     },
     "response58": {
         "triggers": ["teleport", "teleporting", "floating", "hair"],
-        "text": "Glitching/teleporting instruments is a vanilla Rock Band 3 bug present in **PS3**, made worse in **RPCS3**.\nLinked below is a file you can extract and patch your\n**Vanilla Base RB3 extracted disc game files**\nto fix the issue for all guitars, basses, hairs, mics, hats, and masks.\n[PS3 Glitch Patch Files](https://github.com/hmxmilohax/rock-band-3-deluxe/raw/main/dependencies/ps3_patcher/rb3_ps3_guitar_glitch_fix.7z)",
+        "text": "Glitching/teleporting instruments is a vanilla Rock Band 3 bug present in **PS3**, made worse in **RPCS3**.\nLinked below is a file you can extract and patch your\n**Vanilla Base RB3 extracted disc game files**\nto fix the issue for all guitars, basses, hairs, mics, hats, and masks.\n[PS3 Glitch Patch Files](https://github.com/hmxmilohax/rock-band-3-deluxe/raw/develop/dependencies/ps3_patcher/rb3_ps3_guitar_glitch_fix.7z)",
         "files": []
     },
     "response59": {
