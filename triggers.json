@@ -455,5 +455,10 @@
         "text": "",
         "files": ["media/wii.png"]
     }
+    "response110": {
+        "triggers": ["microsoft"],
+        "text": "",
+        "files": ["media/microsoft-stinks.png"]
+    }
 }
 
