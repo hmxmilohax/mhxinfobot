@@ -457,8 +457,8 @@
     }
     "response110": {
         "triggers": ["microsoft"],
-        "text": "",
-        "files": ["media/microsoft-stinks.png"]
+        "text": "<https://www.youtube.com/watch?v=LZzubS1ILTs>",
+        "files": ["media/microsoft-sucks.png"]
     }
 }
 
