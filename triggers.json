@@ -116,7 +116,7 @@
     },
     "response25": {
         "triggers": ["nautilus", "c3contools", "c3tools"],
-        "text": "# Latest Nautilus\n<#1154040502845444277>\nhttps://nemosnautilus.com/nautilus/",
+        "text": "# Latest Nautilus\nGet it from [GitHub](https://github.com/trojannemo/Nautilus/releases/) or from [Nemo's Nautilus](https://nemosnautilus.com/nautilus/)\nJoin the Discord server here: https://discord.gg/ydGmRyKGVW",
         "files": []
     },
     "response26": {
