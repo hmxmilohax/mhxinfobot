@@ -446,7 +446,7 @@
         "files": []
     },
     "response108": {
-        "triggers": ["neverhax", "neversoft"],
+        "triggers": ["neverhax", "neversoft", "ns"],
         "text": "## NeverHax\nLooking for mods and info relating to Neversoft Guitar Hero games?\nJoin the NeverHax Discord here:\nhttps://discord.gg/FcZ7yX3rNY",
         "files": []
     },
