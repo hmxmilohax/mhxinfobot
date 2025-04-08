@@ -260,7 +260,7 @@
         "files": []
     },
     "response54": {
-        "triggers": ["syntax", "sublime"],
+        "triggers": ["sublime"],
         "text": "# DTA Syntax Highlighting for Sublime Text",
         "files": ["media/DataArray.sublime-syntax"]
     },
@@ -458,6 +458,11 @@
     "response110": {
         "triggers": ["microsoft"],
         "text": "https://www.youtube.com/watch?v=LZzubS1ILTs",
+        "files": []
+    },
+    "response111": {
+        "triggers": ["syntax"],
+        "text": "Find DTA syntax definitions for various text editors here!\n<https://github.com/hmxmilohax/tools/tree/main/syntax>",
         "files": []
     }
 }
