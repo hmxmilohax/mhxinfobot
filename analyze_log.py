@@ -13,6 +13,8 @@ def analyze_log_file(log_file_path):
     firmware_version = None
     emulator_info = {"version": "", "cpu": "", "os": "", "gpu": ""}
     language_message = ""
+    call_stack = []
+    thread_context = []
     
     # Sets to track duplicate issues
     onedrive_issues = set()
@@ -26,6 +28,31 @@ def analyze_log_file(log_file_path):
         try:
             with open(log_file_path, 'r', encoding=encoding) as file:
                 lines = file.readlines()
+                # Collect the entire call‐stack *and* disassembly block as raw lines
+                call_stack_block = []
+                in_stack = False
+                for line in lines:
+                    # start when we hit the call‐stack header
+                    if line.strip().startswith("Call stack:"):
+                        in_stack = True
+                    if in_stack:
+                        # stop only when we hit a truly empty line *after* we've started collecting
+                        if line.lstrip().startswith("·"):
+                           break
+                        call_stack_block.append(line.rstrip())
+                in_context = False
+                for line in lines:
+                    low = line.lower()
+                    # start when we hit the context header
+                    if "thread context:" in low:
+                        in_context = True
+            
+                    if in_context:
+                        # once we reach the call‐stack marker, stop collecting
+                        if low.startswith("call stack:"):
+                            break
+                        # otherwise grab every single line (including blanks)
+                        thread_context.append(line.rstrip())
             break  # Exit loop if successful
         except UnicodeDecodeError:
             continue  # Try next encoding
@@ -421,6 +448,21 @@ def analyze_log_file(log_file_path):
         for issue, lines in non_default_settings.items():
             line_info = ", ".join(lines)  # Combine all line numbers
             output += f"{issue} (on {line_info})\n"
+
+    details = []
+    if thread_context:
+        details.append("=== THREAD CONTEXT ===")
+        details.extend(thread_context)
+        details.append("")  # blank line
+    if call_stack_block:
+        details.append("=== CALL STACK + DISASSEMBLY ===")
+        details.extend(call_stack_block)
+
+    diagnostics_file = None
+    if details:
+        diagnostics_file = log_file_path + ".debug.txt"
+        with open(diagnostics_file, "w", encoding="utf-8") as f:
+            f.write("\n".join(details))
     
     if not critical_issues and not game_issues and not non_default_settings and not pad_issues:
         output += "## No issues detected. Let us know if this is wrong."
@@ -431,4 +473,4 @@ def analyze_log_file(log_file_path):
     if language_message:
         output += f"\n\n{language_message}"
 
-    return output
+    return output, diagnostics_file

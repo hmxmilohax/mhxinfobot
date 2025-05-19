@@ -278,14 +278,18 @@ async def handle_log_file(message):
 
     # Call the analyze_log_file function directly
     try:
-        # Analyze the log file and capture the result
-        output = analyze_log_file(decompressed_log_path)
+        # Now analyze_log_file returns (summary, debug_txt_path)
+        summary, debug_txt = analyze_log_file(decompressed_log_path)
 
-        # Create a Discord embed to format the output nicely
+        # Send the short summary as before
         embed = discord.Embed(title="Log Analysis Result", color=discord.Color.blue())
-        embed.description = output[:4096]  # Discord embed description limit is 4096 chars
-
+        embed.description = summary[:4096]
         await message.channel.send(embed=embed)
+
+        # If we wrote out a debug file, upload it
+        if debug_txt:
+            await message.channel.send("Full debug info:", file=discord.File(debug_txt))
+            os.remove(debug_txt)
 
     except Exception as e:
         await message.channel.send(f"Error analyzing log file: {e}")
