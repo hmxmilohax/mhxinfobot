@@ -10,6 +10,7 @@ import shutil
 import urllib.request as urlreq
 import uuid
 import requests
+from discord.ext import tasks
 
 def get_decomp_info():
     frogress_json = json.load(urlreq.urlopen("https://progress.decomp.club/data/rb3/SZBE69_B8/dol/"))
