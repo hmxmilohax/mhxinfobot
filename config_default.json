@@ -1,4 +1,8 @@
 {
   "bot_token": "BOT_TOKEN_HERE",
-  "github_token": "YOUR_GITHUB_PERSONAL_ACCESS_TOKEN"
+  "github_token": "YOUR_GITHUB_PERSONAL_ACCESS_TOKEN",
+  "extra_repos": [
+    "otherOrg/special-repo",
+    "anotherOrg/another-repo"
+  ]
 }
