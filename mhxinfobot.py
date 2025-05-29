@@ -9,6 +9,8 @@ import gzip
 import shutil
 import urllib.request as urlreq
 import uuid
+import requests
+from discord.ext import tasks
 
 def get_decomp_info():
     frogress_json = json.load(urlreq.urlopen("https://progress.decomp.club/data/rb3/SZBE69_B8/dol/"))
@@ -30,6 +32,10 @@ def get_decomp_info():
 # Load the config file
 with open('config.json') as config_file:
     config = json.load(config_file)
+
+GITHUB_TOKEN = config.get('github_token')
+HEADERS = {'Authorization': f'token {GITHUB_TOKEN}', 'Accept': 'application/vnd.github.v3+json'}
+EXTRA_REPOS = config.get("extra_repos", [])
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -242,6 +248,7 @@ class ViewTriggersButton(discord.ui.Button):
 @client.event
 async def on_ready():
     print(f'Logged in as {client.user}!')
+    check_actions_staleness.start()   # kick off the daily loop
 
 async def handle_log_file(message):
     if len(message.attachments) == 0:
@@ -341,6 +348,10 @@ async def on_message(message):
                 await handle_log_file(message)
                 return
 
+            if command == 'actions':
+                await check_actions_staleness()  # manual trigger
+                return
+
             # Handle special commands like list
             if command in ["list", "triggers", "commands", "help", "cmd", "cmds"]:
                 await send_trigger_list(message.channel, message.author.id)
@@ -359,6 +370,78 @@ async def on_message(message):
                 # Process ESL triggers
                 await process_esl_trigger(message.channel, command, triggers_esl_map)
                 return  # Exit after processing a command
+
+@tasks.loop(hours=24)
+async def check_actions_staleness():
+    """
+    Checks all repos under hmxmilohax + any EXTRA_REPOS for their most recent GitHub Actions run.
+    If the latest run is 89 days or older, reports it to the designated channel.
+    """
+    stale = []
+
+    # 1) List all hmxmilohax repos
+    repos_url = "https://api.github.com/users/hmxmilohax/repos?per_page=100"
+    resp = requests.get(repos_url, headers=HEADERS)
+    resp.raise_for_status()
+
+    # build a list of (owner, name)
+    monitored = [( "hmxmilohax", r["name"]) for r in resp.json()]
+
+    # 2) Add any extras from config
+    for repo_full in EXTRA_REPOS:
+        if "/" in repo_full:
+            owner, name = repo_full.split("/", 1)
+        else:
+            owner, name = "hmxmilohax", repo_full
+        if (owner, name) not in monitored:
+            monitored.append((owner, name))
+
+    # 3) Check each one’s latest run
+    for owner, name in monitored:
+        runs_url = f"https://api.github.com/repos/{owner}/{name}/actions/runs?per_page=1"
+        r2 = requests.get(runs_url, headers=HEADERS)
+        if r2.status_code != 200:
+            continue
+        runs = r2.json().get("workflow_runs", [])
+        if not runs:
+            continue
+
+        latest = runs[0]
+        created = datetime.fromisoformat(latest["created_at"].rstrip("Z"))
+
+        if (datetime.utcnow() - created).days >= 89:
+            # show full repo path if it’s extra
+            display = name if owner == "hmxmilohax" else f"{owner}/{name}"
+            stale.append((display, created.date(), latest["html_url"]))
+
+    # 4) Build a pretty embed
+    channel = client.get_channel(1186453136731287642)
+    if not channel:
+        return
+
+    if stale:
+        embed = discord.Embed(
+            title="🛠️ Stale GitHub Actions",
+            description="Workflows with no runs in the last 89 days:",
+            color=discord.Color.orange()
+        )
+        lines = [
+            f"• **{repo}** — last run `{when}`: <{url}>"
+            for repo, when, url in stale
+        ]
+        embed.add_field(
+            name=f"{len(stale)} stale repos",
+            value="\n".join(lines),
+            inline=False
+        )
+    else:
+        embed = discord.Embed(
+            title="✅ All caught up!",
+            description="All workflows have run within the last 89 days.",
+            color=discord.Color.green()
+        )
+
+    await channel.send(embed=embed)
 
 async def process_trigger(channel, command, triggers_map, esl_triggers_with_exclamation_map):
     command_lower = command.lower()
