@@ -36,6 +36,12 @@ with open('config.json') as config_file:
 GITHUB_TOKEN = config.get('github_token')
 HEADERS = {'Authorization': f'token {GITHUB_TOKEN}', 'Accept': 'application/vnd.github.v3+json'}
 EXTRA_REPOS = config.get("extra_repos", [])
+IGNORED_REPOS = [
+    "amp-2016-customs",
+    "AmpHelper",
+    "GH2DX-Site",
+    "MiloHax-Site "
+]
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -374,8 +380,9 @@ async def on_message(message):
 @tasks.loop(hours=24)
 async def check_actions_staleness():
     """
-    Checks all repos under hmxmilohax + any EXTRA_REPOS for their most recent GitHub Actions run.
-    If the latest run is 89 days or older, reports it to the designated channel.
+    Checks all repos under hmxmilohax (minus IGNORED_REPOS) + any EXTRA_REPOS
+    for their most recent GitHub Actions run. If the latest run is 89 days or older,
+    reports it to the designated channel.
     """
     stale = []
 
@@ -384,8 +391,12 @@ async def check_actions_staleness():
     resp = requests.get(repos_url, headers=HEADERS)
     resp.raise_for_status()
 
-    # build a list of (owner, name)
-    monitored = [( "hmxmilohax", r["name"]) for r in resp.json()]
+    # build a list of (owner, name), skipping ignored
+    monitored = [
+        ("hmxmilohax", r["name"])
+        for r in resp.json()
+        if r["name"] not in IGNORED_REPOS
+    ]
 
     # 2) Add any extras from config
     for repo_full in EXTRA_REPOS:
@@ -410,11 +421,10 @@ async def check_actions_staleness():
         created = datetime.fromisoformat(latest["created_at"].rstrip("Z"))
 
         if (datetime.utcnow() - created).days >= 89:
-            # show full repo path if it’s extra
             display = name if owner == "hmxmilohax" else f"{owner}/{name}"
             stale.append((display, created.date(), latest["html_url"]))
 
-    # 4) Build a pretty embed
+    # 4) Build and send a pretty embed
     channel = client.get_channel(1186453136731287642)
     if not channel:
         return
@@ -435,11 +445,7 @@ async def check_actions_staleness():
             inline=False
         )
     else:
-        embed = discord.Embed(
-            title="✅ All caught up!",
-            description="All workflows have run within the last 89 days.",
-            color=discord.Color.green()
-        )
+        return
 
     await channel.send(embed=embed)
 
