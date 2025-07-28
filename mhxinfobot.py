@@ -418,7 +418,17 @@ async def check_actions_staleness():
             continue
 
         latest = runs[0]
+        run_id = latest["id"]
         created = datetime.fromisoformat(latest["created_at"].rstrip("Z"))
+
+        # ✅ Check if that run has any artifacts
+        artifacts_url = f"https://api.github.com/repos/{owner}/{name}/actions/runs/{run_id}/artifacts"
+        r3 = requests.get(artifacts_url, headers=HEADERS)
+        if r3.status_code != 200:
+            continue
+        artifact_data = r3.json()
+        if not artifact_data.get("artifacts"):  # skip repos with no artifacts
+            continue
 
         if (datetime.utcnow() - created).days >= 89:
             display = name if owner == "hmxmilohax" else f"{owner}/{name}"
