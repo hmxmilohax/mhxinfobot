@@ -145,7 +145,7 @@
         "files": []
     },
     "response31": {
-        "triggers": ["rb3debug"],
+        "triggers": ["rb3debug", "bank8"],
         "text": "https://hiddenpalace.org/Rock_Band_3_(Sep_1,_2010_prototype)",
         "files": []
     },
