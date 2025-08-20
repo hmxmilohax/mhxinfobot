@@ -469,6 +469,11 @@
         "triggers": ["leakers"],
         "text": "",
         "files": ["media/leakers.mp4"]
+    },
+    "response113": {
+        "triggers": ["rcm"],
+        "text": "https://retrocultmods.com/programming-tool/",
+        "files": [""]
     }
 }
 
