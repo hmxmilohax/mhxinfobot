@@ -1,0 +1,68 @@
+Guía para instalar RB3Enhanced 0.7 en Xbox 360
+==[ https://rb3e.rbenhanced.rocks ]===
+
+Esto requiere una consola modificada (RGH/JTAG) - este plugin NO funciona
+en consolas no modificadas o flasheadas. Por ahora, TAMPOCO funciona
+con Softmod.
+
+1) Copia RB3ELoader.xex, RB3Enhanced.dll y rb3.ini a tu Xbox 360.
+   Puedes usar una memoria USB, FTP o Neighborhood.
+   Se recomienda que coloques:
+   - RB3ELoader.xex en el directorio raíz de tu disco duro o memoria USB.
+   - RB3Enhanced.dll y rb3.ini dentro de la carpeta de tu juego si lo
+     tienes instalado. Sino, colócalo en el directorio
+     raíz de tu disco duro o memoria USB.
+
+2) PUEDES:
+   a) Copiar la carpeta entera de "rb3" a el directorio raíz de tu disco duro
+   o memoria USB.
+   b) Copia los archivos *dentro* de la carpeta de "rb3" a la carpeta donde esta
+      instalado Rock Band 3 en tu Xbox 360. (Solo si lo tienes instalado)
+
+
+Si estas instalando de nuevo:
+
+3) Abre la configuración de Dashlaunch en tu Xbox 360.
+
+4) En la sección de "Plugins" en Dashlaunch, elige un apartado de y encuentra
+   donde instalaste el archivo de RB3ELoader.xex (e.g. Usb0:\RB3ELoader.xex)
+
+5) Pulsa RB en tu control para cambiar a la sección para guardar ajustes,
+   ve a tu almacenamiento primario (e.g. Hdd:\) y pulsa X para guardarlos.
+
+6) Reinicia tu Xbox 360 y inicia Rock Band 3.
+
+Si el plugin carga bien, veras una notificación que dice
+"RB3Enhanced 0.7 loaded" al iniciar Rock Band 3.
+
+Para cambiar cualquier opción de los ajustes por defecto, puedes cambiarlos
+en el archivo de rb3.ini.
+
+(* RB3Enhanced.dll y rb3.ini deben de estar colocados en el
+   directorio raíz de tu disco duro, el directorio raíz de tu memoria USB
+   o la carpeta donde tienes tu copia RB3 instalada.)
+
+Actualizando de RB3Enhanced 0.5
+==============================
+
+Si estas actualizando desde RB3Enhanced 0.5.1 o después, no hay pasos distintos.
+Solamente reemplaza RB3Enhanced.dll y ya es todo.
+
+Si estas actualizando desde RB3Enhanced 0.5, necesitas asegurarte
+que el archivo "RB3Enhanced.xex" viejo no este en el apartado de Dashlaunch,
+para no causar conflictos con la versión nueva de RB3ELoader.xex.
+
+El formato del archivo rb3.ini ha cambiado. Por favor revisa el archivo rb3.ini
+nueve para ver de ejemplo.
+
+Código fuente
+===========
+
+El código fuente de esta versión de RB3Enhanced esta disponible para descargar,
+según al acuerdo de la Licencia Pública General de GNU versión 2 (o después si quieres).
+
+GitHub: https://github.com/RBEnhanced/RB3Enhanced/tree/0.7
+Tarball: https://dl.rbenhanced.rocks/source/RB3Enhanced-0.7.tar.gz
+
+Si no puedes descargar de ningún enlace, ve a https://rbenhanced.rocks/.
+
