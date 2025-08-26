@@ -268,6 +268,6 @@
         "text": "Quieres entrar a la carpeta del disco en RPCS3?\nHaz click derecho en Rock Band 3 en RPCS3 y luego en `Open Folder` > `Open Disc Game Folder`",
         "link": "response99",
         "files": ["media/discgame.png"]
-    },
+    }
 }
 
