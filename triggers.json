@@ -25,9 +25,9 @@
         "files": ["media/charname.png"]
     },
     "response6": {
-        "triggers": ["configs", "config"],
-        "text": "To upload your configuration:\n* Go to your RPCS3 installation folder\n* Go into **config folder**, then into **custom_configs**\n* For Rock Band 2, send `config_BLUS30147.yml`\n* For Rock Band 3, send `config_BLUS30463.yml`",
-        "files": []
+        "triggers": ["customconfig", "config", "configs"],
+        "text": "To upload your configuration:\n1. Right click the game in the Game List\n2. Go to `Open Folder` > `Open Custom Config Folder`\n* For Rock Band 2, send `config_BLUS30147.yml`\n* For Rock Band 3, send `config_BLUS30463.yml`",
+        "files": ["media/customconfig.png"]
     },
     "response7": {
         "triggers": ["dlcinstall", "export", "exports", "dlc"],
@@ -54,426 +54,447 @@
         "text": "# Guitar Hero II Deluxe Unified\nNote: This project is massively unfinished and contains very few modifications.\nhttps://github.com/hmxmilohax/Guitar-Hero-II-Deluxe-Unified",
         "files": []
     },
-    "response13": {
+    "response12": {
         "triggers": ["gh2dx"],
         "text": "# Guitar Hero II Deluxe\nhttps://gh2dx.milohax.org/",
         "files": []
     },
-    "response14": {
+    "response13": {
         "triggers": ["gocentral"],
         "text": "There is a single IP address for all platforms to keep things easy and simple:\n`45.33.44.103`\nIf you need to use a domain, use the gocentral-`platform`.rbenhanced.rocks domain. For example:\n`gocentral-xbox.rbenhanced.rocks`\n`gocentral-wii.rbenhanced.rocks`\n`gocentral-ps3.rbenhanced.rocks`\nSee the guide in https://discord.com/channels/953085263008129064/1076031372185042984 for information about how to connect on your preferred platform. https://discord.gg/wyMHERMZvE",
         "files": []
     },
-    "response15": {
+    "response14": {
         "triggers": ["grey", "gray"],
         "text": "# PS3 Hardware Players:\n\nGreyed out custom songs? Completely disable Parental Controls on your PS3 and it might fix it! By default, this is set to level 9, which is not enough to allow \"Not Rated\" songs like many customs, and even Rock Band Network.\n\nXMB: [ Settings ] -> [ Security Settings ] -> [ Parental Control ] -> [ **Off** ]",
         "files": ["media/grey.png"]
     },
-    "response16": {
+    "response15": {
         "triggers": ["hammers"],
         "text": "",
         "files": ["media/hammers.mp4"]
     },
-    "response17": {
+    "response16": {
         "triggers": ["instruments"],
         "text": "https://rb3pc.milohax.org/ctrls",
         "files": []
     },
-    "response18": {
-        "triggers": ["keynav"],
+    "response17": {
+        "triggers": ["keynav", "octave"],
         "text": "https://rb3pc.milohax.org/images/instruments/xtra/midi/rbkeysoctshift.gif",
         "files": []
     },
-    "response19": {
+    "response18": {
         "triggers": ["log", "logs"],
-        "text": "Error: User provided no rpcs3.log.\nTo upload a log, type `!log` and:\n* Run into the crash or problem first then close out RPCS3.\n* **DO NOT REOPEN IT!**\n* Send `RPCS3.log` or `RPCS3.log.gz`\n* On Windows, it's in the folder you have RPCS3 in.\n* On Linux, it's in `~/.cache/rpcs3/`.\n* On macOS, it's in `~/Library/Caches/rpcs3`. (May require you to show hidden folders)\nThe bot should be able to process your log to help you understand what may be wrong.",
-        "files": ["media/log.png"]
+        "text": "Error: User provided no rpcs3.log.\nTo send a log, run into a problem then,\nin the main RPCS3 window, click on `File` > `Exit and Save Log`.\nSave the log somewhere convenient then upload it to the chat with a `!log` message so the bot can see it.\nIf you're running into hard crashes, **do not reopen RPCS3!**\nFind the `RPCS3.log` or `RPCS3.log.gz` file and send that.\n* On Windows, it's in the folder called `logs` in the folder you have RPCS3 in.\n* On Linux, it's in `~/.cache/rpcs3/logs`.\n* On macOS, it's in `~/Library/Caches/rpcs3/logs`. (May require you to show hidden folders)",
+        "files": ["media/savelog.png"]
     },
-    "response20": {
+    "response19": {
         "triggers": ["lore"],
         "text": "",
         "files": ["media/lore.mov"]
     },
-    "response21": {
+    "response20": {
         "triggers": ["mem", "himem", "memory"],
         "text": "# RPCS3 High Memory Mode #\nThis will increase your song limit to 16,000 and should allow for better stability and less crashes by allowing RB3 to use extra memory in your system.\n\nStep 1: Right click Rock Band 3 and select `Change Custom Configuration`\nStep 2: Enable `Debug Console Mode` under the Advanced tab\nStep 3: Download the dx_high_memory.dta file at the bottom of this post into: `dev_hdd0/game/BLUS30463/USRDIR`\n\n*if you already installed the pre-made recommended configuration from the rb3pc guide, you will already have this*\n\nDO NOT ATTEMPT TO USE THIS ON HARDWARE",
         "files": ["media/mem.png", "media/dx_high_memory.dta"]
     },
-    "response22": {
+    "response21": {
         "triggers": ["mididrums"],
         "text": "# Using Midi Drums Over USB on RPCS3\nhttps://rb3pc.milohax.org/ctrls_drums_midi",
         "files": []
     },
-    "response23": {
+    "response22": {
         "triggers": ["moggtools"],
         "text": "Download Release:\n<https://drive.google.com/file/d/155dxM99XRRvYp3nkwLfjf4mTLYNZf4sg/view?usp=drive_link>\nSource Code:\nhttps://github.com/DanTheMan827/MoggTools",
         "files": []
     },
-    "response24": {
+    "response23": {
         "triggers": ["mpa"],
         "text": "Best: Take it apart, sand and clear coat it (pictured) If you dont want to take it apart, scrub with a brush and 90%+ isopropyl alcohol until it feels better.",
         "files": ["media/mpa.jpg"]
     },
-    "response25": {
+    "response24": {
         "triggers": ["nautilus", "c3contools", "c3tools"],
         "text": "# Latest Nautilus\nGet it from [GitHub](<https://github.com/trojannemo/Nautilus/releases/latest>) or from [Nemo's Nautilus](<https://nemosnautilus.com/nautilus/>)\nJoin the Discord server here: https://discord.gg/ydGmRyKGVW",
         "files": []
     },
-    "response26": {
+    "response25": {
         "triggers": ["nightly", "beta"],
         "text": "# Rock Band 3 Deluxe Nightly Builds\n### These are updated every time changes are pushed to the `develop` branch, which is very often, usually multiple times a day.\nHelp us find bugs before releases are made!\n***May contain bugs***, *not recommended for long events or parties.*\nhttps://nightly.link/hmxmilohax/rock-band-3-deluxe/workflows/build/develop",
         "files": []
     },
-    "response27": {
+    "response26": {
         "triggers": ["onyx"],
         "text": "# Onyx Music Game Toolkit\n<#964723219280052284>\nhttps://github.com/mtolly/onyx/releases",
         "files": []
     },
-    "response28": {
+    "response27": {
         "triggers": ["ps3", "ps3customs"],
         "text": "# Rock Band Custom Song Tutorial for PS3\nhttps://rb3pc.milohax.org/customs_intro",
         "files": []
     },
-    "response29": {
+    "response28": {
         "triggers": ["quickconvert", "batchprocess", "recompile"],
         "text": "Batch recompile, Load a song, and Batch process, all rebuild the songs from scratch, losing all metadata originally associated with the song.\nThis means the song will not be correct for leaderboards, online play, or dx song upgrades (harmonies, pro upgrades, rb4 chart updates).\n**Never recompile songs already existing in Rock Band format back to Rock Band.**",
         "files": ["media/quickconvert.png", "media/quickconvert2.png"]
     },
-    "response30": {
+    "response29": {
         "triggers": ["rb2dx"],
         "text": "# Rock Band 2 Deluxe\nhttps://rb2dx.milohax.org/",
         "files": []
     },
-    "response31": {
+    "response30": {
         "triggers": ["rb3debug", "bank8"],
         "text": "https://hiddenpalace.org/Rock_Band_3_(Sep_1,_2010_prototype)",
         "files": []
     },
-    "response32": {
+    "response31": {
         "triggers": ["rb3dx"],
         "text": "# Rock Band 3 Deluxe\n<#961395385014812672>\nhttps://rb3dx.milohax.org/",
         "files": []
     },
-    "response33": {
+    "response32": {
         "triggers": ["rb4"],
         "text": "",
         "files": ["media/thisisrb4.mp4"]
     },
-    "response34": {
+    "response33": {
         "triggers": ["rb4dx"],
         "text": "https://discord.com/channels/961352072140324924/1243049517016682596\nhttps://rb4dx.milohax.org",
         "files": []
     },
-    "response35": {
+    "response34": {
         "triggers": ["rbe", "rb3e", "rbenhanced", "rb3enhanced"],
         "text": "# Home of RBEnhanced and GoCentral\nhttps://rbenhanced.rocks/\nhttps://discord.gg/wyMHERMZvE",
         "files": []
     },
-    "response36": {
+    "response35": {
         "triggers": ["patches","rb-patches", "lego", "lrb", "lrbdx", "tbrb", "tbrbdx", "gdrb", "gdrbdx", "rb1", "rb1dx", "rbpatches"],
         "text": "# Side game Deluxe projects have been replaced with rb-patches:\nhttps://github.com/hmxmilohax/rb-patches",
         "files": []
     },
-    "response37": {
+    "response36": {
         "triggers": ["rhythmverse"],
         "text": "# RhythmVerse\nhttps://rhythmverse.co/songfiles/game/rb3",
         "files": []
     },
-    "response38": {
-        "triggers": ["rpcs3"],
-        "text": "## How to set up Rock Band 3 for RPCS3\n**Includes instrument configuration, recommended settings, and how to play online.**\n<https://rb3pc.milohax.org/gs_disc>\n## Como configurar a Rock Band 3 para RPCS3\n**Incluye instrucciones para instrumentos, ajustes recomendados y tambien como jugar en linea.**\n<https://rb3pc.milohax.org/gs_disc_es>",
+    "response37": {
+        "triggers": ["rpcs3", "rb3pc"],
+        "text": "## How to set up Rock Band 3 for RPCS3\n**Includes instrument configuration, recommended settings, and how to play online.**\n<https://rb3pc.milohax.org/gs_disc>",
         "files": []
     },
-    "response39": {
+    "response38": {
         "triggers": ["skillissue", "calibration", "calibrating", "calibrate"],
         "text": "To assist in calibrating Rock Band 3, you can download this chart. Available in both Xbox 360 and PS3/RPCS3 formats.\nA readme with instructions is included. ",
         "files": ["media/RB3_Calibration_Test_Chart.zip", "media/Note_Reference.jpg"]
     },
-    "response40": {
+    "response39": {
         "triggers": ["slot","slots", "switch"],
         "text": "",
         "files": ["media/slot.png"]
     },
-    "response41": {
+    "response40": {
         "triggers": ["songs"],
         "text": "# Rock Band & Guitar Hero Song Spreadsheet\n<https://bit.ly/ArbysMealDeals>\n## Also check out the bangers packs, curated collections of online ready songs!\n<https://docs.google.com/spreadsheets/d/1uFJDQPMLa-FspQ6WtbotTIy6u1YSB79i2sp9nSZVSfc>\n### Also check out the really great GitHub repo of songs authors from the RB2 Deluxe community have put together!\n<https://github.com/Rock-Band-Road-Crew/rbrc-customs/tree/main>\n### Also check out the really great GitHub repo of various lost songs for Rock Band 3!\n<https://github.com/exoticri/rock-band-3-lost-songs>",
         "files": []
     },
-    "response42": {
+    "response41": {
         "triggers": ["poop", "focus"],
         "text": "",
         "files": ["media/focus.mp4"]
     },
-    "response43": {
+    "response42": {
         "triggers": ["hiring"],
         "text": "",
         "files": ["media/focus-1.mp4"]
     },
-    "response44": {
+    "response43": {
         "triggers": ["textures"],
         "text": "# RB3DX Custom Textures Tutorial\n<https://docs.google.com/document/d/1ELUI8Q2W7PH9tdugeKnsjhqa-IH3T-oy6uGTDY_8z30>",
         "files": []
     },
-    "response45": {
+    "response44": {
         "triggers": ["themeats", "meat", "meats", "arbys", "arbyshasthemeats"],
         "text": "Looking for Rock Band song packs? Use `!songs` instead for an easier to navigate experience.\nFor everything else, including rare oddities and goodies, visit the following link.",
         "files": ["media/themeats.png"]
     },
-    "response46": {
+    "response45": {
         "triggers": ["thesign"],
         "text": "",
         "files": ["media/thesign.png"]
     },
-    "response47": {
+    "response46": {
         "triggers": ["usher"],
         "text": "",
         "files": ["media/usher_1.mp4"]
     },
-    "response48": {
+    "response47": {
         "triggers": ["usrdir"],
         "text": "* Rock Band 1/2 DLC `dev_hdd0/game/BLUS30050/USRDIR`\n* Rock Band 3 DLC `dev_hdd0/game/BLUS30463/USRDIR`",
         "files": []
     },
-    "response49": {
+    "response48": {
         "triggers": ["wiicustoms"],
         "text": "Wii Customs Part 1. Everything in this post is a one-time thing:\n- You need an SD card formatted FAT32. You cannot store the game itself on the SD card.\n- You will need to use a CIOS or patched IOS to play customs. (CIOS only, if using Wii U. Most guides install the correct CIOS for RB3 in slot 249. Use a loader to force that IOS to be used when launching the game. CIOS USB support can be iffy.)\n- If you're on a USA console (PAL console we'll have to dig up the proper files), I'm going to recommend packing customs in sZHE. Go to this page: https://gitlab.com/rock-band-customs/wii-vwii-dolphin/-/tree/DLC_Packers_NTSC, create a folder for packing customs on your computer and download all the files inside the \"sZHE\" folder on this page and place them inside. Also download all files within the \"basefiles\" and place them inside that folder as well. Also go into the ticket wads folder and download sZHE.wad.\n- On your Wii, you need to extract your console keys with a homebrew called xyzzy mod. You also want to install the sZHE wad with your favourite wad manager, such as wiimodlite. But don't just install it, also uninstall it, and then install it again. If then you see error -1022, it probably worked.\n- In Rock Band 3, you need to enable SD Card mode. If it doesn't automatically ask you, try enabling it in the options, and if it says \"An Unknown Error Occurred\" then you need to have downloaded something from the Wii Shop at some point. The Skyward Sword save fix channel is still available to purchase. You can delete the channel after, you just have to download something. If visiting the shop asks you to update, do it I guess?, and hopefully nothing breaks.\n- On your computer look into the keys.txt you extracted and find your Console id (NOT ng_id), an 8-character hexadecimal string, and paste that into the ng_id.txt file in your packer. Make sure it's only those 8 characters, no extra new lines or spaces or anything.\n\nWii Customs Part 2. This post you'll do on a per-song basis. I'm assuming you will find customs as xbox con files.\n- You need a program called \"Nautilus\". Run the con file for the custom you want to add through the Wii converter. This program has a few bugs it'll probably do a good enough job for about 90% of cases. The specifics of how you will perfectly convert every type of con file you might find lying around is too much to cover. It's possible to convert just about anything, but some knowhow might be required.\n- It will output two folders; put them into your packing folder. You need to chose a slot number, start by using slot 002 for the meta folder for your first song, and 003 for the song folder. Rename the folder to change the first 3-digit number to the slots you've chosen. There's an 8-digit number that also has to be renamed, in sZHE (or the other custom generation, sZGE) this number is always a direct conversion from the 3-digit decimal number to 8-digit hexidecimal.\n- Go into the meta file and find songs.dta and edit it with your text editor. You need to edit the filepath in the 'name' near the top of the file to match the generation (sZHE in your case) and slot number of the meta folder (002 for your first song) (the Wii converter defaults to sZAE and 000). Also run rb3wiicustoms manager after completing these steps. It will pop up and alert you if the decimal and hexadecimal numbers don't match.\n- Then you pack the song by first running packerscriptcreator, and then running the packdlc.bat file that it edits for you.\n- Place the .bin files that are created onto the correct place on your sd card, private/wii/data/sZHE. Any app files that were created in the packing process can be deleted, but be careful not to delete 00000001.app.\n\nAnd that's it, hopefully the song will be playable now if you put the SD card in and go in-game.\n\nThere's a part 3 that goes over the finer specifics of converting cons to Wii but nobody has time to write that tbh.\n\nGood luck!",
         "files": ["media/goodluck.png"]
     },
-    "response50": {
+    "response49": {
         "triggers": ["yarg"],
         "text": "Also try YARG, a Rock Band inspired Unity based rhythm game!\nhttps://discord.gg/yarg\nhttps://yarg.in",
         "files": []
     },
-    "response51": {
+    "response50": {
         "triggers": ["xenia"],
-        "text": "Xenia for the most part is not recommended unless you are a solo player who only plays guitar / bass\n\n* No mic support\n* No online play\n* Adding a 2nd player crashes the emulator\n* Pro instruments (even native Xbox 360 ones) don't work\n* Fixing the broken textures will tank your FPS unless you have a beefy PC",
+        "text": "Xenia for the most part is not recommended unless you are developing something.\n\n* No mic support\n* No online play\n* Adding a 2nd player crashes the emulator\n* Pro instruments (even native Xbox 360 ones) don't work\n* Fixing the broken textures will tank your FPS unless you have a beefy PC",
         "files": []
     },
-    "response52": {
+    "response51": {
         "triggers": ["piss"],
         "text": "",
         "files": ["media/piss.mp4"]
     },
-    "response53": {
+    "response52": {
         "triggers": ["decomp"],
         "text": "# Check out the Rock Band 3 Decomp and if you are able, consider contributing!\nhttps://discord.com/channels/961352072140324924/1149118233555779595\nhttps://rb3dx.milohax.org/decomp",
         "files": []
     },
-    "response54": {
+    "response53": {
         "triggers": ["sublime"],
         "text": "# DTA Syntax Highlighting for Sublime Text",
         "files": ["media/DataArray.sublime-syntax"]
     },
-    "response55": {
+    "response54": {
         "triggers": ["jan28"],
         "text": "",
         "files": ["media/jan28.png"]
     },
-    "response56": {
+    "response55": {
         "triggers": ["dolphin"],
         "text": "Dolphin NAND and 64gb SD card with all DLC preinstalled to the SD card\nThis is because Dolphin and dlc is so annoyingly confusing.\nThis should even work with the vanilla game.\nThe vanilla game cant transfer content to the SD if the nand is full.\nDolphin will install wads to the nand, there isnt a good way to install to the SD.\nThen you get locked out of saving and caching in game, and there is nothing you can do.\nand one pack specifically is even more annoying to install.\nThis has it all pre-done so you dont have to suffer as I have suffered.\nhttps://drive.google.com/drive/folders/19x_Y_1HgZ9mj7iJSfVEADRyrsigz0Rdi?usp=sharing",
         "files": ["media/dolphin.png"]
     },
-    "response57": {
+    "response56": {
         "triggers": ["richpresence"],
         "text": "Xbox 360 hardware:\n### Note: This requires RB3Enhanced to be installed\nThere are a couple of steps to get this working:\n* **Download rb3e_index.html below** and put it in the same place as RB3 on the Xbox.\n* **Grab the latest RB3E nightly (NoDebug)** [RB3Enhanced Nightly](https://nightly.link/RBEnhanced/RB3Enhanced/workflows/build/master)\n* Add this to your `rb3.ini`\n```\n[HTTP]\nEnableHTTPServer = true\n```\nIn the DX repo **on the develop branch** in the `scripts` folder, you will want to add a new line to your `config.ini`, or copy from `config_default.ini` (replacing with the IP to your Xbox)\n```\nxbox_console_ip = 192.168.0.36\n```\nWhen set, the Rich Presence script will attempt to connect to the Xbox when launched first, and if that fails, it will automatically fall back to the RPCS3 Rich Presence like normal.\nTo run Rich Presence, in a command prompt inside the `scripts` folder, run:\n```\npython dx_discordrp.py\n```\nYou will need a couple of packages to run this script:\n```\npip install pypresence requests\n```",
         "files": ["media/rb3e_index.html", "media/richpresence.png"]
     },
-    "response58": {
+    "response57": {
         "triggers": ["teleport", "teleporting", "floating", "hair"],
         "text": "Glitching/teleporting instruments is a vanilla Rock Band 3 bug present in **PS3**, made worse in **RPCS3**.\nLinked below is a file you can extract and patch your\n**Vanilla Base RB3 extracted disc game files**\nto fix the issue for all guitars, basses, hairs, mics, hats, and masks.\n[PS3 Glitch Patch Files](https://github.com/hmxmilohax/rock-band-3-deluxe/raw/develop/dependencies/ps3_patcher/rb3_ps3_guitar_glitch_fix.7z)",
         "files": []
     },
-    "response59": {
+    "response58": {
         "triggers": ["wcb", "buffers", "colorbuffers", "writecolorbuffers"],
-        "text": "To fix buggy character textures, you need to enable 'Write Color Buffers' under the GPU tab in Rock Band 3's Custom Configuration.\n\nThis and many other settings are covered in the RPCS3 setup guide so check it out to properly setup your config.\nhttps://rb3pc.milohax.org/",
+        "text": "You probably installed this game without following the RPCS3 guide.\nYou can avoid many issues by following the quick configuration steps here\nhttps://rb3pc.milohax.org/gs_quick_config\n\nIf you just want to fix this specifically, you need to enable 'Write Color Buffers' under the GPU tab in Rock Band 3's Custom Configuration.",
         "files": ["media/wcbon.png"]
     },
-    "response60": {
+    "response59": {
         "triggers": ["linos"],
         "text": "",
         "files": ["media/linos_keys.mp4"]
     },
-    "response61": {
+    "response60": {
         "triggers": ["scott", "itsworking", "working"],
         "text": "",
         "files": ["media/scott_working.mov"]
     },
-    "response62": {
+    "response61": {
         "triggers": ["guitars"],
         "text": "Despite the click bait thumbnail, the riffmaster is also a great purchase in the proper scenario.\nhttps://www.youtube.com/watch?v=YudkMhOIU_8",
         "files": []
     },
-    "response63": {
+    "response62": {
         "triggers": ["fig"],
         "text": "",
         "files": ["media/fig.mp4"]
     },
-    "response64": {
+    "response63": {
         "triggers": ["dwd"],
         "text": "To fix crashes after songs, you need to set Driver Wake-Up Delay 20 or a multiple of 20 under the Advanced tab in Rock Band 3's Custom Configuration.\n\nThis and many other settings are covered in the RPCS3 setup guide so check it out to properly setup your config.\nhttps://rb3pc.milohax.org/",
         "files": ["media/dwd.png"]
     },
-    "response65": {
+    "response64": {
         "triggers": ["global"],
         "text": "All tweaks to Rock Band 3 should be done in the game's custom configuration, not the global one.",
         "files": ["media/custnotglobal.png"]
     },
-    "response66": {
+    "response65": {
         "triggers": ["netset"],
         "text": "To fix freezing while scrolling the song library, set `Network Status` to `Connected` under the Network tab in Rock Band 3's Custom Configuration.\n\nThis and many other settings are covered in the RPCS3 setup guide so check it out to properly setup your config.\nhttps://rb3pc.milohax.org/",
         "files": ["media/netset.png"]
     },
-    "response68": {
+    "response66": {
         "triggers": ["content", "confiles", "livefiles"],
         "text": "* Rock Band 1/2 DLC (CON FILES) / Rock Band 1 Save/SongCache\n`/Hdd1/Content/0000000000000000/45410829/00000001`\n* Rock Band 1/2 DLC (LIVE FILES)\n`/Hdd1/Content/0000000000000000/45410829/00000002`\n* Rock Band 2 Save/SongCache\n`/Hdd1/Content/0000000000000000/45410869/00000001`\n* Rock Band 2 RBN 1.0\n`/Hdd1/Content/0000000000000000/45410869/00000002`\n* Rock Band 3 DLC (CON FILES (tu4/rb3dx/rb3e only)) / Rock Band 3 Save/SongCache\n`/Hdd1/Content/0000000000000000/45410914/00000001`\n* Rock Band 3 DLC (LIVE FILES)\n`/Hdd1/Content/0000000000000000/45410914/00000002`\n\nCON files go in `00000001`\nLIVE files go in `00000002`\n\nUse RBtoUSB from [Nautilus](https://nemosnautilus.com/nautilus/) to place files in the correct place for you on a flash drive if unsure",
         "files": []
     },
-    "response69": {
+    "response67": {
         "triggers": ["liveless"],
         "text": "# __Liveless Setup (RB3)__ #\n\nRequired Rock Band 3 Enhanced 0.7 or newer\n(Install instructions included in a .txt file):\nhttps://rb3e.rbenhanced.rocks/download.html\n\n*If upgrading from a previous version, please use the new .ini file provided in the download*\n\n*If you're having trouble connecting to other users or experience ghost players (seeing their highway but score not go up), port forward 9103 UDP to your Xbox*\n\nBoth Liveless & Leaderboards will NOT work with the following:\n* Stealth servers\n* Freestyle Dash 3\n\nIn Dashlaunch, make sure of the following:\nliveblock on, sockpatch on, fakelive off",
         "files": ["media/liveless1.png", "media/liveless2.png"]
     },
-    "response74": {
+    "response68": {
         "triggers": ["milk"],
         "text": "",
         "files": ["media/milk.mp4"]
     },
-    "response81": {
+    "response69": {
         "triggers": ["pr"],
         "text": "",
         "files": ["media/plsapprovepr.mp4"]
     },
-    "response83": {
+    "response70": {
         "triggers": ["boardgame", "rbboardgame"],
         "text": "",
         "files": ["media/boardgame.webm", "media/boardgame.webp"]
     },
-    "response84": {
+    "response71": {
         "triggers": ["goodluck"],
         "text": "",
         "files": ["media/goodluck.png"]
     },
-    "response85": {
+    "response72": {
         "triggers": ["practice"],
         "text": "I feel like practice mode is a way of cheating. You play to play the game, not to FC everything. And you can still FC it by practising the song all over again. Practice mode just takes away the momentum and the charm. It may be frustrating, but that's how it is.",
         "files": []
     },
-    "response86": {
+    "response73": {
         "triggers": ["mergesongs"],
         "text": "Too many songs making your startup take forever? If you're on PS3/RPCS3, you can merge song folders to load faster!\nCheck out the guide here: https://rb3pc.milohax.org/customs_merging",
         "files": []
     },
-    "response88": {
+    "response74": {
         "triggers": ["vkdiag"],
         "text": "1. Download [vkDiag tool](https://github.com/13xforever/vkdiag/releases/latest) from GitHub.\n2. Run the tool and post a screenshot of the results.\n\nThis tool is useful for resolving Vulkan related driver issues, such as:\n- Receiving an error relating to `vulkan-1.dll` on startup.\n- Vulkan renderer not appearing.\n- Receiving a segfault relating to some .dll file that RPCS3 does not use, such as `nvoglv64.dll` or `bdcamvk64.dll`.",
         "files": []
     },
-    "response90": {
+    "response75": {
         "triggers": ["vim", "nvim", "neovim"],
         "text": "# DTA Syntax Highlighting for (neo)vim\nhttps://git.halcyoncollective.dev/dark/dta.vim",
         "files": []
     },
-    "response91": {
+    "response76": {
         "triggers": ["caches"],
         "text": "Your cache files may become problematic as RPCS3 updates to improve emulation quality. You can force RPCS3 to generate new ones by removing them.\nSimply right click Rock Band 3 in RPCS3's game list then go to `Remove` and select which cache to remove. You can also remove all caches.",
         "files": ["media/caches.png"]
     },
-    "response93": {
+    "response77": {
         "triggers": ["vsyncmeta"],
         "text": "To have a smooth framerate in RPCS3, it's suggested to:\n* Set RPCS3's `Framelimit` to `Off` in Rock Band 3's Custom Configuration\n* Enable RPCS3's `VSync` in Rock Band 3's Custom Configuration\n* Disable `VSync` within Rock Band 3 Deluxe\nAdditionally, you can use [[RTSS]](https://rb3pc.milohax.org/adv_rtss) but it is more complicated.",
         "files": ["media/vsyncmeta.png"]
     },
-    "response95": {
+    "response78": {
         "triggers": ["l2", "L2"],
         "text": "Is your Guitar Hero guitar auto-strumming during solos? Simply unbind the `L2` button by right clicking the `L2` button in the Pads menu.",
         "files": ["media/l2unmap.gif"]
     },
-    "response97": {
+    "response79": {
         "triggers": ["padprofiles"],
         "text": "Using a Custom Gamepad Configurations for Rock Band 3 is not suggested as you can't make pad profile changes while the game is running.\nYou can tell if you have a Custom Gamepad Configuration if Rock Band 3 has a Joypad icon next to it in RPCS3's gamelist.\nYou can remove it by right clicking it then `Remove > Remove Custom Gamepad Configuration`.\nIt's suggested to use the `Pads` menu at the top and to create profiles depending on what instrument setup you have.\nYou'll be able to use [[profiles from the RPCS3 guide page]](https://rb3pc.milohax.org/ctrls#using-profiles) this way too.",
         "files": ["media/padoverwrite.png"]
     },
-    "response98": {
+    "response80": {
         "triggers": ["updamp", "npub31810"],
         "text": "**Amplitude update v01.01 (14.73 MB)**\n[AMPLITUDE2015PS3-A0101-V0100-PE.pkg](http://b0.ww.np.dl.playstation.net/tppkg/np/NPUB31810/NPUB31810_T0/c526cf534d8d9a81/UP8802-NPUB31810_00-AMPLITUDE2015PS3-A0101-V0100-PE.pkg)",
         "files": []
     },
-    "response99": {
+    "response81": {
         "triggers": ["blus30050"],
         "text": "**Rock Band update v01.07 (12.91 MB)**\n[ROCKBANDPATCH040-A0107-V0100-PE.pkg](http://b0.ww.np.dl.playstation.net/tppkg/np/BLUS30050/BLUS30050_T11/0b831c494b6d26bc/UP0006-BLUS30050_00-ROCKBANDPATCH040-A0107-V0100-PE.pkg)",
         "files": []
     },
-    "response100": {
+    "response82": {
         "triggers": ["blus30147"],
         "text": "**Rock Band 2 update v01.02 (26.88 MB)**\n[ROCKBAND2PATCH02-A0102-V0100-PE.pkg](http://b0.ww.np.dl.playstation.net/tppkg/np/BLUS30147/BLUS30147_T1/c8b8d16f692b3672/UP0006-BLUS30147_00-ROCKBAND2PATCH02-A0102-V0100-PE.pkg)",
         "files": []
     },
-    "response101": {
+    "response83": {
         "triggers": ["blus30382"],
         "text": "**LEGO Rock Band update v01.01 (13.87 MB)**\n[LEGORCKBPATCH100-A0101-V0101-PE.pkg](http://b0.ww.np.dl.playstation.net/tppkg/np/BLUS30382/BLUS30382_T1/c82765fb977632f6/UP1018-BLUS30382_00-LEGORCKBPATCH100-A0101-V0101-PE.pkg)",
         "files": []
     },
-    "response102": {
+    "response84": {
         "triggers": ["blus30463"],
         "text": "**Rock Band 3 update v01.05 (14.78 MB)**\n[ROCKBAND3PATCH05-A0105-V0100-PE.pkg](http://b0.ww.np.dl.playstation.net/tppkg/np/BLUS30463/BLUS30463_T4/e52d21c696ed0fcf/UP8802-BLUS30463_00-ROCKBAND3PATCH05-A0105-V0100-PE.pkg)",
         "files": []
     },
-    "response103": {
+    "response85": {
         "triggers": ["reading"],
         "text": "",
         "files": ["media/reading.png"]
     },
-    "response104": {
+    "response86": {
         "triggers": ["fortnitebad"],
         "text": "",
         "files": ["media/fortnitebad.png"]
     },
-    "response105": {
+    "response87": {
         "triggers": ["touchgrass", "grass"],
         "text": "",
         "files": ["media/grass.mp4"]
     }
     ,
-    "response106": {
+    "response88": {
         "triggers": ["rbvr"],
         "text": "https://youtu.be/fOkZ6QNBEzw",
         "files": []
     },
-    "response107": {
+    "response89": {
         "triggers": ["shad", "shadps4", "rb4pc"],
         "text": "# THE RB4/AMP16 SHADPS4 MASTER GUIDE\n*(last updated 2025-06-17, will be edited as development continues)*\n\n## What works:\n- All versions of Rock Band 4 [CUSA02084] (01.08 is recommended right now)\n- All versions of Amplitude (2016) [CUSA02480]\n> ***We cannot provide you with these.***\n\n- Local Multiplayer\n- [Amplitude (2016) Deluxe](<https://github.com/hmxmilohax/Amplitude-2016-Deluxe#readme>)\n- [Rock Band 4 Deluxe (1.08)](<https://github.com/hmxmilohax/Rock-Band-4-Deluxe/tree/1.08#readme>)\n## What doesn't work (yet):\n- Online Multiplayer\n- Most of RB4DX Rivals\n- DLC on RB4 02.21\n\n## You need to use the [shadPS4 RB4 fork](<https://nightly.link/LlysiX/shadPS4/workflows/build/rb4>)\n\n# IMPORTANT RB4 FIX:\n***Navigate to the game's install folder and move both .prx files from the root folder into the GAME'S `sce_module` folder!***\n\n## Emulator Settings\n- Enable Fullscreen if you so desire\n- Set the resolution as you desire, FYI the game natively renders in `1920x1080`\n- Set the Vblank Divider to `1` for 60 FPS or `9999` for unlimited FPS\n - You can use [RivaTuner Statistics Server](<https://www.guru3d.com/download/rtss-rivatuner-statistics-server-download/>) to set a custom FPS cap\n## Instrument Setup\n> *Most Xinput and SDL controllers will just work, other controllers require [x360ce](<https://www.x360ce.com/#Help>) to map to [shadPS4's keyboard controls](<https://github.com/shadps4-emu/shadPS4?tab=readme-ov-file#keyboard-mapping>).*\n\n- Navigate to the `%appdata%/shadPS4` folder (or `user` folder if you made ShadPS4 portable) and open `config.toml` in a text editor\n - Set `useSpecialPad1` to `true`\n - Set `specialPadClass1` to `1` for guitar or `2` for drums\n\nFollow the following guide for RB4DX, controller mapping, and customs installation.\nhttps://youtu.be/uHzjSMM6A8I",
         "files": []
     },
-    "response108": {
+    "response90": {
         "triggers": ["neverhax", "neversoft", "ns"],
         "text": "## NeverHax\nLooking for mods and info relating to Neversoft Guitar Hero games?\nJoin the NeverHax Discord here:\nhttps://discord.gg/FcZ7yX3rNY",
         "files": []
     },
-    "response109": {
+    "response91": {
         "triggers": ["wii"],
         "text": "",
         "files": ["media/wii.png"]
     },
-    "response110": {
+    "response92": {
         "triggers": ["microsoft"],
         "text": "https://www.youtube.com/watch?v=LZzubS1ILTs",
         "files": []
     },
-    "response111": {
+    "response93": {
         "triggers": ["syntax"],
         "text": "Find DTA syntax definitions for various text editors here!\n<https://github.com/hmxmilohax/tools/tree/main/syntax>",
         "files": []
     },
-    "response112": {
+    "response94": {
         "triggers": ["leakers"],
         "text": "",
         "files": ["media/leakers.mp4"]
     },
-    "response113": {
+    "response95": {
         "triggers": ["rcm"],
         "text": "https://retrocultmods.com/programming-tool/",
         "files": []
+    },
+    "response96": {
+        "triggers": ["santroller"],
+        "text": "https://github.com/santroller/santroller/releases/latest",
+        "files": []
+    },
+    "response97": {
+        "triggers": ["deleting", "packdelete"],
+        "text": "Do you want to remove certain songs from a huge pack without deleting the whole thing?\nFollow the guide here on how to delete individual songs from packs.\nhttps://rb3pc.milohax.org/customs_deleting",
+        "files": []
+    },
+    "response98": {
+        "triggers": ["gamedata"],
+        "text": "Need to quickly get to your Game Data folder in RPCS3?\n1. Right click the game\n2. Go to `Open Folder` > `Open Game Data Folder",
+        "files": ["media/gamedata.png"]
+    },
+    "response99": {
+        "triggers": ["discgame"],
+        "text": "Need to quickly get to your Disc Game folder in RPCS3?\n1. Right click the game\n2. Go to `Open Folder` > `Open Disc Game Folder",
+        "link": "response99",
+        "files": ["media/discgame.png"]
     }
 }
 
