@@ -8,7 +8,7 @@ def analyze_log_file(log_file_path):
     critical_issues = defaultdict(list)
     game_issues = defaultdict(list)
     non_default_settings = defaultdict(list)
-    pad_issues = defaultdict(list)
+    pad_info = defaultdict(list)
     firmware_detected = False
     firmware_version = None
     emulator_info = {"version": "", "cpu": "", "os": "", "gpu": ""}
@@ -17,18 +17,25 @@ def analyze_log_file(log_file_path):
     thread_context = []
     
     # Sets to track duplicate issues
-    onedrive_issues = set()
+    onedrive_install = set()
+    programfiles_install = set()
     save_issues = set()
     graphics_device_notifications = set()
 
     # Attempt to open and read the log file with different encodings
     encodings = ['utf-8', 'latin-1', 'cp1252']  # Add more encodings if needed
     lines = []
+
     for encoding in encodings:
         try:
             with open(log_file_path, 'r', encoding=encoding) as file:
-                lines = file.readlines()
-                # Collect the entire call‐stack *and* disassembly block as raw lines
+                # Read and normalize all lines in one go
+                lines = [line.replace("“", '"')
+                             .replace("”", '"')
+                             .replace("‘", "'")
+                             .replace("’", "'") for line in file.readlines()]
+                
+                # Collect the entire call-stack block
                 call_stack_block = []
                 in_stack = False
                 for line in lines:
@@ -40,6 +47,8 @@ def analyze_log_file(log_file_path):
                         if line.lstrip().startswith("·"):
                            break
                         call_stack_block.append(line.rstrip())
+
+                # Collect thread context block
                 in_context = False
                 for line in lines:
                     low = line.lower()
@@ -155,31 +164,34 @@ def analyze_log_file(log_file_path):
         for i, line in enumerate(core_section_lines, start=last_core_index + 1):
             # Check for high memory
             if 'CELL_ENOENT, "/dev_hdd0/game/BLUS30463/USRDIR/dx_high_memory.dta"' in line:
-                game_issues[f"- **High memory file is missing!** Check out `!mem` for more information."].append(f"L-{i}")
+                critical_issues[f"- **High memory file is missing!** Check out `!mem` for more information."].append(f"L-{i}")
 
-            # Frame limit settings
-            if "Frame limit" in line:
-                match = re.search(r"Frame limit:\s*(\d+|Auto|Off)", line, re.IGNORECASE)
-                if match:
-                    frame_value = match.group(1)
-                    if frame_value not in ["Auto", "Off", "Display"]:
-                        game_issues[f"- **Weird Framelimit settings.** Set it to `Auto`, `Off`, or `Display` in the GPU tab of RB3's Custom Configuration. Yours is on {frame_value}"].append(f"L-{i}")
-                else:
-                    game_issues[f"- **Weird framerate settings:** Unknown"].append(f"L-{i}")
+            if "Frame limit: Infinite" in line or "Frame limit: 50" in line or "Frame limit: 30" in line or "Frame limit: PS3 Native" in line:
+                critical_issues[f"- **You are using an unsupported Framelimit value!** Set this back to 60, Display, or Off."].append(f"L-{i}")
 
             # OpenGL Detect
             if "Renderer: OpenGL" in line:
                 game_issues[f"- **You're using OpenGL!** You should really be on Vulkan. Set this in the GPU tab of RB3's Custom Configuration."].append(f"L-{i}")
 
+            # Presence Crash Detect
+            if "{\\qPlaylist\\q:\\q,\\qSubPlaylist\\" in line:
+                game_issues[f"- **Error writing to Presence file!** You'll need to delete all files called `currentsong.json` in RB3's USRDIR folder. `!gamedata`"].append(f"L-{i}")
+
             # 1920x1080 Detect
             if "Resolution: 1920x1080" in line:
-                critical_issues[f"- **Forcing Rock Band to run at 1920x1080 will cause crashes!** You should really set this back to 1280x720."].append(f"L-{i}")
+                critical_issues[f"- **Forcing Rock Band to run at 1920x1080 will cause crashes!** You should really set this back to 1280x720 in the GPU section of RB3's custom configuration."].append(f"L-{i}")
 
             # OneDrive install detection
             if "OneDrive" in line:
-                if "OneDrive install detected" not in onedrive_issues:
-                    onedrive_issues.add("- **OneDrive detected! This can lead to corrupted files and saves!** Please move files to `C:\\Games`**")
+                if "OneDrive install detected" not in onedrive_install:
+                    onedrive_install.add("- **OneDrive detected! This can lead to corrupted files and saves!** Please move files to `C:\\Games`**")
                     critical_issues[f"- **OneDrive detected! This can lead to corrupted files and saves!** Please move files to `C:\\Games`"].append(f"L-{i}")
+
+            # Program Files install detection
+            if "Program Files" in line:
+                if "Program Files install detected" not in programfiles_install:
+                    programfiles_install.add("- **Program Files install detected! This can lead to issues due to permissions!** Please move files to `C:\\Games`**")
+                    critical_issues[f"- **Program Files install detected! This can lead to issues due to permissions!** Please move files to `C:\\Games`"].append(f"L-{i}")
 
             # Busted save
             if "dev_hdd0/home/00000001/savedata/BLUS30463-AUTOSAVE/ (Already exists)" in line:
@@ -230,6 +242,9 @@ def analyze_log_file(log_file_path):
             # PSF Broken
             if "PSF: Error loading PSF" in line:
                 critical_issues[f"- **PARAM.SFO file is busted!** DLC will probably not load! Replace them with working ones."].append(f"L-{i}")
+            # MBox=empty
+            if "MBox=empty" in line:
+                critical_issues[f"- **Weird MBox empty error!** You have run into a freak accident. Please try to replicate this ASAP and get back to us!"].append(f"L-{i}")
             # Debug Console
             if "Debug Console Mode: false" in line:
                 debug_console_mode_off = True
@@ -237,17 +252,11 @@ def analyze_log_file(log_file_path):
             # Configuration not found
             if 'Selected config: mode=custom config, path=""' in line:
                 critical_issues[f"- **Custom config not found**. Use `!rpcs3`"].append(f"L-{i}")
-            # Pad profile
-            if 'input_configs/BLUS30463/Default.yml' in line:
-                pad_issues[f"- **Per-game pad profile detected**. This will lock you out of being able to switch profiles. Use `!padprofiles`."].append(f"L-{i}")
-            # MIDI Detection
-            if "log: Could not open port" in line:
-                critical_issues[f"- **MIDI device failed**. Close out any other programs using MIDI or restart computer."].append(f"L-{i}")
             # Driver Wake-Up Delay
             if re.search(r"Driver Wake-Up Delay: (\d+)", line):
                 delay_value = int(re.search(r"\d+", line).group())
                 if delay_value < 20:
-                    critical_issues[f"- **Driver Wake-Up Delay is too low. Yours is set to ({delay_value}). Use `!dwd`"].append(f"L-{i}")
+                    critical_issues[f"- **Driver Wake-Up Delay is too low.** Yours is set to ({delay_value}). Use `!dwd`"].append(f"L-{i}")
                 elif delay_value % 20 != 0:
                     game_issues[f"- **Driver Delay Wake-Up Settings isn't a multiple of 20**. Yours is at (value: {delay_value}). Use `!dwd`"].append(f"L-{i}")
             # WCB
@@ -265,24 +274,45 @@ def analyze_log_file(log_file_path):
             # High Memory file
             if "Regular file, “/dev_hdd0/game/BLUS30463/USRDIR/dx_high_memory.dta”" in line:
                 high_memory_detected = True
-            # GPU features
-            if any(gpu_issue in line for gpu_issue in ["Physical device reports a low amount of allowed deferred descriptor updates", "Will use graphics queue instead"]):
-                if "Graphics device notice" not in graphics_device_notifications:
-                    graphics_device_notifications.add("- **Graphics device issue!** Get a nerd to check this out.")
-                    game_issues[f"- **Graphics device issue!** Get a nerd to check this out."].append(f"L-{i}")
             # GPU does not feature
             if "Your GPU does not support" in line:
-                critical_issues[f"- **Graphics card is missing features.**"].append(f"L-{i}")
+                game_issues[f"- **Graphics card is missing features.** RPCS3 is reporting your GPU is missing features. This might be a nothing burger or something serious."].append(f"L-{i}")
             # USB overload
             if "sys_usbd: Transfer Error" in line:
-                critical_issues[f"- **Usbd error.** Too many PS3 instruments or passthrough devices connected?"].append(f"L-{i}")
+                critical_issues[f"- **Usbd error.** This shouldn't be happening anymore! Tell us how your USB devices are connected."].append(f"L-{i}")
             # Crash
             if any(error in line for error in ["Thread terminated due to fatal error: Verification failed", "VM: Access violation reading location"]):
                 critical_issues[f"- **Crash detected.** Tell us what you were doing before crashing."].append(f"L-{i}")
-
+            
+            # Pad Stuff Below
+            # Pad profile in use
+            if 'input_configs/BLUS30463/Default.yml' in line:
+                pad_info[f"- **Per-game pad profile detected**. We heavily discourage this. Check `!padprofiles`."].append(f"L-{i}")
+            # Mic in use
+            if 'cellMic: cellMicOpenEx(dev_nu' in line:
+                pad_info[f"- I see at least one microphone."].append(f"L-{i}")
+            # MIDI Keyboard in use
+            if 'Emulated Midi Pro Adapter (type=Keyboard' in line:
+                pad_info[f"- I see a MIDI keyboard set up via I/O."].append(f"L-{i}")
+            # MIDI Drums in use
+            if 'Emulated Midi Pro Adapter (type=Drums' in line:
+                pad_info[f"- I see a MIDI Drum Kit set up via I/O."].append(f"L-{i}")
+            # MIDI Protar 17 in use
+            if 'Emulated Midi Pro Adapter (type=Guitar (17 frets)' in line:
+                pad_info[f"- I see a 17 fret Pro Guitar set up via I/O."].append(f"L-{i}")
+            # MIDI Protar 22 in use
+            if 'Emulated Midi Pro Adapter (type=Guitar (22 frets)' in line:
+                pad_info[f"- I see a 22 fret Pro Guitar set up via I/O."].append(f"L-{i}")
+            # Mic error
+            if 'Make sure microphone use is authorized under' in line:
+                critical_issues[f"- **The emulator can't use your microphone!** Does RPCS3 have permissions in Windows Settings? Is something else using it?"].append(f"L-{i}")
+            # MIDI error
+            if "log: Could not open port" in line:
+                critical_issues[f"- **Can't hook into MIDI device!** Close out any other programs using MIDI or restart computer."].append(f"L-{i}")
+            
             #Network stuff
-            if "rpcn: User is already logged in" in line:
-                critical_issues[f"- **Zombie RPCN login!** You lost connection to RPCN and it did not log out correctly. Wait around 20 minutes before trying again."].append(f"L-{i}")
+            if "User is already logged in" in line:
+                critical_issues[f"- **Zombie RPCN login!** You lost connection to RPCN and it did not log out correctly. Wait around 20 minutes before trying again. If you're using a VPN, try without."].append(f"L-{i}")
             if "UPNP Enabled: true" in line:
                 enable_upnp = True
             if "No UPNP device was found" in line:
@@ -352,7 +382,7 @@ def analyze_log_file(log_file_path):
                 pausehomedef_found = True
 
         if not gocentral_found:
-            game_issues[f"- **You're not on GoCentral :(.** Why not join the fun? The guide at `!rpcs3` can walk you through this."].append(f"L-{i}")
+            game_issues[f"- **You're not on GoCentral :(.** Why not join the fun? The guide at `!rpcn` can walk you through this."].append(f"L-{i}")
 
         # Non-default settings log
         if not ppudef_found:
@@ -443,9 +473,9 @@ def analyze_log_file(log_file_path):
             line_info = ", ".join(lines)  # Combine all line numbers
             output += f"{issue} (on {line_info})\n"
 
-    if pad_issues:
-        output += "\n## Pad Issues :guitar:\n_Your controller might not be setup correctly._\n"
-        for issue, lines in non_default_settings.items():
+    if pad_info:
+        output += "\n## Input Info :guitar:\n_Here's some pad and I/O information._\n"
+        for issue, lines in pad_info.items():
             line_info = ", ".join(lines)  # Combine all line numbers
             output += f"{issue} (on {line_info})\n"
 
@@ -464,8 +494,8 @@ def analyze_log_file(log_file_path):
         with open(diagnostics_file, "w", encoding="utf-8") as f:
             f.write("\n".join(details))
     
-    if not critical_issues and not game_issues and not non_default_settings and not pad_issues:
-        output += "## No issues detected. Let us know if this is wrong."
+    if not critical_issues and not game_issues and not non_default_settings and not pad_info:
+        output += "## No issues detected. Either nothing is wrong or I don't know how to detect your issue yet."
 
     # Add emulator information
     output += f"\n\n**Version:** {emulator_info['version']}\n**CPU:** {emulator_info['cpu']}\n**GPU:** {emulator_info['gpu']}\n{emulator_info['os']}"

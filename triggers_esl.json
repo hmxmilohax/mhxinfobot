@@ -72,7 +72,7 @@
         "files": []
     },
     "response27": {
-        "triggers": ["customsps3", "ps3", "ps3es", "ps3customs"],
+        "triggers": ["ps3", "ps3es", "ps3customs", "customsps3"],
         "text": "# Tutorial de Canciones Customs de Rock Band para PS3/RPCS3\nhttps://rb3pc.milohax.org/customs_intro_es",
         "link": "response27",
         "files": []
@@ -100,6 +100,12 @@
         "text": "## Como configurar a Rock Band 3 para RPCS3\n**Incluye instrucciones para instrumentos, ajustes recomendados y tambien como jugar en linea.**\n<https://rb3pc.milohax.org/gs_disc_es>",
         "link": "response37",
         "files": []
+    },
+    "response39": {
+        "triggers": ["slot", "slots"],
+        "text": "",
+        "link": "response39",
+        "files": ["media/slotses.jpg"]
     },
     "response40": {
         "triggers": ["songs", "canciones"],
@@ -268,6 +274,30 @@
         "text": "Quieres entrar a la carpeta del disco en RPCS3?\nHaz click derecho en Rock Band 3 en RPCS3 y luego en `Open Folder` > `Open Disc Game Folder`",
         "link": "response99",
         "files": ["media/discgame.png"]
+    },
+    "response100": {
+        "triggers": ["bestbuild", "versionvieja"],
+        "text": "Algunas actualizaciones de RPCS3 tiene peor rendimiento. Si tenias mejor rendimiento, antes, puedes intentar una version mas vieja. Instalala sobre la instalacion que tienes.\n[[Windows]](https://github.com/RPCS3/rpcs3-binaries-win/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_win64.7z)\n[[Linux x86]](https://github.com/RPCS3/rpcs3-binaries-linux/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_linux64.AppImage)\n[[Linux ARM]](https://github.com/RPCS3/rpcs3-binaries-linux-arm64/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_linux_aarch64.AppImage)\n[[macOS x86]](https://github.com/RPCS3/rpcs3-binaries-mac/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_macos.7z)\n[[macOS ARM]](https://github.com/RPCS3/rpcs3-binaries-mac-arm64/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_macos_arm64.7z)",
+        "link": "response100",
+        "files": []
+    },
+    "response101": {
+        "triggers": ["steam", "steaminput"],
+        "text": "Tienes problemas con la configuracion de tus controles e instrumentos?\nTrata de desactivar Steam Input para el escritorio.\nSi agregaste RPCS3 o Rock Band 3 como atajo, puedes desactivarlo en las Propiedades.",
+        "link": "response101",
+        "files": ["media/steaminputes1.png", "media/steaminputes2.png", "media/steaminputes3.png", "media/steaminputes4.png"]
+    },
+    "response102": {
+        "triggers": ["deckaudio", "pulseaudio", "pipewire", "linuxmic"],
+        "text": "Tienes problemas con el sonido de microfonos en tu SteamDeck/compu de Linux? Trata este comando en la carpeta donde tienes RPCS3:\n```export PULSE_LATENCY_MSEC=1\n.//rpcs3.AppImage``` o modificada el atajo si estas en un SteamDeck",
+        "link": "response102",
+        "files": ["media/pulsesteam.png"]
+    },
+    "response103": {
+        "triggers": ["rpcn"],
+        "text": "Estas listo para jugar en linea? [[Haz click aqui para mas informacion!]](https://rb3pc.milohax.org/rpcn_intro)\nSi no estas usando una configuracion de la guia de RPCS3, cambia estas cosas en la configuracion de RB3.",
+        "link": "response103",
+        "files": ["media/rpcn.png"]
     }
 }
 

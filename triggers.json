@@ -130,7 +130,7 @@
         "files": []
     },
     "response27": {
-        "triggers": ["ps3", "ps3customs"],
+        "triggers": ["ps3", "ps3customs", "customsps3"],
         "text": "# Rock Band Custom Song Tutorial for PS3\nhttps://rb3pc.milohax.org/customs_intro",
         "files": []
     },
@@ -190,9 +190,9 @@
         "files": ["media/RB3_Calibration_Test_Chart.zip", "media/Note_Reference.jpg"]
     },
     "response39": {
-        "triggers": ["slot","slots", "switch"],
+        "triggers": ["slot", "slots", "switch"],
         "text": "",
-        "files": ["media/slot.png"]
+        "files": ["media/slots.jpg"]
     },
     "response40": {
         "triggers": ["songs"],
@@ -311,7 +311,7 @@
     },
     "response63": {
         "triggers": ["dwd"],
-        "text": "To fix crashes after songs, you need to set Driver Wake-Up Delay 20 or a multiple of 20 under the Advanced tab in Rock Band 3's Custom Configuration.\n\nThis and many other settings are covered in the RPCS3 setup guide so check it out to properly setup your config.\nhttps://rb3pc.milohax.org/",
+        "text": "You probably installed this game without following the RPCS3 guide.\nYou can avoid many issues by following the quick configuration steps here\nhttps://rb3pc.milohax.org/gs_quick_config\n\nIf you just want to fix this specifically, you need to set Driver Wake-Up Delay 20 or a multiple of 20 under the Advanced tab in Rock Band 3's Custom Configuration.",
         "files": ["media/dwd.png"]
     },
     "response64": {
@@ -321,7 +321,7 @@
     },
     "response65": {
         "triggers": ["netset"],
-        "text": "To fix freezing while scrolling the song library, set `Network Status` to `Connected` under the Network tab in Rock Band 3's Custom Configuration.\n\nThis and many other settings are covered in the RPCS3 setup guide so check it out to properly setup your config.\nhttps://rb3pc.milohax.org/",
+        "text": "You probably installed this game without following the RPCS3 guide.\nYou can avoid many issues by following the quick configuration steps here\nhttps://rb3pc.milohax.org/gs_quick_config\n\nIf you just want to fix this specifically, set `Network Status` to `Connected` under the Network tab in Rock Band 3's Custom Configuration.",
         "files": ["media/netset.png"]
     },
     "response66": {
@@ -487,14 +487,33 @@
     },
     "response98": {
         "triggers": ["gamedata"],
-        "text": "Need to quickly get to your Game Data folder in RPCS3?\n1. Right click the game\n2. Go to `Open Folder` > `Open Game Data Folder",
+        "text": "Need to quickly get to your Game Data folder in RPCS3?\n1. Right click the game\n2. Go to `Open Folder` > `Open Game Data Folder`",
         "files": ["media/gamedata.png"]
     },
     "response99": {
         "triggers": ["discgame"],
         "text": "Need to quickly get to your Disc Game folder in RPCS3?\n1. Right click the game\n2. Go to `Open Folder` > `Open Disc Game Folder",
-        "link": "response99",
         "files": ["media/discgame.png"]
+    },
+    "response100": {
+        "triggers": ["bestbuild"],
+        "text": "Some newer RPCS3 builds may have performance issues. If you had better performance before, try this build. Install it over your current one.\n[[Windows]](https://github.com/RPCS3/rpcs3-binaries-win/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_win64.7z)\n[[Linux x86]](https://github.com/RPCS3/rpcs3-binaries-linux/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_linux64.AppImage)\n[[Linux ARM]](https://github.com/RPCS3/rpcs3-binaries-linux-arm64/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_linux_aarch64.AppImage)\n[[macOS x86]](https://github.com/RPCS3/rpcs3-binaries-mac/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_macos.7z)\n[[macOS ARM]](https://github.com/RPCS3/rpcs3-binaries-mac-arm64/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_macos_arm64.7z)",
+        "files": []
+    },
+    "response101": {
+        "triggers": ["steam", "steaminput"],
+        "text": "Are you running into weird binding issues and have Steam open?\nTry disabling Steam Input for the Desktop.\nIf you added RPCS3 or Rock Band 3 via shortcut, do it in the shortcut's settings.",
+        "files": ["media/steaminput1.png", "media/steaminput2.png", "media/steaminput3.png", "media/steaminput4.png"]
+    },
+    "response102": {
+        "triggers": ["deckaudio", "pulseaudio", "pipewire", "linuxmic"],
+        "text": "Are you getting crackling audio from microphones on your SteamDeck/Linux install? Run this command in the folder where you have RPCS3:\n```export PULSE_LATENCY_MSEC=1\n.//rpcs3.AppImage``` or modify your shortcut if you're on a SteamDeck.",
+        "files": ["media/pulsesteam.png"]
+    },
+    "response103": {
+        "triggers": ["rpcn"],
+        "text": "Want to hop online on RPCS3? [[Click here for more information!]](https://rb3pc.milohax.org/rpcn_intro)\nIf you're not using a Quick Configuration from `!rpcs3`, you will need to adjust the following settings in RB3's Custom Config",
+        "files": ["media/rpcn.png"]
     }
 }
 
