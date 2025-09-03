@@ -165,10 +165,9 @@ def analyze_log_file(log_file_path):
             # Check for high memory
             if 'CELL_ENOENT, "/dev_hdd0/game/BLUS30463/USRDIR/dx_high_memory.dta"' in line:
                 critical_issues[f"- **High memory file is missing!** Check out `!mem` for more information."].append(f"L-{i}")
-
+            #Frame limit
             if "Frame limit: Infinite" in line or "Frame limit: 50" in line or "Frame limit: 30" in line or "Frame limit: PS3 Native" in line:
                 critical_issues[f"- **You are using an unsupported Framelimit value!** Set this back to 60, Display, or Off."].append(f"L-{i}")
-
             # OpenGL Detect
             if "Renderer: OpenGL" in line:
                 game_issues[f"- **You're using OpenGL!** You should really be on Vulkan. Set this in the GPU tab of RB3's Custom Configuration."].append(f"L-{i}")
@@ -283,7 +282,12 @@ def analyze_log_file(log_file_path):
             # Crash
             if any(error in line for error in ["Thread terminated due to fatal error: Verification failed", "VM: Access violation reading location"]):
                 critical_issues[f"- **Crash detected.** Tell us what you were doing before crashing."].append(f"L-{i}")
-            
+            # Bad dump
+            if "r1 : 0xd00203f0 ->" in line:
+                critical_issues[f"- **You probably have a bad dump!** Get some fresh meats from `!arbys`."].append(f"L-{i}")
+            # Hanging
+            if "Emulation has been frozen! You can either use debugger tools to inspect current emulation state or terminate it" in line:
+                critical_issues[f"- **Emulation paused!** Something probably broke while loading. Try to load the same thing again."].append(f"L-{i}")
             # Pad Stuff Below
             # Pad profile in use
             if 'input_configs/BLUS30463/Default.yml' in line:
