@@ -175,7 +175,7 @@ def analyze_log_file(log_file_path):
 
             # Presence Crash Detect
             if "{\\qPlaylist\\q:\\q,\\qSubPlaylist\\" in line:
-                game_issues[f"- **Error writing to Presence file!** You'll need to delete all files called `currentsong.json` in RB3's USRDIR folder. `!gamedata`"].append(f"L-{i}")
+                critical_issues[f"- **Error writing to Presence file!** You'll need to delete all files called `currentsong.json` in RB3's USRDIR folder. `!gamedata`"].append(f"L-{i}")
 
             # 1920x1080 Detect
             if "Resolution: 1920x1080" in line:
@@ -203,7 +203,7 @@ def analyze_log_file(log_file_path):
             if re.search(r"Vblank Rate: (\d+)", line):
                 vblank_frequency  = int(re.search(r"\d+", line).group())
                 if vblank_frequency < 60:
-                    critical_issues[f"- **VBlank should not be below 60**. Set it back to at least 60 in the Advanced tab of RB3's Custom Configuration."].append(f"L-{i}")
+                    critical_issues[f"- **VBlank should not be below 60**. Set it back to 60 in the Advanced tab of RB3's Custom Configuration."].append(f"L-{i}")
                 elif vblank_frequency > 60:
                     above60_vblank_found = True
                     game_issues[f"- Playing on a VBlank higher than 60 is not suggested. Use `!vsyncmeta` for more information."].append(f"L-{i}")
@@ -241,14 +241,14 @@ def analyze_log_file(log_file_path):
 
             # PSF Broken
             if "PSF: Error loading PSF" in line:
-                critical_issues[f"- **PARAM.SFO file is busted!** DLC will probably not load! Replace them with working ones."].append(f"L-{i}")
+                critical_issues[f"- **PARAM.SFO file is busted!** DLC will probably not load! Replace them with working ones by installing the vanilla updates."].append(f"L-{i}")
             # MBox=empty
             if "MBox=empty" in line:
                 critical_issues[f"- **Weird MBox empty error!** You have run into a freak accident. Please try to replicate this ASAP and get back to us!"].append(f"L-{i}")
             # Debug Console
             if "Debug Console Mode: false" in line:
                 debug_console_mode_off = True
-                game_issues[f"- **Debug Console Mode is off. Why?** Use `!mem`"].append(f"L-{i}")
+                critical_issues[f"- **Debug Console Mode is off. Why?** Use `!mem`"].append(f"L-{i}")
             # Configuration not found
             if 'Selected config: mode=custom config, path=""' in line:
                 critical_issues[f"- **Custom config not found**. Use `!rpcs3`"].append(f"L-{i}")
@@ -276,7 +276,7 @@ def analyze_log_file(log_file_path):
                 high_memory_detected = True
             # GPU does not feature
             if "Your GPU does not support" in line:
-                game_issues[f"- **Graphics card is missing features.** RPCS3 is reporting your GPU is missing features. This might be a nothing burger or something serious."].append(f"L-{i}")
+                game_issues[f"- RPCS3 is reporting that your GPU is missing features. This might be a nothing burger or something serious."].append(f"L-{i}")
             # USB overload
             if "sys_usbd: Transfer Error" in line:
                 critical_issues[f"- **Usbd error.** This shouldn't be happening anymore! Tell us how your USB devices are connected."].append(f"L-{i}")
@@ -287,7 +287,7 @@ def analyze_log_file(log_file_path):
             # Pad Stuff Below
             # Pad profile in use
             if 'input_configs/BLUS30463/Default.yml' in line:
-                pad_info[f"- **Per-game pad profile detected**. We heavily discourage this. Check `!padprofiles`."].append(f"L-{i}")
+                pad_info[f"- **Per-game pad profile detected**! We heavily discourage this. Check `!padprofiles`."].append(f"L-{i}")
             # Mic in use
             if 'cellMic: cellMicOpenEx(dev_nu' in line:
                 pad_info[f"- I see at least one microphone."].append(f"L-{i}")
