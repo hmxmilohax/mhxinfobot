@@ -276,9 +276,6 @@ def analyze_log_file(log_file_path):
             # GPU does not feature
             if "Your GPU does not support" in line:
                 game_issues[f"- RPCS3 is reporting that your GPU is missing features. This might be a nothing burger or something serious."].append(f"L-{i}")
-            # USB overload
-            if "sys_usbd: Transfer Error" in line:
-                critical_issues[f"- **Usbd error.** This shouldn't be happening anymore! Tell us how your USB devices are connected."].append(f"L-{i}")
             # Crash
             if any(error in line for error in ["Thread terminated due to fatal error: Verification failed", "VM: Access violation reading location"]):
                 critical_issues[f"- **Crash detected.** Tell us what you were doing before crashing."].append(f"L-{i}")
@@ -288,6 +285,7 @@ def analyze_log_file(log_file_path):
             # Hanging
             if "Emulation has been frozen! You can either use debugger tools to inspect current emulation state or terminate it" in line:
                 critical_issues[f"- **Emulation paused!** Something probably broke while loading. Try to load the same thing again."].append(f"L-{i}")
+            
             # Pad Stuff Below
             # Pad profile in use
             if 'input_configs/BLUS30463/Default.yml' in line:
@@ -295,18 +293,39 @@ def analyze_log_file(log_file_path):
             # Mic in use
             if 'cellMic: cellMicOpenEx(dev_nu' in line:
                 pad_info[f"- I see at least one microphone."].append(f"L-{i}")
-            # MIDI Keyboard in use
+            # Passthrough RB Guitar
+            if 'matches up with LDD <RockBandGuitar>' in line:
+                pad_info[f"- I see a Rock Band guitar connected with passthrough."].append(f"L-{i}")
+            # Passthrough RB drums
+            if 'matches up with LDD <RockBandDrums>' in line:
+                pad_info[f"- I see Rock Band drums connected with passthrough."].append(f"L-{i}")
+            # Passthrough RB Keytar
+            if 'matches up with LDD <RockBandKeyboard>' in line:
+                pad_info[f"- I see a Rock Band Keyboard connected with passthrough."].append(f"L-{i}")
+            # Passthrough RB Mustang
+            if 'matches up with LDD <RockBandButtonGuitar>' in line:
+                pad_info[f"- I see a Rock Band Mustang Pro Guitar connected with passthrough."].append(f"L-{i}")
+            # Passthrough RB Squier
+            if 'matches up with LDD <RockBandRealGuitar>' in line:
+                pad_info[f"- I see a Rock Band Squier Pro Guitar connected with passthrough."].append(f"L-{i}")
+            # Santroller device in use
+            if 'sys_usbd: Found device: Santroller' in line:
+                pad_info[f"- I see a Santroller device. All hail Sanjay."].append(f"L-{i}")
+            # I/O MIDI Keyboard in use
             if 'Emulated Midi Pro Adapter (type=Keyboard' in line:
                 pad_info[f"- I see a MIDI keyboard set up via I/O."].append(f"L-{i}")
-            # MIDI Drums in use
+            # I/O MIDI Drums in use
             if 'Emulated Midi Pro Adapter (type=Drums' in line:
                 pad_info[f"- I see a MIDI Drum Kit set up via I/O."].append(f"L-{i}")
-            # MIDI Protar 17 in use
+            # I/O MIDI Protar 17 in use
             if 'Emulated Midi Pro Adapter (type=Guitar (17 frets)' in line:
                 pad_info[f"- I see a 17 fret Pro Guitar set up via I/O."].append(f"L-{i}")
-            # MIDI Protar 22 in use
+            # I/O MIDI Protar 22 in use
             if 'Emulated Midi Pro Adapter (type=Guitar (22 frets)' in line:
                 pad_info[f"- I see a 22 fret Pro Guitar set up via I/O."].append(f"L-{i}")
+            # USB overload
+            if "sys_usbd: Transfer Error" in line:
+                critical_issues[f"- **Usbd error.** This shouldn't be happening anymore! Tell us how your USB devices are connected."].append(f"L-{i}")
             # Mic error
             if 'Make sure microphone use is authorized under' in line:
                 critical_issues[f"- **The emulator can't use your microphone!** Does RPCS3 have permissions in Windows Settings? Is something else using it?"].append(f"L-{i}")
