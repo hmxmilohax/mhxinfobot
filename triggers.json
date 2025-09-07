@@ -100,7 +100,7 @@
         "files": ["media/mem.png", "media/dx_high_memory.dta"]
     },
     "response21": {
-        "triggers": ["mididrums"],
+        "triggers": ["mididrums", "mididrumkit"],
         "text": "# Using Midi Drums Over USB on RPCS3\nhttps://rb3pc.milohax.org/ctrls_drums_midi",
         "files": []
     },
@@ -506,14 +506,24 @@
         "files": ["media/steaminput1.png", "media/steaminput2.png", "media/steaminput3.png", "media/steaminput4.png"]
     },
     "response102": {
-        "triggers": ["deckaudio", "pulseaudio", "pipewire", "linuxmic"],
+        "triggers": ["deckaudio", "deckmic", "pulseaudio", "pipewire", "linuxmic"],
         "text": "Are you getting crackling audio from microphones on your SteamDeck/Linux install? Run this command in the folder where you have RPCS3:\n```export PULSE_LATENCY_MSEC=1\n.//rpcs3.AppImage``` or modify your shortcut if you're on a SteamDeck.",
         "files": ["media/pulsesteam.png"]
     },
     "response103": {
         "triggers": ["rpcn"],
         "text": "Want to hop online on RPCS3? [[Click here for more information!]](https://rb3pc.milohax.org/rpcn_intro)\nIf you're not using a Quick Configuration from `!rpcs3`, you will need to adjust the following settings in RB3's Custom Config",
-        "files": ["media/rpcn.png"]
+        "files": ["media/rpcnsettings.png"]
+    },
+    "response104": {
+        "triggers": ["drum", "drums"],
+        "text": "Check [[the guide]](https://rb3pc.milohax.org/ctrls#drums) to see how to set up your drum kit.",
+        "files": []
+    },
+    "response105": {
+        "triggers": ["badcustom", "badcustoms"],
+        "text": "",
+        "files": ["media/badcustoms.png"]
     }
 }
 

@@ -48,7 +48,7 @@
         "files": ["media/mem.png", "media/dx_high_memory.dta"]
     },
     "response21": {
-        "triggers": ["mididrums", "bateriamidi"],
+        "triggers": ["mididrums", "mididrumkit", "bateriamidi"],
         "text": "# Como usar tu bateria MIDI con RPCS3\nhttps://rb3pc.milohax.org/ctrls_drums_midi_es",
         "link": "response21",
         "files": []
@@ -288,7 +288,7 @@
         "files": ["media/steaminputes1.png", "media/steaminputes2.png", "media/steaminputes3.png", "media/steaminputes4.png"]
     },
     "response102": {
-        "triggers": ["deckaudio", "pulseaudio", "pipewire", "linuxmic"],
+        "triggers": ["deckaudio", "deckmic", "pulseaudio", "pipewire", "linuxmic"],
         "text": "Tienes problemas con el sonido de microfonos en tu SteamDeck/compu de Linux? Trata este comando en la carpeta donde tienes RPCS3:\n```export PULSE_LATENCY_MSEC=1\n.//rpcs3.AppImage``` o modificada el atajo si estas en un SteamDeck",
         "link": "response102",
         "files": ["media/pulsesteam.png"]
@@ -298,6 +298,12 @@
         "text": "Estas listo para jugar en linea? [[Haz click aqui para mas informacion!]](https://rb3pc.milohax.org/rpcn_intro)\nSi no estas usando una configuracion de la guia de RPCS3, cambia estas cosas en la configuracion de RB3.",
         "link": "response103",
         "files": ["media/rpcn.png"]
+    },
+    "response104": {
+        "triggers": ["drums", "drums", "bateria"],
+        "text": "Revisa [[la guia]](https://rb3pc.milohax.org/ctrls#drums) para ver como conectar tu bateria.",
+        "link": "response104",
+        "files": []
     }
 }
 
