@@ -86,7 +86,7 @@
     },
     "response18": {
         "triggers": ["log", "logs"],
-        "text": "Error: User provided no rpcs3.log.\nTo send a log, run into a problem then,\nin the main RPCS3 window, click on `File` > `Exit and Save Log`.\nSave the log somewhere convenient then upload it to the chat with a `!log` message so the bot can see it.\nIf you're running into hard crashes, **do not reopen RPCS3!**\nFind the `RPCS3.log` or `RPCS3.log.gz` file and send that.\n* On Windows, it's in the folder called `logs` in the folder you have RPCS3 in.\n* On Linux, it's in `~/.cache/rpcs3/logs`.\n* On macOS, it's in `~/Library/Caches/rpcs3/logs`. (May require you to show hidden folders)",
+        "text": "Error: User provided no rpcs3.log.\nTo send a log, run into a problem then,\nin the main RPCS3 window, click on `File` > `Exit and Save Log`.\nSave the log somewhere convenient then upload it to the chat with a `!log` message so the bot can see it.\n---\nIf you're running into hard crashes, **do not reopen RPCS3!**\nFind the `RPCS3.log` or `RPCS3.log.gz` file and send that.\n* On Windows, it's in the folder called `logs` in the folder you have RPCS3 in.\n* On Linux, it's in `~/.cache/rpcs3/logs`.\n* On macOS, it's in `~/Library/Caches/rpcs3/logs`. (May require you to show hidden folders)",
         "files": ["media/savelog.png"]
     },
     "response19": {
@@ -196,7 +196,7 @@
     },
     "response40": {
         "triggers": ["songs"],
-        "text": "# Rock Band & Guitar Hero Song Spreadsheet\n<https://bit.ly/ArbysMealDeals>\n## Also check out the bangers packs, curated collections of online ready songs!\n<https://docs.google.com/spreadsheets/d/1uFJDQPMLa-FspQ6WtbotTIy6u1YSB79i2sp9nSZVSfc>\n### Also check out the really great GitHub repo of songs authors from the RB2 Deluxe community have put together!\n<https://github.com/Rock-Band-Road-Crew/rbrc-customs/tree/main>\n### Also check out the really great GitHub repo of various lost songs for Rock Band 3!\n<https://github.com/exoticri/rock-band-3-lost-songs>",
+        "text": "# Looking to add some DLC? Check the Rock Band & Guitar Hero Song Spreadsheet\n<https://bit.ly/ArbysMealDeals>\n## Also check out the bangers packs, curated compilations of online-ready customs!\n<https://docs.google.com/spreadsheets/d/1uFJDQPMLa-FspQ6WtbotTIy6u1YSB79i2sp9nSZVSfc>\nYou can find [[download links here]](https://discord.com/channels/961352072140324924/1148300784748994560).\n### Also check out the really great GitHub repo of songs authors from the RB2 Deluxe community have put together!\n<https://github.com/Rock-Band-Road-Crew/rbrc-customs/tree/main>\n### Also check out the really great GitHub repo of various lost songs for Rock Band 3!\n<https://github.com/exoticri/rock-band-3-lost-songs>",
         "files": []
     },
     "response41": {
@@ -216,7 +216,7 @@
     },
     "response44": {
         "triggers": ["themeats", "meat", "meats", "arbys", "arbyshasthemeats"],
-        "text": "Looking for Rock Band song packs? Use `!songs` instead for an easier to navigate experience.\nFor everything else, including rare oddities and goodies, visit the following link.",
+        "text": "Looking for some Arbys, including rare oddities, goodies, and more?\nVisit the link in the image.\nNeed some songs? Use `!songs` instead.",
         "files": ["media/themeats.png"]
     },
     "response45": {
@@ -276,7 +276,7 @@
     },
     "response56": {
         "triggers": ["richpresence"],
-        "text": "Xbox 360 hardware:\n### Note: This requires RB3Enhanced to be installed\nThere are a couple of steps to get this working:\n* **Download rb3e_index.html below** and put it in the same place as RB3 on the Xbox.\n* **Grab the latest RB3E nightly (NoDebug)** [RB3Enhanced Nightly](https://nightly.link/RBEnhanced/RB3Enhanced/workflows/build/master)\n* Add this to your `rb3.ini`\n```\n[HTTP]\nEnableHTTPServer = true\n```\nIn the DX repo **on the develop branch** in the `scripts` folder, you will want to add a new line to your `config.ini`, or copy from `config_default.ini` (replacing with the IP to your Xbox)\n```\nxbox_console_ip = 192.168.0.36\n```\nWhen set, the Rich Presence script will attempt to connect to the Xbox when launched first, and if that fails, it will automatically fall back to the RPCS3 Rich Presence like normal.\nTo run Rich Presence, in a command prompt inside the `scripts` folder, run:\n```\npython dx_discordrp.py\n```\nYou will need a couple of packages to run this script:\n```\npip install pypresence requests\n```",
+        "text": "Want to set up Discord Presence for RPCS3? [[Click here]](https://rb3pc.milohax.org/adv_discordrp)\nFor Xbox 360 hardware:\n### Note: This requires RB3Enhanced to be installed\nThere are a couple of steps to get this working:\n* **Download rb3e_index.html below** and put it in the same place as RB3 on the Xbox.\n* **Grab the latest RB3E nightly (NoDebug)** [RB3Enhanced Nightly](https://nightly.link/RBEnhanced/RB3Enhanced/workflows/build/master)\n* Add this to your `rb3.ini`\n```\n[HTTP]\nEnableHTTPServer = true\n```\nIn the DX repo **on the develop branch** in the `scripts` folder, you will want to add a new line to your `config.ini`, or copy from `config_default.ini` (replacing with the IP to your Xbox)\n```\nxbox_console_ip = 192.168.0.36\n```\nWhen set, the Rich Presence script will attempt to connect to the Xbox when launched first, and if that fails, it will automatically fall back to the RPCS3 Rich Presence like normal.\nTo run Rich Presence, in a command prompt inside the `scripts` folder, run:\n```\npython dx_discordrp.py\n```\nYou will need a couple of packages to run this script:\n```\npip install pypresence requests\n```",
         "files": ["media/rb3e_index.html", "media/richpresence.png"]
     },
     "response57": {
@@ -497,7 +497,7 @@
     },
     "response100": {
         "triggers": ["bestbuild"],
-        "text": "Some newer RPCS3 builds may have performance issues. If you had better performance before, try this build. Install it over your current one.\n[[Windows]](https://github.com/RPCS3/rpcs3-binaries-win/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_win64.7z)\n[[Linux x86]](https://github.com/RPCS3/rpcs3-binaries-linux/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_linux64.AppImage)\n[[Linux ARM]](https://github.com/RPCS3/rpcs3-binaries-linux-arm64/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_linux_aarch64.AppImage)\n[[macOS x86]](https://github.com/RPCS3/rpcs3-binaries-mac/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_macos.7z)\n[[macOS ARM]](https://github.com/RPCS3/rpcs3-binaries-mac-arm64/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_macos_arm64.7z)",
+        "text": "Some newer RPCS3 builds may have performance issues. If you had better performance before, try this build. Install it over your current one.\n- [[Windows]](https://github.com/RPCS3/rpcs3-binaries-win/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_win64.7z)\n- [[Linux x86]](https://github.com/RPCS3/rpcs3-binaries-linux/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_linux64.AppImage)\n- [[Linux ARM]](https://github.com/RPCS3/rpcs3-binaries-linux-arm64/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_linux_aarch64.AppImage)\n- [[macOS x86]](https://github.com/RPCS3/rpcs3-binaries-mac/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_macos.7z)\n- [[macOS ARM]](https://github.com/RPCS3/rpcs3-binaries-mac-arm64/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_macos_arm64.7z)",
         "files": []
     },
     "response101": {
@@ -524,6 +524,11 @@
         "triggers": ["badcustom", "badcustoms"],
         "text": "",
         "files": ["media/badcustoms.png"]
+    },
+    "response106": {
+        "triggers": ["ohwaiter", "turnitoff", "nosauce"],
+        "text": "",
+        "files": ["media/turnitoff.png"]
     }
 }
 

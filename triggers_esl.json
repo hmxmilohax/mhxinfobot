@@ -109,7 +109,7 @@
     },
     "response40": {
         "triggers": ["songs", "canciones"],
-        "text": "# Lista de DLCs para Rock Band y Guitar Hero\n<https://bit.ly/ArbysMealDeals>\n## Tambien mira esta lista de paquetes hechos por la comunidad para jugar en linea.\n<https://docs.google.com/spreadsheets/d/1uFJDQPMLa-FspQ6WtbotTIy6u1YSB79i2sp9nSZVSfc>\n### Igualmente, esta este repo de Github de customs hechas por la comunidad de RB2 Deluxe.\n<https://github.com/Rock-Band-Road-Crew/rbrc-customs/tree/main>\n### Si estas buscando canciones ''perdidas'' de versiones beta, mire el Github para canciones perdidas\n<https://github.com/exoticri/rock-band-3-lost-songs>",
+        "text": "# Lista de DLCs para Rock Band y Guitar Hero\n<https://bit.ly/ArbysMealDeals>\n## Tambien mira esta lista de paquetes hechos por la comunidad para jugar en linea.\n<https://docs.google.com/spreadsheets/d/1uFJDQPMLa-FspQ6WtbotTIy6u1YSB79i2sp9nSZVSfc>\nLas puedes [[descargar de aqui]](https://discord.com/channels/961352072140324924/1148300784748994560).\n### Igualmente, esta este repo de Github de customs hechas por la comunidad de RB2 Deluxe.\n<https://github.com/Rock-Band-Road-Crew/rbrc-customs/tree/main>\n### Si estas buscando canciones ''perdidas'' de versiones beta, mire el Github para canciones perdidas\n<https://github.com/exoticri/rock-band-3-lost-songs>",
         "link": "response40",
         "files": []
     },
@@ -121,7 +121,7 @@
     },
     "response44": {
         "triggers": ["themeats", "meat", "meats", "arbys", "arbyshasthemeats"],
-        "text": "Si buscas DLC y canciones, usa `canciones`.\nPara cualquier otra cosa, incluyendo cosas raras, ve a este sitio:",
+        "text": "Para cualquier juegos y otras cosas, ve al sitio en la imagen.\nSi buscas canciones y DLC, usa `!canciones`.",
         "link": "response44",
         "files": ["media/themeats.png"]
     },
@@ -277,7 +277,7 @@
     },
     "response100": {
         "triggers": ["bestbuild", "versionvieja"],
-        "text": "Algunas actualizaciones de RPCS3 tiene peor rendimiento. Si tenias mejor rendimiento, antes, puedes intentar una version mas vieja. Instalala sobre la instalacion que tienes.\n[[Windows]](https://github.com/RPCS3/rpcs3-binaries-win/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_win64.7z)\n[[Linux x86]](https://github.com/RPCS3/rpcs3-binaries-linux/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_linux64.AppImage)\n[[Linux ARM]](https://github.com/RPCS3/rpcs3-binaries-linux-arm64/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_linux_aarch64.AppImage)\n[[macOS x86]](https://github.com/RPCS3/rpcs3-binaries-mac/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_macos.7z)\n[[macOS ARM]](https://github.com/RPCS3/rpcs3-binaries-mac-arm64/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_macos_arm64.7z)",
+        "text": "Algunas actualizaciones de RPCS3 tiene peor rendimiento. Si tenias mejor rendimiento, antes, puedes intentar una version mas vieja. Instalala sobre la instalacion que tienes.\n- [[Windows]](https://github.com/RPCS3/rpcs3-binaries-win/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_win64.7z)\n- [[Linux x86]](https://github.com/RPCS3/rpcs3-binaries-linux/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_linux64.AppImage)\n- [[Linux ARM]](https://github.com/RPCS3/rpcs3-binaries-linux-arm64/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_linux_aarch64.AppImage)\n- [[macOS x86]](https://github.com/RPCS3/rpcs3-binaries-mac/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_macos.7z)\n- [[macOS ARM]](https://github.com/RPCS3/rpcs3-binaries-mac-arm64/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_macos_arm64.7z)",
         "link": "response100",
         "files": []
     },
