@@ -9,8 +9,10 @@ def analyze_log_file(log_file_path):
     game_issues = defaultdict(list)
     non_default_settings = defaultdict(list)
     pad_info = defaultdict(list)
+    pad_issues = defaultdict(list)
     firmware_detected = False
     firmware_version = None
+    local_build_detected = False
     emulator_info = {"version": "", "cpu": "", "os": "", "gpu": ""}
     language_message = ""
     call_stack = []
@@ -71,7 +73,7 @@ def analyze_log_file(log_file_path):
     # Check if this is a Rock Band 3 log
     if not any("SYS: Title: Rock Band 3" in line for line in lines) or \
        not any("SYS: Serial: BLUS30463" in line for line in lines):
-        return "**Yuck!** This isn't a log for Rock Band 3. Feed me something better, or boot the game first to generate a log."
+        return "**I don't understand this!** Boot the game first to generate a log."
 
     # Extract emulator information
     emulator_info["version"] = lines[0].strip() if lines else ""
@@ -112,13 +114,18 @@ def analyze_log_file(log_file_path):
         if "Language: Spanish" in line:
             language_message = "Hola. Explica lo que paso. / This user speaks Spanish."
 
+        if "this is a local build" in line:
+            local_build_detected = True
+
     # Scan the log file for "Used configuration" and track indices
     for i, line in enumerate(lines):
         if "Applying custom config" in line:
             custom_config_found = True
         if "Used configuration" in line:
             last_core_index = i
-
+    if not custom_config_found:
+        critical_issues[f"- **You have no custom configuration set!** Please follow the guide at `!rpcs3`."].append(f"L-{i}")
+    
     # Process log information if custom config was found
     if custom_config_found and last_core_index != -1:
         core_section_lines = lines[last_core_index:]
@@ -165,9 +172,11 @@ def analyze_log_file(log_file_path):
             # Check for high memory
             if 'CELL_ENOENT, "/dev_hdd0/game/BLUS30463/USRDIR/dx_high_memory.dta"' in line:
                 critical_issues[f"- **High memory file is missing!** Check out `!mem` for more information."].append(f"L-{i}")
+
             #Frame limit
             if "Frame limit: Infinite" in line or "Frame limit: 50" in line or "Frame limit: 30" in line or "Frame limit: PS3 Native" in line:
                 critical_issues[f"- **You are using an unsupported Framelimit value!** Set this back to 60, Display, or Off."].append(f"L-{i}")
+
             # OpenGL Detect
             if "Renderer: OpenGL" in line:
                 game_issues[f"- **You're using OpenGL!** You should really be on Vulkan. Set this in the GPU tab of RB3's Custom Configuration."].append(f"L-{i}")
@@ -286,43 +295,43 @@ def analyze_log_file(log_file_path):
             if "Emulation has been frozen! You can either use debugger tools to inspect current emulation state or terminate it" in line:
                 critical_issues[f"- **Emulation paused!** Something probably broke while loading. Try to load the same thing again."].append(f"L-{i}")
             
-            # Pad Stuff Below
+            # Pad Stuff
             # Pad profile in use
             if 'input_configs/BLUS30463/Default.yml' in line:
-                pad_info[f"- **Per-game pad profile detected**! We heavily discourage this. Check `!padprofiles`."].append(f"L-{i}")
+                pad_issues[f"- **Per-game pad profile detected**! We heavily discourage this. Check `!padprofiles`."].append(f"L-{i}")
             # Mic in use
             if 'cellMic: cellMicOpenEx(dev_nu' in line:
-                pad_info[f"- I see at least one microphone."].append(f"L-{i}")
+                pad_info[f"- At least one microphone is set up in I/O."].append(f"L-{i}")
             # Passthrough RB Guitar
             if 'matches up with LDD <RockBandGuitar>' in line:
-                pad_info[f"- I see a Rock Band guitar connected with passthrough."].append(f"L-{i}")
-            # Passthrough RB drums
-            if 'matches up with LDD <RockBandDrums>' in line:
-                pad_info[f"- I see Rock Band drums connected with passthrough."].append(f"L-{i}")
-            # Passthrough RB Keytar
-            if 'matches up with LDD <RockBandKeyboard>' in line:
-                pad_info[f"- I see a Rock Band Keyboard connected with passthrough."].append(f"L-{i}")
-            # Passthrough RB Mustang
-            if 'matches up with LDD <RockBandButtonGuitar>' in line:
-                pad_info[f"- I see a Rock Band Mustang Pro Guitar connected with passthrough."].append(f"L-{i}")
-            # Passthrough RB Squier
-            if 'matches up with LDD <RockBandRealGuitar>' in line:
-                pad_info[f"- I see a Rock Band Squier Pro Guitar connected with passthrough."].append(f"L-{i}")
+                pad_info[f"- At least one Rock Band guitar is connected with passthrough."].append(f"L-{i}")
             # Santroller device in use
             if 'sys_usbd: Found device: Santroller' in line:
                 pad_info[f"- I see a Santroller device. All hail Sanjay."].append(f"L-{i}")
             # I/O MIDI Keyboard in use
             if 'Emulated Midi Pro Adapter (type=Keyboard' in line:
-                pad_info[f"- I see a MIDI keyboard set up via I/O."].append(f"L-{i}")
+                pad_info[f"- A MIDI keyboard is set up via I/O."].append(f"L-{i}")
+            # Passthrough RB Keytar
+            if 'matches up with LDD <RockBandKeyboard>' in line:
+                pad_info[f"- The game should see Rock Band Keyboard connected."].append(f"L-{i}")
             # I/O MIDI Drums in use
             if 'Emulated Midi Pro Adapter (type=Drums' in line:
-                pad_info[f"- I see a MIDI Drum Kit set up via I/O."].append(f"L-{i}")
+                pad_info[f"- A MIDI Drum Kit is set up via I/O."].append(f"L-{i}")
+            # Passthrough RB drums
+            if 'matches up with LDD <RockBandDrums>' in line:
+                pad_info[f"- The game should see Rock Band drums connected."].append(f"L-{i}")
             # I/O MIDI Protar 17 in use
             if 'Emulated Midi Pro Adapter (type=Guitar (17 frets)' in line:
-                pad_info[f"- I see a 17 fret Pro Guitar set up via I/O."].append(f"L-{i}")
+                pad_info[f"- A 17 fret Pro Guitar is set up via I/O."].append(f"L-{i}")
+            # Passthrough RB Mustang
+            if 'matches up with LDD <RockBandButtonGuitar>' in line:
+                pad_info[f"- The game should see a Rock Band Mustang Pro Guitar connected."].append(f"L-{i}")
             # I/O MIDI Protar 22 in use
             if 'Emulated Midi Pro Adapter (type=Guitar (22 frets)' in line:
-                pad_info[f"- I see a 22 fret Pro Guitar set up via I/O."].append(f"L-{i}")
+                pad_info[f"- A 22 fret Pro Guitar is set up via I/O."].append(f"L-{i}")
+            # Passthrough RB Squier
+            if 'matches up with LDD <RockBandRealGuitar>' in line:
+                pad_info[f"- The game should see a Rock Band Squier Pro Guitar connected."].append(f"L-{i}")
             # USB overload
             if "sys_usbd: Transfer Error" in line:
                 critical_issues[f"- **Usbd error.** This shouldn't be happening anymore! Tell us how your USB devices are connected."].append(f"L-{i}")
@@ -465,6 +474,11 @@ def analyze_log_file(log_file_path):
         if not mfcdef_found:
             non_default_settings[f"- You changed `MFC Commands Shuffling Limit` in the config file for RB3. Why? Set it back."].append(f"L-{i}")
 
+        # Additional Stuff
+
+        if local_build_detected:
+            critical_issues[f"- **This is not an official RPCS3 build!** Please [[download a proper version of RPCS3]](https://rpcs3.net/download)."].append(f"L-{i}")
+
         # Check for combined issues
         if high_memory_detected and debug_console_mode_off:
             critical_issues[f"- **dx_high_memory is installed but Debug Console is off! YOUR GAME WILL CRASH!**"].append(f"L-{i}")
@@ -496,9 +510,9 @@ def analyze_log_file(log_file_path):
             line_info = ", ".join(lines)  # Combine all line numbers
             output += f"{issue} (on {line_info})\n"
 
-    if pad_info:
-        output += "\n## Input Info :guitar:\n_Here's some pad and I/O information._\n"
-        for issue, lines in pad_info.items():
+    if pad_issues:
+        output += "\n## Input Errors :guitar:\n_Here's some problems with your controllers._\n"
+        for issue, lines in pad_issues.items():
             line_info = ", ".join(lines)  # Combine all line numbers
             output += f"{issue} (on {line_info})\n"
 
@@ -517,8 +531,14 @@ def analyze_log_file(log_file_path):
         with open(diagnostics_file, "w", encoding="utf-8") as f:
             f.write("\n".join(details))
     
-    if not critical_issues and not game_issues and not non_default_settings and not pad_info:
+    if not critical_issues and not game_issues and not non_default_settings and not pad_issues:
         output += "## No issues detected. Either nothing is wrong or I don't know how to detect your issue yet."
+    
+    if pad_info:
+        output += "\n## Input Info :guitar:\n_Here's some pad and I/O information._\n"
+        for issue, lines in pad_info.items():
+            line_info = ", ".join(lines)  # Combine all line numbers
+            output += f"{issue} (on {line_info})\n"
 
     # Add emulator information
     output += f"\n\n**Version:** {emulator_info['version']}\n**CPU:** {emulator_info['cpu']}\n**GPU:** {emulator_info['gpu']}\n{emulator_info['os']}"
