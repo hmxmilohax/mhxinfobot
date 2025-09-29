@@ -39,7 +39,7 @@
         "triggers": ["log", "logs", "dejaver", "analizar", "historial"],
         "text": "Para mandar un historial, encuentra el problema y,\nen la pantalla principal de RPCS3, ve a `File` > `Exit and Save Log`.\nGuarda el archivo donde sea conveniente y mandalo con un mensaje de `!log` para que el bot lo pueda ver.",
         "link": "response18",
-        "files": ["media/savelog.png"]
+        "files": ["media/savelog.gif"]
     },
     "response20": {
         "triggers": ["mem", "himem", "memory", "memoria", "memalta"],
@@ -304,6 +304,12 @@
         "text": "Revisa [[la guia]](https://rb3pc.milohax.org/ctrls#drums) para ver como conectar tu bateria.",
         "link": "response104",
         "files": []
+    },
+    "response107": {
+        "triggers": ["xbone", "rb4instruments", "gameinput", "riffmaster"],
+        "text": "Tienes problemas conectando tu instrumento para Xbox One?\nVe a `Inicio` > `Configuracion`  > `Aplicaciones` > `Aplicaciones instaladas`\nBusca `Microsoft GameInput` y desinstala la version mas actual.\nToma en cuenta que se puede reinstalar despues de un reinicio.",
+        "link": "response107",
+        "files": ["media/gameinput.png"]
     }
 }
 
