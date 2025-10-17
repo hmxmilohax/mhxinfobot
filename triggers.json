@@ -534,6 +534,11 @@
         "triggers": ["xbone", "rb4instruments", "gameinput", "riffmaster"],
         "text": "Having issues with your Xbox One instrument?\nGo to `Start` > `Settings`  > `Apps` > `Installed apps`\nLook for `Microsoft GameInput` and uninstall the latest version.\nPlease note that it may reinstall itself after a reboot.",
         "files": ["media/gameinput.png"]
+    },
+    "response108": {
+        "triggers": ["modern", "moderngaming", "dogshit"],
+        "text": "",
+        "files": ["media/dogshit.mp4"]
     }
 }
 
