@@ -232,7 +232,7 @@ def analyze_log_file(log_file_path):
                     game_issues[f"- **Audio Buffer is quite high.** Consider lowering it to 32 in the Audio tab of RB3's Custom Configuration. It's set to {buffer_duration} ms"].append(f"L-{i}")
 
             # Audio Broken
-            if "cellAudio: Failed to open audio backend" in line:
+            if "cellAudio: Failed to open audio backend" in line or "Thread terminated due to fatal error: Unsupported layout" in line:
                 critical_issues[f"- **Audio device doesn't work!** Check to make you selected the proper audio device in the Audio tab of RB3's Custom Configuration."].append(f"L-{i}")
 
             # Fullscreen settings
@@ -296,6 +296,9 @@ def analyze_log_file(log_file_path):
                 critical_issues[f"- **Emulation paused!** Something probably broke while loading. Try to load the same thing again."].append(f"L-{i}")
             
             # Pad Stuff
+            # Pad profile in use
+            if 'Product ID: 528' in line:
+                pad_issues[f"- **Drums have the wrong Device Class**! All Rock Band Drums need need to be set to `Rock Band Pro`."].append(f"L-{i}")
             # Pad profile in use
             if 'input_configs/BLUS30463/Default.yml' in line:
                 pad_issues[f"- **Per-game pad profile detected**! We heavily discourage this. Check `!padprofiles`."].append(f"L-{i}")
