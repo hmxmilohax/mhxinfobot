@@ -539,6 +539,16 @@
         "triggers": ["modern", "moderngaming", "dogshit"],
         "text": "",
         "files": ["media/dogshit.mp4"]
+    },
+    "response109": {
+        "triggers": ["fogjuicerb3"],
+        "text": "",
+        "files": ["media/here_come_the_fog_juice.mov"]
+    },
+    "response110": {
+        "triggers": ["fogjuice", "fog", "vape"],
+        "text": "",
+        "files": ["media/fog.mp4"]
     }
 }
 
