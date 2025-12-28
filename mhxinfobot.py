@@ -11,6 +11,23 @@ import urllib.request as urlreq
 import uuid
 import requests
 from discord.ext import tasks
+from collections import defaultdict, deque, Counter
+
+# --- Spam watchdog config ---
+SPAM_REPORT_CHANNEL_ID = 961395552329818142
+
+SPAM_WINDOW_SECONDS = 12
+SPAM_MIN_MESSAGES = 3
+SPAM_MIN_CHANNELS = 3
+
+SPAM_REQUIRE_DUPLICATE_PAYLOAD = True
+SPAM_MIN_DUPLICATES = 3
+
+SPAM_ACTION_COOLDOWN_SECONDS = 60
+
+_recent_user_messages = defaultdict(lambda: deque())
+_last_spam_action = {}  # (guild_id, user_id) -> datetime
+
 
 def get_decomp_info():
     frogress_json = json.load(urlreq.urlopen("https://progress.decomp.club/data/rb3/SZBE69_B8/dol/"))
@@ -319,6 +336,14 @@ async def on_message(message):
     if message.author == client.user:
         return
 
+    # --- Spam watchdog (ban + report) ---
+    try:
+        if await spam_watchdog(message):
+            return
+    except Exception as e:
+        # Don’t let watchdog errors break the bot
+        print(f"Spam watchdog error: {e}")
+
     # Handle publishing messages in a specific channel
     if message.channel.id == 979895152367771668:
         try:
@@ -548,6 +573,201 @@ async def send_long_message(channel, text):
 
     if text:
         await channel.send(text)
+
+def _now_utc():
+    return datetime.utcnow()
+
+def _normalize_text(s: str) -> str:
+    s = (s or "").strip().lower()
+    s = " ".join(s.split())
+    return s
+
+def _attachment_sig(att: discord.Attachment) -> str:
+    # No file hashing needed; metadata is enough for “same image pasted everywhere”
+    # (filename/size/content_type are stable in typical spam)
+    return f"{att.filename}|{att.size}|{att.content_type or ''}"
+
+def _message_payload_signature(message: discord.Message) -> str:
+    """
+    One string representing what was posted:
+    - normalized text (if any)
+    - attachment metadata (if any)
+    - embed urls (rare, but helps)
+    """
+    parts = []
+
+    txt = _normalize_text(message.content)
+    if txt:
+        parts.append(f"txt:{txt}")
+
+    if message.attachments:
+        atts = ",".join(_attachment_sig(a) for a in message.attachments)
+        parts.append(f"att:{atts}")
+
+    # sometimes spam comes as embeds (link previews)
+    if message.embeds:
+        urls = []
+        for e in message.embeds:
+            if getattr(e, "url", None):
+                urls.append(e.url)
+        if urls:
+            parts.append("emb:" + ",".join(urls))
+
+    return " || ".join(parts)
+
+async def _get_channel_safe(channel_id: int):
+    ch = client.get_channel(channel_id)
+    if ch:
+        return ch
+    try:
+        return await client.fetch_channel(channel_id)
+    except Exception:
+        return None
+
+async def _delete_message_by_id(guild: discord.Guild, channel_id: int, message_id: int) -> bool:
+    ch = guild.get_channel(channel_id)
+    if ch is None:
+        try:
+            ch = await guild.fetch_channel(channel_id)
+        except Exception:
+            return False
+
+    try:
+        msg = await ch.fetch_message(message_id)
+        await msg.delete()
+        return True
+    except discord.NotFound:
+        return True  # already gone is fine
+    except discord.Forbidden:
+        return False
+    except Exception:
+        return False
+
+async def _ban_and_report_for_spam(message: discord.Message, evidence: list[dict], reason: str):
+    guild = message.guild
+    if not guild:
+        return
+
+    # 1) Delete evidence messages first (best-effort)
+    deleted = 0
+    failed_delete = 0
+    for e in evidence:
+        ok = await _delete_message_by_id(guild, e["channel_id"], e["message_id"])
+        if ok:
+            deleted += 1
+        else:
+            failed_delete += 1
+
+    # 2) Ban (also try to nuke recent history via ban parameter when supported)
+    try:
+        try:
+            # discord.py newer
+            await guild.ban(message.author, reason=reason, delete_message_seconds=3600)
+        except TypeError:
+            # discord.py older
+            await guild.ban(message.author, reason=reason, delete_message_days=1)
+    except Exception as e:
+        report_ch = await _get_channel_safe(SPAM_REPORT_CHANNEL_ID)
+        if report_ch:
+            embed = discord.Embed(title="Spam watchdog: ban failed", color=discord.Color.red())
+            embed.add_field(name="User", value=f"{message.author} ({message.author.id})", inline=False)
+            embed.add_field(name="Reason", value=reason, inline=False)
+            embed.add_field(name="Delete results", value=f"deleted={deleted}, failed={failed_delete}", inline=False)
+            embed.add_field(name="Error", value=str(e)[:1024], inline=False)
+            await report_ch.send(embed=embed)
+        return
+
+    # 3) Report
+    report_ch = await _get_channel_safe(SPAM_REPORT_CHANNEL_ID)
+    if not report_ch:
+        return
+
+    chan_ids = [e["channel_id"] for e in evidence]
+    unique_channels = sorted(set(chan_ids))
+    channel_mentions = ", ".join(f"<#{cid}>" for cid in unique_channels[:25]) or "None"
+
+    links = [e.get("jump_url") for e in evidence if e.get("jump_url")]
+    payloads = [e.get("payload_sig") for e in evidence if e.get("payload_sig")]
+    sample_payload = payloads[-1] if payloads else None
+
+    embed = discord.Embed(title="Spam watchdog: user banned", color=discord.Color.orange())
+    embed.add_field(name="User", value=f"{message.author} (<@{message.author.id}>)", inline=False)
+    embed.add_field(name="Reason", value=reason, inline=False)
+    embed.add_field(name="Delete results", value=f"deleted={deleted}, failed={failed_delete}", inline=False)
+    embed.add_field(name="Channels hit (window)", value=channel_mentions[:1024], inline=False)
+
+    if links:
+        embed.add_field(name="Message links", value="\n".join(links[:10])[:1024], inline=False)
+
+    if sample_payload:
+        embed.add_field(name="Sample payload", value=sample_payload[:1024], inline=False)
+
+    await report_ch.send(embed=embed)
+
+async def spam_watchdog(message: discord.Message) -> bool:
+    if not message.guild:
+        return False
+    if message.author.bot:
+        return False
+    if message.channel.id == SPAM_REPORT_CHANNEL_ID:
+        return False
+
+    # avoid banning staff/mods
+    perms = message.author.guild_permissions
+    if perms.administrator or perms.manage_guild or perms.manage_messages or perms.ban_members or perms.kick_members:
+        return False
+
+    now = _now_utc()
+    key = (message.guild.id, message.author.id)
+
+    last = _last_spam_action.get(key)
+    if last and (now - last).total_seconds() < SPAM_ACTION_COOLDOWN_SECONDS:
+        return False
+
+    payload_sig = _message_payload_signature(message)
+    if not payload_sig:
+        return False  # ignore empty/noise
+
+    bucket = _recent_user_messages[key]
+    bucket.append({
+        "ts": now,
+        "channel_id": message.channel.id,
+        "message_id": message.id,
+        "jump_url": getattr(message, "jump_url", None),
+        "payload_sig": payload_sig,
+    })
+
+    # prune
+    window_start = now.timestamp() - SPAM_WINDOW_SECONDS
+    while bucket and bucket[0]["ts"].timestamp() < window_start:
+        bucket.popleft()
+
+    if len(bucket) < SPAM_MIN_MESSAGES:
+        return False
+
+    channels = {e["channel_id"] for e in bucket}
+    if len(channels) < SPAM_MIN_CHANNELS:
+        return False
+
+    if SPAM_REQUIRE_DUPLICATE_PAYLOAD:
+        sigs = [e["payload_sig"] for e in bucket if e.get("payload_sig")]
+        most_common = Counter(sigs).most_common(1)[0][1] if sigs else 0
+        if most_common < SPAM_MIN_DUPLICATES:
+            return False
+
+    _last_spam_action[key] = now
+
+    reason = (
+        f"Spam watchdog: {len(bucket)} msgs in {SPAM_WINDOW_SECONDS}s "
+        f"across {len(channels)} channels"
+        + (f", duplicate_payload={SPAM_MIN_DUPLICATES}+" if SPAM_REQUIRE_DUPLICATE_PAYLOAD else "")
+    )
+
+    evidence = list(bucket)
+    bucket.clear()
+
+    await _ban_and_report_for_spam(message, evidence, reason)
+    return True
 
 # Run the bot
 client.run(config['bot_token'])
