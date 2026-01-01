@@ -76,12 +76,12 @@
     },
     "response16": {
         "triggers": ["instruments"],
-        "text": "https://rb3pc.milohax.org/ctrls",
+        "text": "https://guides.milohax.org/en/rb3pc/controllers/main/",
         "files": []
     },
     "response17": {
         "triggers": ["keynav", "octave"],
-        "text": "https://rb3pc.milohax.org/images/instruments/xtra/midi/rbkeysoctshift.gif",
+        "text": "https://guides.milohax.org/_astro/rbkeysoctshift.CWt41hXk_2gwpxS.webp",
         "files": []
     },
     "response18": {
@@ -101,7 +101,7 @@
     },
     "response21": {
         "triggers": ["mididrums", "mididrumkit"],
-        "text": "# Using Midi Drums Over USB on RPCS3\nhttps://rb3pc.milohax.org/ctrls_drums_midi",
+        "text": "# Using Midi Drums Over USB on RPCS3\nhttps://guides.milohax.org/en/rb3pc/controllers/drums/midi/",
         "files": []
     },
     "response22": {
@@ -131,7 +131,7 @@
     },
     "response27": {
         "triggers": ["ps3", "ps3customs", "customsps3"],
-        "text": "# Rock Band Custom Song Tutorial for PS3\nhttps://rb3pc.milohax.org/customs_intro",
+        "text": "# Rock Band Custom Song Tutorial for PS3\nhttps://guides.milohax.org/en/rb3/ps3customs/intro/",
         "files": []
     },
     "response28": {
@@ -181,7 +181,7 @@
     },
     "response37": {
         "triggers": ["rpcs3", "rb3pc"],
-        "text": "## How to set up Rock Band 3 for RPCS3\n**Includes instrument configuration, recommended settings, and how to play online.**\n<https://rb3pc.milohax.org/gs_disc>",
+        "text": "## How to set up Rock Band 3 for RPCS3\n**Includes instrument configuration, recommended settings, and how to play online.**\n<https://guides.milohax.org/en/rb3pc/intro/disclaimers/>",
         "files": []
     },
     "response38": {
@@ -286,7 +286,7 @@
     },
     "response58": {
         "triggers": ["wcb", "buffers", "colorbuffers", "writecolorbuffers"],
-        "text": "You probably installed this game without following the RPCS3 guide.\nYou can avoid many issues by following the quick configuration steps here\nhttps://rb3pc.milohax.org/gs_quick_config\n\nIf you just want to fix this specifically, you need to enable 'Write Color Buffers' under the GPU tab in Rock Band 3's Custom Configuration.",
+        "text": "You probably installed this game without following the RPCS3 guide.\nYou can avoid many issues by following the quick configuration steps here\nhttps://guides.milohax.org/en/rb3pc/intro/quickconfig/\n\nIf you just want to fix this specifically, you need to enable 'Write Color Buffers' under the GPU tab in Rock Band 3's Custom Configuration.",
         "files": ["media/wcbon.png"]
     },
     "response59": {
@@ -311,7 +311,7 @@
     },
     "response63": {
         "triggers": ["dwd"],
-        "text": "You probably installed this game without following the RPCS3 guide.\nYou can avoid many issues by following the quick configuration steps here\nhttps://rb3pc.milohax.org/gs_quick_config\n\nIf you just want to fix this specifically, you need to set Driver Wake-Up Delay 20 or a multiple of 20 under the Advanced tab in Rock Band 3's Custom Configuration.",
+        "text": "You probably installed this game without following the RPCS3 guide.\nYou can avoid many issues by following the quick configuration steps here\nhttps://guides.milohax.org/en/rb3pc/intro/quickconfig/\n\nIf you just want to fix this specifically, you need to set Driver Wake-Up Delay 20 or a multiple of 20 under the Advanced tab in Rock Band 3's Custom Configuration.",
         "files": ["media/dwd.png"]
     },
     "response64": {
@@ -321,7 +321,7 @@
     },
     "response65": {
         "triggers": ["netset"],
-        "text": "You probably installed this game without following the RPCS3 guide.\nYou can avoid many issues by following the quick configuration steps here\nhttps://rb3pc.milohax.org/gs_quick_config\n\nIf you just want to fix this specifically, set `Network Status` to `Connected` under the Network tab in Rock Band 3's Custom Configuration.",
+        "text": "You probably installed this game without following the RPCS3 guide.\nYou can avoid many issues by following the quick configuration steps here\nhttps://guides.milohax.org/en/rb3pc/intro/quickconfig/\n\nIf you just want to fix this specifically, set `Network Status` to `Connected` under the Network tab in Rock Band 3's Custom Configuration.",
         "files": ["media/netset.png"]
     },
     "response66": {
@@ -361,7 +361,7 @@
     },
     "response73": {
         "triggers": ["mergesongs"],
-        "text": "Too many songs making your startup take forever? If you're on PS3/RPCS3, you can merge song folders to load faster!\nCheck out the guide here: https://rb3pc.milohax.org/customs_merging",
+        "text": "Too many songs making your startup take forever? If you're on PS3/RPCS3, you can merge song folders to load faster!\nCheck out the guide here: https://guides.milohax.org/en/rb3/ps3customs/merge/",
         "files": []
     },
     "response74": {
@@ -391,7 +391,7 @@
     },
     "response79": {
         "triggers": ["padprofiles"],
-        "text": "Using a Custom Gamepad Configurations for Rock Band 3 is not suggested as you can't make pad profile changes while the game is running.\nYou can tell if you have a Custom Gamepad Configuration if Rock Band 3 has a Joypad icon next to it in RPCS3's gamelist.\nYou can remove it by right clicking it then `Remove > Remove Custom Gamepad Configuration`.\nIt's suggested to use the `Pads` menu at the top and to create profiles depending on what instrument setup you have.\nYou'll be able to use [[profiles from the RPCS3 guide page]](https://rb3pc.milohax.org/ctrls#using-profiles) this way too.",
+        "text": "Using a Custom Gamepad Configurations for Rock Band 3 is not suggested as you can't make pad profile changes while the game is running.\nYou can tell if you have a Custom Gamepad Configuration if Rock Band 3 has a Joypad icon next to it in RPCS3's gamelist.\nYou can remove it by right clicking it then `Remove > Remove Custom Gamepad Configuration`.\nIt's suggested to use the `Pads` menu at the top and to create profiles depending on what instrument setup you have.\nYou'll be able to use [[profiles from the RPCS3 guide page]](https://guides.milohax.org/en/rb3pc/controllers/main/#using-profiles) this way too.",
         "files": ["media/padoverwrite.png"]
     },
     "response80": {
@@ -482,7 +482,7 @@
     },
     "response97": {
         "triggers": ["deleting", "packdelete"],
-        "text": "Do you want to remove certain songs from a huge pack without deleting the whole thing?\nFollow the guide here on how to delete individual songs from packs.\nhttps://rb3pc.milohax.org/customs_deleting",
+        "text": "Do you want to remove certain songs from a huge pack without deleting the whole thing?\nFollow the guide here on how to delete individual songs from packs.\nhttps://guides.milohax.org/en/rb3/ps3customs/delete/",
         "files": []
     },
     "response98": {
@@ -512,12 +512,12 @@
     },
     "response103": {
         "triggers": ["rpcn"],
-        "text": "Want to hop online on RPCS3? [[Click here for more information!]](https://rb3pc.milohax.org/rpcn_intro)\nIf you're not using a Quick Configuration from `!rpcs3`, you will need to adjust the following settings in RB3's Custom Config",
+        "text": "Want to hop online on RPCS3? [[Click here for more information!]](https://guides.milohax.org/en/rb3pc/online/intro/)\nIf you're not using a Quick Configuration from `!rpcs3`, you will need to adjust the following settings in RB3's Custom Config",
         "files": ["media/rpcnsettings.png"]
     },
     "response104": {
         "triggers": ["drum", "drums"],
-        "text": "Check [[the guide]](https://rb3pc.milohax.org/ctrls#drums) to see how to set up your drum kit.",
+        "text": "Check [[the guide]](https://guides.milohax.org/en/rb3pc/controllers/main/#drums) to see how to set up your drum kit.",
         "files": []
     },
     "response105": {
