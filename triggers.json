@@ -456,7 +456,7 @@
         "files": ["media/wii.png"]
     },
     "response92": {
-        "triggers": ["microsoft"],
+        "triggers": ["microsoft", "microslop"],
         "text": "https://www.youtube.com/watch?v=LZzubS1ILTs",
         "files": []
     },
