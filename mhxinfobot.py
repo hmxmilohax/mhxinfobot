@@ -16,7 +16,7 @@ from collections import defaultdict, deque, Counter
 # --- Spam watchdog config ---
 SPAM_REPORT_CHANNEL_ID = 961395552329818142
 
-SPAM_WINDOW_SECONDS = 12
+SPAM_WINDOW_SECONDS = 9
 SPAM_MIN_MESSAGES = 3
 SPAM_MIN_CHANNELS = 3
 
@@ -658,7 +658,10 @@ async def _ban_and_report_for_spam(message: discord.Message, evidence: list[dict
         else:
             failed_delete += 1
 
-    # 2) Ban (also try to nuke recent history via ban parameter when supported)
+    # 2) Softban: Ban (purge) then Unban (so it's effectively a kick + cleanup)
+    ban_error = None
+    unban_error = None
+
     try:
         try:
             # discord.py newer
@@ -667,19 +670,30 @@ async def _ban_and_report_for_spam(message: discord.Message, evidence: list[dict
             # discord.py older
             await guild.ban(message.author, reason=reason, delete_message_days=1)
     except Exception as e:
-        report_ch = await _get_channel_safe(SPAM_REPORT_CHANNEL_ID)
-        if report_ch:
-            embed = discord.Embed(title="Spam watchdog: ban failed", color=discord.Color.red())
-            embed.add_field(name="User", value=f"{message.author} ({message.author.id})", inline=False)
-            embed.add_field(name="Reason", value=reason, inline=False)
-            embed.add_field(name="Delete results", value=f"deleted={deleted}, failed={failed_delete}", inline=False)
-            embed.add_field(name="Error", value=str(e)[:1024], inline=False)
-            await report_ch.send(embed=embed)
-        return
+        ban_error = e
 
-    # 3) Report
+    if ban_error is None:
+        # Small delay helps avoid occasional race conditions between ban/unban
+        await asyncio.sleep(1)
+
+        try:
+            # Use an Object by ID so this works even if Member object is stale post-ban
+            await guild.unban(discord.Object(id=message.author.id), reason=f"Softban release: {reason}")
+        except Exception as e:
+            unban_error = e
+
+    # 3) Report (and include whether unban succeeded)
     report_ch = await _get_channel_safe(SPAM_REPORT_CHANNEL_ID)
     if not report_ch:
+        return
+
+    if ban_error is not None:
+        embed = discord.Embed(title="Spam watchdog: softban failed (ban step)", color=discord.Color.red())
+        embed.add_field(name="User", value=f"{message.author} ({message.author.id})", inline=False)
+        embed.add_field(name="Reason", value=reason, inline=False)
+        embed.add_field(name="Delete results", value=f"deleted={deleted}, failed={failed_delete}", inline=False)
+        embed.add_field(name="Error", value=str(ban_error)[:1024], inline=False)
+        await report_ch.send(embed=embed)
         return
 
     chan_ids = [e["channel_id"] for e in evidence]
@@ -690,11 +704,23 @@ async def _ban_and_report_for_spam(message: discord.Message, evidence: list[dict
     payloads = [e.get("payload_sig") for e in evidence if e.get("payload_sig")]
     sample_payload = payloads[-1] if payloads else None
 
-    embed = discord.Embed(title="Spam watchdog: user banned", color=discord.Color.orange())
+    title = "Spam watchdog: user softbanned"
+    color = discord.Color.orange()
+
+    embed = discord.Embed(title=title, color=color)
     embed.add_field(name="User", value=f"{message.author} (<@{message.author.id}>)", inline=False)
     embed.add_field(name="Reason", value=reason, inline=False)
     embed.add_field(name="Delete results", value=f"deleted={deleted}, failed={failed_delete}", inline=False)
     embed.add_field(name="Channels hit (window)", value=channel_mentions[:1024], inline=False)
+
+    if unban_error is None:
+        embed.add_field(name="Unban", value="✅ Unbanned (softban complete)", inline=False)
+    else:
+        embed.add_field(
+            name="Unban",
+            value=f"⚠️ Unban failed — user may still be banned\n{str(unban_error)[:900]}",
+            inline=False
+        )
 
     if links:
         embed.add_field(name="Message links", value="\n".join(links[:10])[:1024], inline=False)
@@ -703,6 +729,7 @@ async def _ban_and_report_for_spam(message: discord.Message, evidence: list[dict
         embed.add_field(name="Sample payload", value=sample_payload[:1024], inline=False)
 
     await report_ch.send(embed=embed)
+
 
 async def spam_watchdog(message: discord.Message) -> bool:
     if not message.guild:
