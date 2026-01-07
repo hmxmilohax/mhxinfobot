@@ -28,6 +28,50 @@ SPAM_ACTION_COOLDOWN_SECONDS = 60
 _recent_user_messages = defaultdict(lambda: deque())
 _last_spam_action = {}  # (guild_id, user_id) -> datetime
 
+# --- Scam / solicitation pitch watchdog ---
+SCAM_PITCH_ENABLED = True
+
+SCAM_PITCH_MIN_TEXT_LEN = 280          # long pitchy posts
+SCAM_PITCH_MIN_SCORE = 7               # tune this
+SCAM_PITCH_NEW_MEMBER_MAX_DAYS = 14    # only punish new joiners
+
+# If you want to only enforce in certain channels, set this list.
+# Leave empty to enforce everywhere except SPAM_REPORT_CHANNEL_ID.
+SCAM_PITCH_CHANNEL_ALLOWLIST = []  # e.g. [123, 456]
+
+SCAM_PITCH_PHRASES = [
+    "open to projects",
+    "open to roles",
+    "looking for paid",
+    "long-term contracts",
+    "full-time roles",
+    "hiring",
+    "dm me",
+    "d*m me",
+    "message me",
+    "reach out",
+]
+
+SCAM_PITCH_KEYWORDS = [
+    # common buzzwords in these scams
+    "blockchain",
+    "web3",
+    "defi",
+    "nft",
+    "dao",
+    "solidity",
+    "rust",
+    "evm",
+    "solana",
+    "ai",
+    "llm",
+    "rag",
+    "autonomous",
+    "agents",
+    "workflow automation",
+    "multimodal",
+    "saas",
+]
 
 def get_decomp_info():
     frogress_json = json.load(urlreq.urlopen("https://progress.decomp.club/data/rb3/SZBE69_B8/dol/"))
@@ -755,6 +799,29 @@ async def spam_watchdog(message: discord.Message) -> bool:
     if not payload_sig:
         return False  # ignore empty/noise
 
+    # --- Scam pitch watchdog (single message) ---
+    if SCAM_PITCH_ENABLED:
+        if message.channel.id != SPAM_REPORT_CHANNEL_ID and _scam_pitch_allowed_in_channel(message.channel.id):
+            member = message.author if isinstance(message.author, discord.Member) else None
+
+            # Guardrails: only auto-action on new members (reduce false positives)
+            if member and _is_new_member(member):
+                score = _scam_pitch_score(message)
+                if score >= SCAM_PITCH_MIN_SCORE:
+                    _last_spam_action[key] = now
+
+                    evidence = [{
+                        "ts": now,
+                        "channel_id": message.channel.id,
+                        "message_id": message.id,
+                        "jump_url": getattr(message, "jump_url", None),
+                        "payload_sig": payload_sig,
+                    }]
+
+                    reason = f"Spam watchdog (softban): solicitation/scam pitch heuristic (score={score})"
+                    await _ban_and_report_for_spam(message, evidence, reason)
+                    return True
+
     bucket = _recent_user_messages[key]
     bucket.append({
         "ts": now,
@@ -795,6 +862,75 @@ async def spam_watchdog(message: discord.Message) -> bool:
 
     await _ban_and_report_for_spam(message, evidence, reason)
     return True
+
+def _text_contains_any(text: str, phrases: list[str]) -> bool:
+    t = _normalize_text(text)
+    return any(p in t for p in phrases)
+
+def _count_hits(text: str, phrases: list[str]) -> int:
+    t = _normalize_text(text)
+    return sum(1 for p in phrases if p in t)
+
+def _lines_with_colon(text: str) -> int:
+    # These scam pitches often have "Blockchain:", "AI:", "Fullstack:" etc.
+    lines = (text or "").splitlines()
+    return sum(1 for ln in lines if ":" in ln and len(ln.strip()) <= 60)
+
+def _scam_pitch_score(message: discord.Message) -> int:
+    """
+    Score a single message for solicitation/pitch scam patterns.
+    Higher score => more likely scam.
+    """
+    text = message.content or ""
+    t = _normalize_text(text)
+    if not t:
+        return 0
+
+    score = 0
+
+    # Long, structured pitch
+    if len(t) >= SCAM_PITCH_MIN_TEXT_LEN:
+        score += 2
+
+    # Contains DM solicitation language
+    if _text_contains_any(t, SCAM_PITCH_PHRASES):
+        score += 4
+
+    # Lots of buzzwords
+    kw_hits = _count_hits(t, SCAM_PITCH_KEYWORDS)
+    if kw_hits >= 4:
+        score += 3
+    elif kw_hits >= 2:
+        score += 2
+    elif kw_hits >= 1:
+        score += 1
+
+    # "Category:" formatting lines
+    colons = _lines_with_colon(text)
+    if colons >= 3:
+        score += 2
+    elif colons >= 2:
+        score += 1
+
+    # Bullet-ish structure often used
+    if "\n" in text and any(prefix in text for prefix in ["•", "-", "—"]):
+        score += 1
+
+    return score
+
+def _is_new_member(member: discord.Member) -> bool:
+    if not member:
+        return False
+    if not getattr(member, "joined_at", None):
+        return False
+    delta = datetime.utcnow() - member.joined_at.replace(tzinfo=None)
+    return delta.days <= SCAM_PITCH_NEW_MEMBER_MAX_DAYS
+
+def _scam_pitch_allowed_in_channel(channel_id: int) -> bool:
+    if not SCAM_PITCH_CHANNEL_ALLOWLIST:
+        return True
+    return channel_id in SCAM_PITCH_CHANNEL_ALLOWLIST
+
 
 # Run the bot
 client.run(config['bot_token'])
