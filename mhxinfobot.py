@@ -12,6 +12,7 @@ import uuid
 import requests
 from discord.ext import tasks
 from collections import defaultdict, deque, Counter
+import asyncio
 
 # --- Spam watchdog config ---
 SPAM_REPORT_CHANNEL_ID = 961395552329818142
