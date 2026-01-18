@@ -14,8 +14,8 @@ The **MiloHax Info Bot** is a Discord bot designed to provide quick and easy acc
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/hmxmilohax/MiloHax-Info-Bot.git
-   cd MiloHax-Info-Bot
+   git clone https://github.com/hmxmilohax/mhxinfobot.git
+   cd mhxinfobot
    ```
 
 2. **Install Dependencies**:
@@ -32,11 +32,15 @@ The **MiloHax Info Bot** is a Discord bot designed to provide quick and easy acc
      }
      ```
    - Configure your triggers and responses in the `triggers.json` file. Each trigger can have associated text, files, and multiple trigger phrases.
+   
+   - Make sure that you edit the `mhxinfobot.py` file
+     - Go to line 18 and make sure the Discord channel ID is set to a channel where you want alerts anytime the Watchdog goes off about a spammer
+     - Go to line 393 and make sure the Discord channel ID is set to a channel that is set up as an announcement channel otherwise the program will error
 
 4. **Run the Bot**:
    Start the bot by running:
    ```bash
-   python milohax_info_bot.py
+   python mhxinfobot.py
    ```
 
 ## Usage
@@ -50,7 +54,7 @@ The **MiloHax Info Bot** is a Discord bot designed to provide quick and easy acc
   ```json
   {
       "response1": {
-          "triggers": ["!amp", "!ampdx"],
+          "triggers": ["amp", "ampdx"],
           "text": "Here is some information about Amplitude Deluxe.",
           "files": ["media/amp_info.png"]
       }
