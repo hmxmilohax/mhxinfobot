@@ -549,6 +549,11 @@
         "triggers": ["fogjuice", "fog", "vape"],
         "text": "",
         "files": ["media/fog.mp4"]
+    },
+    "response110": {
+        "triggers": ["chase", "spawner", "starfish"],
+        "text": "",
+        "files": ["media/starfish.webp"]
     }
 }
 
