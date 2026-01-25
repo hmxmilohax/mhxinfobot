@@ -5,12 +5,15 @@ set -eu
 : "${APP_DIR:=/opt/mhxinfobot}"
 : "${BRANCH:=main}"
 
+mkdir -p "$APP_DIR"
+
+# Avoid git "dubious ownership" issues
 git config --global --add safe.directory "$APP_DIR" || true
 
-# Clone/update repo in the named volume
 if [ ! -d "$APP_DIR/.git" ]; then
   echo "[mhxinfobot] Cloning repo..."
-  rm -rf "$APP_DIR"
+  # Clear contents of the volume WITHOUT removing the mountpoint
+  find "$APP_DIR" -mindepth 1 -maxdepth 1 -exec rm -rf {} +
   git clone --depth 1 --branch "$BRANCH" "$REPO_URL" "$APP_DIR"
 else
   echo "[mhxinfobot] Updating repo..."
@@ -18,12 +21,11 @@ else
   git -C "$APP_DIR" reset --hard "origin/$BRANCH"
 fi
 
-# Inject config from the separate bind mount
+# Bring in config from a separate bind mount
 if [ ! -f /config/config.json ]; then
   echo "[mhxinfobot] ERROR: /config/config.json not found (bind-mount it)."
   exit 1
 fi
-
 cp /config/config.json "$APP_DIR/config.json"
 
 exec python "$APP_DIR/mhxinfobot.py"
