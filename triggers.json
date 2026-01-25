@@ -554,11 +554,6 @@
         "triggers": ["chase", "spawner", "starfish"],
         "text": "",
         "files": ["media/starfish.webp"]
-    },
-    "response112": {
-        "triggers": ["test"],
-        "text": "okay we got the update, nice",
-        "files": []
     }
 }
 
