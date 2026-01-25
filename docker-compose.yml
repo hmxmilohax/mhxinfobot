@@ -7,7 +7,7 @@ services:
       - TZ=America/Chicago
     volumes:
       - mhx_repo:/opt/mhxinfobot
-      - ${HOME}/configs/mhxinfobot/config.json:/opt/mhxinfobot/config.json:ro
+      - ${HOME}/configs/mhxinfobot/config.json:/config/config.json:ro
 
 volumes:
   mhx_repo:
