@@ -554,6 +554,11 @@
         "triggers": ["chase", "spawner", "starfish"],
         "text": "",
         "files": ["media/starfish.webp"]
+    },
+    "response112": {
+        "triggers": ["test"],
+        "text": "Congrats, watchtower has auto pulled the repo",
+        "files": []
     }
 }
 
