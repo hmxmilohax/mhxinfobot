@@ -557,7 +557,7 @@
     },
     "response112": {
         "triggers": ["test"],
-        "text": "Congrats, watchtower has auto pulled the repo",
+        "text": "okay we got the update, nice",
         "files": []
     }
 }
