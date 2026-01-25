@@ -28,14 +28,14 @@ The **MiloHax Info Bot** is a Discord bot designed to provide quick and easy acc
 3. **Configuration**:
    - Copy the `config_default.json` to `config.json` file in the root directory of the project. This is what the structure of the file should look like.:
      ```json
-     {
-  		"bot_token": "BOT_TOKEN_HERE",
-  		"github_token": "YOUR_GITHUB_PERSONAL_ACCESS_TOKEN",
-  		"extra_repos": [
-    		"otherOrg/special-repo",
-    		"anotherOrg/another-repo"
-  		]
-	}
+      {
+        "bot_token": "BOT_TOKEN_HERE",
+        "github_token": "YOUR_GITHUB_PERSONAL_ACCESS_TOKEN",
+        "extra_repos": [
+            "otherOrg/special-repo",
+            "anotherOrg/another-repo"
+        ]
+     }
      ```
    - Configure your triggers and responses in the `triggers.json` file. Each trigger can have associated text, files, and multiple trigger phrases.
    
