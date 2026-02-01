@@ -9,6 +9,7 @@ The **MiloHax Info Bot** is a Discord bot designed to provide quick and easy acc
 - **Support for Long Responses**: Handles long messages by automatically breaking them into multiple messages, ensuring that each message adheres to Discord's 2000 character limit.
 - **File Attachments**: Supports sending files like images, videos, and documents in response to triggers.
 - **Configurable Triggers**: Triggers and responses are fully configurable via a `triggers.json` file.
+- **Watchdog**: When a new user in the server spams 3 messages within a given time frame, they will be soft-banned and the messages will be removed immediately and quickly pushing away scammer bots or anyone who has been hacked.
 
 ## Installation
 
@@ -25,10 +26,15 @@ The **MiloHax Info Bot** is a Discord bot designed to provide quick and easy acc
    ```
 
 3. **Configuration**:
-   - Create a `config.json` file in the root directory of the project with the following structure:
+   - Copy the `config_default.json` to `config.json` file in the root directory of the project. This is what the structure of the file should look like.:
      ```json
-     {
-         "bot_token": "YOUR_DISCORD_BOT_TOKEN"
+      {
+        "bot_token": "BOT_TOKEN_HERE",
+        "github_token": "YOUR_GITHUB_PERSONAL_ACCESS_TOKEN",
+        "extra_repos": [
+            "otherOrg/special-repo",
+            "anotherOrg/another-repo"
+        ]
      }
      ```
    - Configure your triggers and responses in the `triggers.json` file. Each trigger can have associated text, files, and multiple trigger phrases.
