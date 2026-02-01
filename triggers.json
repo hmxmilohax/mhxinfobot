@@ -555,6 +555,11 @@
         "text": "",
         "files": ["media/starfish.webp"]
     },
+    "response112": {
+        "triggers": ["cheater", "cousin"],
+        "text": "cheat? i didn't though! Im in a household with six other cousins and siblings... we played since 2011 and we are really good at the game! i installed the mod and we all played lots of songs together as a full band! (but i only know how to sing and use the keyboard controller...) but promise we all have fun and get along with each other!",
+        "files": []
+    },
     "response113": {
         "triggers": ["archive"],
         "text": "Want to learn more about Harmonix games? Check out the [[Archive]](https://docs.google.com/spreadsheets/d/1nMnaiGtHLin-BVsBqc7_vNysCui0jy8oYY-UICtHidg/)",
