@@ -13,6 +13,7 @@ import requests
 from discord.ext import tasks
 from collections import defaultdict, deque, Counter
 import asyncio
+from datetime import timedelta
 
 # --- Spam watchdog config ---
 SPAM_REPORT_CHANNEL_ID = 961395552329818142
@@ -669,6 +670,54 @@ async def _get_channel_safe(channel_id: int):
     except Exception:
         return None
 
+async def _iter_sweep_targets(guild: discord.Guild):
+    # Text/news channels (includes announcement channels)
+    for ch in guild.text_channels:
+        yield ch
+
+    # Also include any active threads (public/private) the bot can see
+    # discord.py supports guild.active_threads() to fetch them.
+    try:
+        threads = await guild.active_threads()
+        for th in threads:
+            yield th
+    except Exception:
+        # Fallback: cached threads (may be incomplete)
+        for th in getattr(guild, "threads", []):
+            yield th
+
+
+async def _sweep_recent_everywhere(
+    guild: discord.Guild,
+    user_id: int,
+    minutes: int = 60,
+    per_channel_limit: int = 500,
+):
+    """
+    Best-effort sweep: delete messages from user in ALL channels/threads the bot can access,
+    limited to the last N minutes.
+    """
+    cutoff = datetime.utcnow() - timedelta(minutes=minutes)
+    deleted = 0
+
+    async for ch in _iter_sweep_targets(guild):
+        # Must support history()
+        if not hasattr(ch, "history"):
+            continue
+
+        try:
+            async for msg in ch.history(limit=per_channel_limit, after=cutoff):
+                if msg.author and msg.author.id == user_id:
+                    try:
+                        await msg.delete()
+                        deleted += 1
+                    except Exception:
+                        pass
+        except Exception:
+            pass
+
+    return deleted
+
 async def _delete_message_by_id(guild: discord.Guild, channel_id: int, message_id: int) -> bool:
     ch = guild.get_channel(channel_id)
     if ch is None:
@@ -726,6 +775,13 @@ async def _ban_and_report_for_spam(message: discord.Message, evidence: list[dict
             await guild.unban(discord.Object(id=message.author.id), reason=f"Softban release: {reason}")
         except Exception as e:
             unban_error = e
+
+    extra_deleted = await _sweep_recent_everywhere(
+        guild,
+        message.author.id,
+        minutes=60,
+        per_channel_limit=500
+    )
 
     # 3) Report (and include whether unban succeeded)
     report_ch = await _get_channel_safe(SPAM_REPORT_CHANNEL_ID)
