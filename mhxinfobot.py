@@ -31,6 +31,9 @@ SPAM_MIN_DUPLICATES = 3
 
 SPAM_ACTION_COOLDOWN_SECONDS = 60
 
+UPSTREAM_REPO = config.get("upstream_repo", "hmxmilohax/mhxinfobot")
+UPSTREAM_BRANCH = config.get("upstream_branch", "main")
+
 _recent_user_messages = defaultdict(lambda: deque())
 _last_spam_action = {}  # (guild_id, user_id) -> datetime
 
@@ -335,146 +338,104 @@ def _fmt_uptime(delta: timedelta) -> str:
 
     return ", ".join(parts)
 
-
-def _run_git(args: list[str], cwd: str | None = None) -> str:
-    """
-    Runs git and returns stdout (stripped).
-    Raises on error.
-    """
-    proc = subprocess.run(
-        ["git"] + args,
-        cwd=cwd,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        text=True,
-        timeout=15,
-        check=True,
-    )
-    return (proc.stdout or "").strip()
-
-
-def _safe_git(args: list[str]) -> str | None:
-    try:
-        out = _run_git(args)
-        return out if out else None
-    except Exception:
-        return None
-
-
-def _git_commit_unix_ts(commitish: str) -> int | None:
-    # commit time in unix seconds
-    out = _safe_git(["show", "-s", "--format=%ct", commitish])
-    if not out:
-        return None
-    try:
-        return int(out)
-    except ValueError:
-        return None
-
-
-def _rel_time_from_unix(ts: int | None) -> str:
-    if not ts:
+def _rel_time_from_dt(dt: datetime | None) -> str:
+    if not dt:
         return "Unknown"
-    now = int(time.time())
-    diff = max(0, now - ts)
-
-    # simple “x days ago” style
-    if diff < 60:
+    now = datetime.now(timezone.utc)
+    diff = now - dt
+    secs = int(diff.total_seconds())
+    if secs < 60:
         return "Just now"
-    if diff < 3600:
-        m = diff // 60
+    if secs < 3600:
+        m = secs // 60
         return f"{m} minute{'s' if m != 1 else ''} ago"
-    if diff < 86400:
-        h = diff // 3600
+    if secs < 86400:
+        h = secs // 3600
         return f"{h} hour{'s' if h != 1 else ''} ago"
-    d = diff // 86400
+    d = secs // 86400
     return f"{d} day{'s' if d != 1 else ''} ago"
 
-
-def _get_repo_status() -> dict:
+def _get_latest_upstream_via_github() -> dict:
     """
-    Returns a dict with:
-      - branch
-      - local_hash_short / local_hash_full
-      - upstream_ref (e.g. origin/main) if configured
-      - upstream_hash_short / upstream_hash_full
-      - upstream_age (e.g. "4 days ago")
-      - ahead / behind
-      - dirty (bool)
-      - status_label (Up-to-date / Ahead / Behind / Diverged / No upstream)
+    Uses GitHub API to fetch latest commit on UPSTREAM_BRANCH and its changed files.
+    Returns dict with:
+      - repo, branch, sha, sha_short, date_dt, rel, message, url
+      - files (list of dicts with filename/additions/deletions/changes)
+      - stats (additions/deletions/total)
     """
     info = {
-        "branch": None,
-        "local_hash_short": None,
-        "local_hash_full": None,
-        "upstream_ref": None,
-        "upstream_hash_short": None,
-        "upstream_hash_full": None,
-        "upstream_age": None,
-        "ahead": None,
-        "behind": None,
-        "dirty": None,
-        "status_label": None,
+        "repo": UPSTREAM_REPO,
+        "branch": UPSTREAM_BRANCH,
+        "sha": None,
+        "sha_short": None,
+        "date_dt": None,
+        "rel": None,
+        "message": None,
+        "url": None,
+        "files": [],
+        "stats": None,
+        "error": None,
     }
 
-    info["branch"] = _safe_git(["rev-parse", "--abbrev-ref", "HEAD"])
-    info["local_hash_full"] = _safe_git(["rev-parse", "HEAD"])
-    info["local_hash_short"] = _safe_git(["rev-parse", "--short", "HEAD"])
-
-    # dirty working tree?
-    porcelain = _safe_git(["status", "--porcelain"])
-    info["dirty"] = bool(porcelain)
-
-    # upstream configured?
-    upstream_ref = _safe_git(["rev-parse", "--abbrev-ref", "--symbolic-full-name", "@{u}"])
-    info["upstream_ref"] = upstream_ref
-
-    if not upstream_ref:
-        info["status_label"] = "No upstream"
+    if not GITHUB_TOKEN:
+        info["error"] = "Missing github_token in config.json"
         return info
 
-    # best effort update remote info (won’t crash if offline)
-    _safe_git(["fetch", "--all", "--prune"])
+    if not UPSTREAM_REPO or "/" not in UPSTREAM_REPO:
+        info["error"] = "Missing upstream_repo (expected 'owner/repo')"
+        return info
 
-    info["upstream_hash_full"] = _safe_git(["rev-parse", "@{u}"])
-    info["upstream_hash_short"] = _safe_git(["rev-parse", "--short", "@{u}"])
+    owner, name = UPSTREAM_REPO.split("/", 1)
 
-    # ahead/behind counts
-    lr = _safe_git(["rev-list", "--left-right", "--count", f"HEAD...@{{u}}"])
-    if lr and " " in lr:
-        left, right = lr.split()
-        try:
-            info["ahead"] = int(left)
-            info["behind"] = int(right)
-        except ValueError:
-            pass
+    # 1) Get latest commit on the branch
+    commits_url = f"https://api.github.com/repos/{owner}/{name}/commits"
+    r = requests.get(commits_url, headers=HEADERS, params={"sha": UPSTREAM_BRANCH, "per_page": 1}, timeout=15)
+    if r.status_code != 200:
+        info["error"] = f"GitHub API error listing commits: {r.status_code}"
+        return info
 
-    # upstream commit age
-    ts = _git_commit_unix_ts("@{u}")
-    info["upstream_age"] = _rel_time_from_unix(ts)
+    commits = r.json() or []
+    if not commits:
+        info["error"] = "No commits returned"
+        return info
 
-    # status label
-    ahead = info["ahead"] if isinstance(info["ahead"], int) else 0
-    behind = info["behind"] if isinstance(info["behind"], int) else 0
-    if ahead == 0 and behind == 0:
-        info["status_label"] = "Up-to-date"
-    elif ahead > 0 and behind == 0:
-        info["status_label"] = f"Ahead ({ahead})"
-    elif behind > 0 and ahead == 0:
-        info["status_label"] = f"Behind ({behind})"
-    else:
-        info["status_label"] = f"Diverged (ahead {ahead}, behind {behind})"
+    latest = commits[0]
+    sha = latest.get("sha")
+    info["sha"] = sha
+    info["sha_short"] = (sha or "")[:7] or None
+    info["url"] = latest.get("html_url")
 
-    # include dirty flag in label if applicable
-    if info["dirty"]:
-        info["status_label"] += ", Dirty"
+    commit_obj = (latest.get("commit") or {})
+    msg = (commit_obj.get("message") or "").splitlines()[0].strip()
+    info["message"] = msg or None
+
+    # date: prefer committer date
+    date_str = ((commit_obj.get("committer") or {}).get("date")) or ((commit_obj.get("author") or {}).get("date"))
+    if date_str:
+        # GitHub returns ISO8601 like "2026-02-03T12:34:56Z"
+        info["date_dt"] = datetime.fromisoformat(date_str.replace("Z", "+00:00"))
+        info["rel"] = _rel_time_from_dt(info["date_dt"])
+
+    # 2) Get commit details to retrieve files + stats
+    if sha:
+        detail_url = f"https://api.github.com/repos/{owner}/{name}/commits/{sha}"
+        r2 = requests.get(detail_url, headers=HEADERS, timeout=15)
+        if r2.status_code == 200:
+            detail = r2.json() or {}
+            info["stats"] = detail.get("stats")
+            files = detail.get("files") or []
+            for f in files:
+                info["files"].append({
+                    "filename": f.get("filename"),
+                    "additions": f.get("additions"),
+                    "deletions": f.get("deletions"),
+                    "changes": f.get("changes"),
+                })
 
     return info
 
-
 async def build_info_embed(client: discord.Client) -> discord.Embed:
-    # run repo status in a thread so git calls don’t block the event loop
-    repo = await asyncio.to_thread(_get_repo_status)
+    upstream = await asyncio.to_thread(_get_latest_upstream_via_github)
 
     uptime = _fmt_uptime(datetime.utcnow() - BOT_START_TIME)
     ping_ms = client.latency * 1000.0
@@ -487,30 +448,70 @@ async def build_info_embed(client: discord.Client) -> discord.Embed:
     embed.add_field(name="Uptime", value=uptime, inline=False)
     embed.add_field(name="Ping", value=f"{ping_ms:.2f}ms", inline=True)
 
-    # Latest upstream info (remote)
-    if repo.get("upstream_hash_short"):
+    # Latest upstream info (GitHub API)
+    if upstream.get("error"):
         embed.add_field(
             name="Latest Upstream Info",
-            value=f"`{repo['upstream_hash_short']}` {repo.get('upstream_age') or ''}".strip(),
+            value=f"Unavailable — {upstream['error']}",
+            inline=False
+        )
+        embed.set_footer(text="Tip: set upstream_repo + upstream_branch in config.json")
+        return embed
+
+    sha_short = upstream.get("sha_short") or "Unknown"
+    rel = upstream.get("rel") or ""
+    msg = upstream.get("message") or ""
+    url = upstream.get("url") or ""
+
+    latest_line = f"`{sha_short}` {rel}".strip()
+    desc = "\n".join(x for x in [latest_line, msg, f"<{url}>" if url else ""] if x).strip()
+
+    embed.add_field(
+        name=f"Latest Upstream Info ({upstream.get('repo')}/{upstream.get('branch')})",
+        value=desc[:1024] if desc else "Unknown",
+        inline=False
+    )
+
+    # “Just give me the changes” (files touched in latest commit)
+    files = upstream.get("files") or []
+    stats = upstream.get("stats") or {}
+
+    if files:
+        # keep it short enough for an embed field
+        lines = []
+        for f in files[:10]:
+            fn = f.get("filename") or "?"
+            a = f.get("additions")
+            d = f.get("deletions")
+            if isinstance(a, int) and isinstance(d, int):
+                lines.append(f"• `{fn}` (+{a}/-{d})")
+            else:
+                lines.append(f"• `{fn}`")
+
+        more = len(files) - 10
+        if more > 0:
+            lines.append(f"…and {more} more")
+
+        summary_bits = []
+        if isinstance(stats.get("additions"), int) and isinstance(stats.get("deletions"), int):
+            summary_bits.append(f"Total: +{stats['additions']}/-{stats['deletions']}")
+        if isinstance(stats.get("total"), int):
+            summary_bits.append(f"Δ {stats['total']}")
+
+        header = " | ".join(summary_bits).strip()
+        value = ("\n".join(([header] if header else []) + lines)).strip()
+
+        embed.add_field(
+            name="Changes",
+            value=value[:1024],
             inline=False
         )
     else:
         embed.add_field(
-            name="Latest Upstream Info",
-            value="Unavailable",
+            name="Changes",
+            value="No file list available for the latest commit.",
             inline=False
         )
-
-    # Local commit info
-    branch = repo.get("branch") or "Unknown"
-    local_short = repo.get("local_hash_short") or "Unknown"
-    status = repo.get("status_label") or "Unknown"
-
-    embed.add_field(
-        name="Local Commit Info",
-        value=f"`{branch}` `{local_short}` ({status})",
-        inline=False
-    )
 
     embed.set_footer(text="Tip: use !help to get a list of available triggers.")
     return embed
