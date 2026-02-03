@@ -18,6 +18,10 @@ from datetime import timedelta
 # --- Spam watchdog config ---
 SPAM_REPORT_CHANNEL_ID = 961395552329818142
 
+BOT_START_TIME = datetime.utcnow()
+BOOT_INFO_CHANNEL_ID = 1146938356664639589
+_boot_info_posted = False
+
 SPAM_WINDOW_SECONDS = 9
 SPAM_MIN_MESSAGES = 3
 SPAM_MIN_CHANNELS = 3
@@ -314,10 +318,231 @@ class ViewTriggersButton(discord.ui.Button):
         view.update_buttons()
         await interaction.response.edit_message(embed=embed, view=view)
 
+def _fmt_uptime(delta: timedelta) -> str:
+    total = int(delta.total_seconds())
+    days, rem = divmod(total, 86400)
+    hours, rem = divmod(rem, 3600)
+    minutes, seconds = divmod(rem, 60)
+
+    parts = []
+    if days:
+        parts.append(f"{days} day{'s' if days != 1 else ''}")
+    if hours:
+        parts.append(f"{hours} hour{'s' if hours != 1 else ''}")
+    if minutes:
+        parts.append(f"{minutes} minute{'s' if minutes != 1 else ''}")
+    parts.append(f"{seconds} second{'s' if seconds != 1 else ''}")
+
+    return ", ".join(parts)
+
+
+def _run_git(args: list[str], cwd: str | None = None) -> str:
+    """
+    Runs git and returns stdout (stripped).
+    Raises on error.
+    """
+    proc = subprocess.run(
+        ["git"] + args,
+        cwd=cwd,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        timeout=15,
+        check=True,
+    )
+    return (proc.stdout or "").strip()
+
+
+def _safe_git(args: list[str]) -> str | None:
+    try:
+        out = _run_git(args)
+        return out if out else None
+    except Exception:
+        return None
+
+
+def _git_commit_unix_ts(commitish: str) -> int | None:
+    # commit time in unix seconds
+    out = _safe_git(["show", "-s", "--format=%ct", commitish])
+    if not out:
+        return None
+    try:
+        return int(out)
+    except ValueError:
+        return None
+
+
+def _rel_time_from_unix(ts: int | None) -> str:
+    if not ts:
+        return "Unknown"
+    now = int(time.time())
+    diff = max(0, now - ts)
+
+    # simple “x days ago” style
+    if diff < 60:
+        return "Just now"
+    if diff < 3600:
+        m = diff // 60
+        return f"{m} minute{'s' if m != 1 else ''} ago"
+    if diff < 86400:
+        h = diff // 3600
+        return f"{h} hour{'s' if h != 1 else ''} ago"
+    d = diff // 86400
+    return f"{d} day{'s' if d != 1 else ''} ago"
+
+
+def _get_repo_status() -> dict:
+    """
+    Returns a dict with:
+      - branch
+      - local_hash_short / local_hash_full
+      - upstream_ref (e.g. origin/main) if configured
+      - upstream_hash_short / upstream_hash_full
+      - upstream_age (e.g. "4 days ago")
+      - ahead / behind
+      - dirty (bool)
+      - status_label (Up-to-date / Ahead / Behind / Diverged / No upstream)
+    """
+    info = {
+        "branch": None,
+        "local_hash_short": None,
+        "local_hash_full": None,
+        "upstream_ref": None,
+        "upstream_hash_short": None,
+        "upstream_hash_full": None,
+        "upstream_age": None,
+        "ahead": None,
+        "behind": None,
+        "dirty": None,
+        "status_label": None,
+    }
+
+    info["branch"] = _safe_git(["rev-parse", "--abbrev-ref", "HEAD"])
+    info["local_hash_full"] = _safe_git(["rev-parse", "HEAD"])
+    info["local_hash_short"] = _safe_git(["rev-parse", "--short", "HEAD"])
+
+    # dirty working tree?
+    porcelain = _safe_git(["status", "--porcelain"])
+    info["dirty"] = bool(porcelain)
+
+    # upstream configured?
+    upstream_ref = _safe_git(["rev-parse", "--abbrev-ref", "--symbolic-full-name", "@{u}"])
+    info["upstream_ref"] = upstream_ref
+
+    if not upstream_ref:
+        info["status_label"] = "No upstream"
+        return info
+
+    # best effort update remote info (won’t crash if offline)
+    _safe_git(["fetch", "--all", "--prune"])
+
+    info["upstream_hash_full"] = _safe_git(["rev-parse", "@{u}"])
+    info["upstream_hash_short"] = _safe_git(["rev-parse", "--short", "@{u}"])
+
+    # ahead/behind counts
+    lr = _safe_git(["rev-list", "--left-right", "--count", f"HEAD...@{{u}}"])
+    if lr and " " in lr:
+        left, right = lr.split()
+        try:
+            info["ahead"] = int(left)
+            info["behind"] = int(right)
+        except ValueError:
+            pass
+
+    # upstream commit age
+    ts = _git_commit_unix_ts("@{u}")
+    info["upstream_age"] = _rel_time_from_unix(ts)
+
+    # status label
+    ahead = info["ahead"] if isinstance(info["ahead"], int) else 0
+    behind = info["behind"] if isinstance(info["behind"], int) else 0
+    if ahead == 0 and behind == 0:
+        info["status_label"] = "Up-to-date"
+    elif ahead > 0 and behind == 0:
+        info["status_label"] = f"Ahead ({ahead})"
+    elif behind > 0 and ahead == 0:
+        info["status_label"] = f"Behind ({behind})"
+    else:
+        info["status_label"] = f"Diverged (ahead {ahead}, behind {behind})"
+
+    # include dirty flag in label if applicable
+    if info["dirty"]:
+        info["status_label"] += ", Dirty"
+
+    return info
+
+
+async def build_info_embed(client: discord.Client) -> discord.Embed:
+    # run repo status in a thread so git calls don’t block the event loop
+    repo = await asyncio.to_thread(_get_repo_status)
+
+    uptime = _fmt_uptime(datetime.utcnow() - BOT_START_TIME)
+    ping_ms = client.latency * 1000.0
+
+    embed = discord.Embed(
+        title="MHXInfoBot - Info",
+        color=discord.Color.purple()
+    )
+
+    embed.add_field(name="Uptime", value=uptime, inline=False)
+    embed.add_field(name="Ping", value=f"{ping_ms:.2f}ms", inline=True)
+
+    # Latest upstream info (remote)
+    if repo.get("upstream_hash_short"):
+        embed.add_field(
+            name="Latest Upstream Info",
+            value=f"`{repo['upstream_hash_short']}` {repo.get('upstream_age') or ''}".strip(),
+            inline=False
+        )
+    else:
+        embed.add_field(
+            name="Latest Upstream Info",
+            value="Unavailable",
+            inline=False
+        )
+
+    # Local commit info
+    branch = repo.get("branch") or "Unknown"
+    local_short = repo.get("local_hash_short") or "Unknown"
+    status = repo.get("status_label") or "Unknown"
+
+    embed.add_field(
+        name="Local Commit Info",
+        value=f"`{branch}` `{local_short}` ({status})",
+        inline=False
+    )
+
+    embed.set_footer(text="Tip: use !help to get a list of available triggers.")
+    return embed
+
+
+async def send_info_embed_to_channel(channel: discord.abc.Messageable, client: discord.Client):
+    embed = await build_info_embed(client)
+    await channel.send(embed=embed)
+
 @client.event
 async def on_ready():
+    global _boot_info_posted
     print(f'Logged in as {client.user}!')
     check_actions_staleness.start()   # kick off the daily loop
+
+    if _boot_info_posted:
+        return
+
+    ch = client.get_channel(BOOT_INFO_CHANNEL_ID)
+    if ch is None:
+        try:
+            ch = await client.fetch_channel(BOOT_INFO_CHANNEL_ID)
+        except Exception as e:
+            print(f"Failed to fetch boot info channel: {e}")
+            return
+
+    try:
+        await send_info_embed_to_channel(ch, client)
+        _boot_info_posted = True
+    except Exception as e:
+        print(f"Failed to post boot info embed: {e}")
+
 
 async def handle_log_file(message):
     if len(message.attachments) == 0:
@@ -436,6 +661,10 @@ async def on_message(message):
 
             if command in ['hugh', 'progress']:
                 await message.channel.send(get_decomp_info())
+                return
+
+            if command == 'info':
+                await send_info_embed_to_channel(message.channel, client)
                 return
 
             # Now handle triggers
