@@ -31,9 +31,6 @@ SPAM_MIN_DUPLICATES = 3
 
 SPAM_ACTION_COOLDOWN_SECONDS = 60
 
-UPSTREAM_REPO = config.get("upstream_repo", "hmxmilohax/mhxinfobot")
-UPSTREAM_BRANCH = config.get("upstream_branch", "main")
-
 _recent_user_messages = defaultdict(lambda: deque())
 _last_spam_action = {}  # (guild_id, user_id) -> datetime
 
@@ -105,6 +102,8 @@ with open('config.json') as config_file:
 
 GITHUB_TOKEN = config.get('github_token')
 HEADERS = {'Authorization': f'token {GITHUB_TOKEN}', 'Accept': 'application/vnd.github.v3+json'}
+UPSTREAM_REPO = config.get("upstream_repo", "hmxmilohax/mhxinfobot")
+UPSTREAM_BRANCH = config.get("upstream_branch", "main")
 EXTRA_REPOS = config.get("extra_repos", [])
 IGNORED_REPOS = [
     "amp-2016-customs",
