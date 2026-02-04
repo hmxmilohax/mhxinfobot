@@ -422,7 +422,7 @@ async def build_info_embed(client: discord.Client) -> discord.Embed:
     repo_branch = f"{repo}/{branch}"
 
     repo_url = _github_repo_branch_url(repo, branch)
-    repo_line = f"[Repository - {repo_branch}]({repo_url})" if repo_url else f"Repository - {repo_branch}"
+    repo_line = f"Repository - [{repo_branch}]({repo_url})" if repo_url else f"Repository - {repo_branch}"
 
     sha_short = upstream.get("sha_short") or "Unknown"
     url = upstream.get("url") or ""
