@@ -1,4 +1,3 @@
-from datetime import datetime
 import discord
 import json
 import os
@@ -22,7 +21,7 @@ with open('config.json') as config_file:
 # --- Spam watchdog config ---
 SPAM_REPORT_CHANNEL_ID = 961395552329818142
 
-BOT_START_TIME = datetime.utcnow()
+BOT_START_TIME = datetime.now(timezone.utc)
 BOOT_INFO_CHANNEL_ID = 1146938356664639589
 _boot_info_posted = False
 
@@ -88,7 +87,7 @@ def get_decomp_info():
     # remove wrapper sludge
     frogress_data = frogress_json['rb3']['SZBE69_B8']['dol'][0]
     # Parse the timestamp into a datetime object
-    dt = datetime.utcfromtimestamp(frogress_data['timestamp'])
+    dt = datetime.fromtimestamp(frogress_data['timestamp'], tz=timezone.utc)
     decomp_commit_time = dt.strftime("%B %d %Y, %I:%M:%S %p")
     return (
         f"# Rock Band 3 Decompilation\n"
@@ -320,6 +319,12 @@ class ViewTriggersButton(discord.ui.Button):
         view.update_buttons()
         await interaction.response.edit_message(embed=embed, view=view)
 
+def _github_repo_branch_url(repo: str, branch: str) -> str:
+    # https://github.com/OWNER/REPO/tree/BRANCH
+    if not repo or "/" not in repo:
+        return ""
+    return f"https://github.com/{repo}/tree/{branch}"
+
 def _dt_to_discord_rel(dt: datetime | None) -> str:
     """Return Discord relative timestamp like <t:123:R>."""
     if not dt:
@@ -327,40 +332,6 @@ def _dt_to_discord_rel(dt: datetime | None) -> str:
     if dt.tzinfo is None:
         dt = dt.replace(tzinfo=timezone.utc)
     return f"<t:{int(dt.timestamp())}:R>"
-
-def _fmt_uptime(delta: timedelta) -> str:
-    total = int(delta.total_seconds())
-    days, rem = divmod(total, 86400)
-    hours, rem = divmod(rem, 3600)
-    minutes, seconds = divmod(rem, 60)
-
-    parts = []
-    if days:
-        parts.append(f"{days} day{'s' if days != 1 else ''}")
-    if hours:
-        parts.append(f"{hours} hour{'s' if hours != 1 else ''}")
-    if minutes:
-        parts.append(f"{minutes} minute{'s' if minutes != 1 else ''}")
-    parts.append(f"{seconds} second{'s' if seconds != 1 else ''}")
-
-    return ", ".join(parts)
-
-def _rel_time_from_dt(dt: datetime | None) -> str:
-    if not dt:
-        return "Unknown"
-    now = datetime.now(timezone.utc)
-    diff = now - dt
-    secs = int(diff.total_seconds())
-    if secs < 60:
-        return "Just now"
-    if secs < 3600:
-        m = secs // 60
-        return f"{m} minute{'s' if m != 1 else ''} ago"
-    if secs < 86400:
-        h = secs // 3600
-        return f"{h} hour{'s' if h != 1 else ''} ago"
-    d = secs // 86400
-    return f"{d} day{'s' if d != 1 else ''} ago"
 
 def _get_latest_upstream_via_github() -> dict:
     """
@@ -439,25 +410,31 @@ async def build_info_embed(client: discord.Client) -> discord.Embed:
     # Latest upstream info (GitHub API)
     if upstream.get("error"):
         embed.add_field(
-            name="Latest Upstream Info",
+            name="Latest Upstream Info:",
             value=f"Unavailable — {upstream['error']}",
             inline=False
         )
         embed.set_footer(text="Tip: set upstream_repo + upstream_branch in config.json")
         return embed
 
+    repo = upstream.get("repo") or "Unknown"
+    branch = upstream.get("branch") or "Unknown"
+    repo_branch = f"{repo}/{branch}"
+
+    repo_url = _github_repo_branch_url(repo, branch)
+    repo_line = f"[Repository - {repo_branch}]({repo_url})" if repo_url else f"Repository - {repo_branch}"
+
     sha_short = upstream.get("sha_short") or "Unknown"
     url = upstream.get("url") or ""
     msg = upstream.get("message") or ""
     commit_rel = _dt_to_discord_rel(upstream.get("date_dt"))
 
-    # Commit hash hyperlink + relative time
-    # NOTE: Discord embeds support markdown links.
     commit_line = f"[`{sha_short}`]({url}) • {commit_rel}" if url else f"`{sha_short}` • {commit_rel}"
-    desc = "\n".join(x for x in [commit_line, msg] if x).strip()
+
+    desc = "\n".join(x for x in [repo_line, commit_line, msg] if x).strip()
 
     embed.add_field(
-        name=f"Latest Upstream Info ({upstream.get('repo')}/{upstream.get('branch')})",
+        name="Latest Upstream Info:",
         value=desc[:1024] if desc else "Unknown",
         inline=False
     )
@@ -669,7 +646,7 @@ async def check_actions_staleness():
 
         latest = runs[0]
         run_id = latest["id"]
-        created = datetime.fromisoformat(latest["created_at"].rstrip("Z"))
+        created = datetime.fromisoformat(latest["created_at"].replace("Z", "+00:00"))
 
         # ✅ Check if that run has any artifacts
         artifacts_url = f"https://api.github.com/repos/{owner}/{name}/actions/runs/{run_id}/artifacts"
@@ -680,7 +657,7 @@ async def check_actions_staleness():
         if not artifact_data.get("artifacts"):  # skip repos with no artifacts
             continue
 
-        if (datetime.utcnow() - created).days >= 89:
+        if (datetime.now(timezone.utc) - created).days >= 89:
             display = name if owner == "hmxmilohax" else f"{owner}/{name}"
             stale.append((display, created.date(), latest["html_url"]))
 
@@ -800,7 +777,7 @@ async def send_long_message(channel, text):
         await channel.send(text)
 
 def _now_utc():
-    return datetime.utcnow()
+    return datetime.now(timezone.utc)
 
 def _normalize_text(s: str) -> str:
     s = (s or "").strip().lower()
@@ -876,7 +853,7 @@ async def _sweep_recent_everywhere(
     Best-effort sweep: delete messages from user in ALL channels/threads the bot can access,
     limited to the last N minutes.
     """
-    cutoff = datetime.utcnow() - timedelta(minutes=minutes)
+    cutoff = datetime.now(timezone.utc) - timedelta(minutes=minutes)
     deleted = 0
 
     async for ch in _iter_sweep_targets(guild):
@@ -1159,7 +1136,11 @@ def _is_new_member(member: discord.Member) -> bool:
         return False
     if not getattr(member, "joined_at", None):
         return False
-    delta = datetime.utcnow() - member.joined_at.replace(tzinfo=None)
+    joined = member.joined_at
+    if joined.tzinfo is None:
+        joined = joined.replace(tzinfo=timezone.utc)
+
+    delta = datetime.now(timezone.utc) - joined
     return delta.days <= SCAM_PITCH_NEW_MEMBER_MAX_DAYS
 
 def _scam_pitch_allowed_in_channel(channel_id: int) -> bool:
