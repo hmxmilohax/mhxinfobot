@@ -108,7 +108,7 @@ IGNORED_REPOS = [
     "amp-2016-customs",
     "AmpHelper",
     "GH2DX-Site",
-    "MiloHax-Site "
+    "MiloHax-Site"
 ]
 
 intents = discord.Intents.default()
