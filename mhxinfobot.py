@@ -13,7 +13,7 @@ import requests
 from discord.ext import tasks
 from collections import defaultdict, deque, Counter
 import asyncio
-from datetime import timedelta
+from datetime import datetime, timedelta, timezone
 
 # Load the config file
 with open('config.json') as config_file:
