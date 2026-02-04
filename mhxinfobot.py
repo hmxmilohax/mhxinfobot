@@ -320,6 +320,14 @@ class ViewTriggersButton(discord.ui.Button):
         view.update_buttons()
         await interaction.response.edit_message(embed=embed, view=view)
 
+def _dt_to_discord_rel(dt: datetime | None) -> str:
+    """Return Discord relative timestamp like <t:123:R>."""
+    if not dt:
+        return "Unknown"
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    return f"<t:{int(dt.timestamp())}:R>"
+
 def _fmt_uptime(delta: timedelta) -> str:
     total = int(delta.total_seconds())
     days, rem = divmod(total, 86400)
@@ -356,11 +364,9 @@ def _rel_time_from_dt(dt: datetime | None) -> str:
 
 def _get_latest_upstream_via_github() -> dict:
     """
-    Uses GitHub API to fetch latest commit on UPSTREAM_BRANCH and its changed files.
+    Uses GitHub API to fetch latest commit on UPSTREAM_BRANCH.
     Returns dict with:
-      - repo, branch, sha, sha_short, date_dt, rel, message, url
-      - files (list of dicts with filename/additions/deletions/changes)
-      - stats (additions/deletions/total)
+      - repo, branch, sha, sha_short, date_dt, message, url
     """
     info = {
         "repo": UPSTREAM_REPO,
@@ -368,11 +374,8 @@ def _get_latest_upstream_via_github() -> dict:
         "sha": None,
         "sha_short": None,
         "date_dt": None,
-        "rel": None,
         "message": None,
         "url": None,
-        "files": [],
-        "stats": None,
         "error": None,
     }
 
@@ -386,9 +389,13 @@ def _get_latest_upstream_via_github() -> dict:
 
     owner, name = UPSTREAM_REPO.split("/", 1)
 
-    # 1) Get latest commit on the branch
     commits_url = f"https://api.github.com/repos/{owner}/{name}/commits"
-    r = requests.get(commits_url, headers=HEADERS, params={"sha": UPSTREAM_BRANCH, "per_page": 1}, timeout=15)
+    r = requests.get(
+        commits_url,
+        headers=HEADERS,
+        params={"sha": UPSTREAM_BRANCH, "per_page": 1},
+        timeout=15
+    )
     if r.status_code != 200:
         info["error"] = f"GitHub API error listing commits: {r.status_code}"
         return info
@@ -408,43 +415,25 @@ def _get_latest_upstream_via_github() -> dict:
     msg = (commit_obj.get("message") or "").splitlines()[0].strip()
     info["message"] = msg or None
 
-    # date: prefer committer date
     date_str = ((commit_obj.get("committer") or {}).get("date")) or ((commit_obj.get("author") or {}).get("date"))
     if date_str:
-        # GitHub returns ISO8601 like "2026-02-03T12:34:56Z"
         info["date_dt"] = datetime.fromisoformat(date_str.replace("Z", "+00:00"))
-        info["rel"] = _rel_time_from_dt(info["date_dt"])
-
-    # 2) Get commit details to retrieve files + stats
-    if sha:
-        detail_url = f"https://api.github.com/repos/{owner}/{name}/commits/{sha}"
-        r2 = requests.get(detail_url, headers=HEADERS, timeout=15)
-        if r2.status_code == 200:
-            detail = r2.json() or {}
-            info["stats"] = detail.get("stats")
-            files = detail.get("files") or []
-            for f in files:
-                info["files"].append({
-                    "filename": f.get("filename"),
-                    "additions": f.get("additions"),
-                    "deletions": f.get("deletions"),
-                    "changes": f.get("changes"),
-                })
 
     return info
 
 async def build_info_embed(client: discord.Client) -> discord.Embed:
     upstream = await asyncio.to_thread(_get_latest_upstream_via_github)
 
-    uptime = _fmt_uptime(datetime.utcnow() - BOT_START_TIME)
     ping_ms = client.latency * 1000.0
+    started_rel = _dt_to_discord_rel(BOT_START_TIME)
 
     embed = discord.Embed(
         title="MHXInfoBot - Info",
         color=discord.Color.purple()
     )
 
-    embed.add_field(name="Uptime", value=uptime, inline=False)
+    # Uptime -> relative timestamp
+    embed.add_field(name="Uptime", value=f"Started {started_rel}", inline=False)
     embed.add_field(name="Ping", value=f"{ping_ms:.2f}ms", inline=True)
 
     # Latest upstream info (GitHub API)
@@ -458,59 +447,20 @@ async def build_info_embed(client: discord.Client) -> discord.Embed:
         return embed
 
     sha_short = upstream.get("sha_short") or "Unknown"
-    rel = upstream.get("rel") or ""
-    msg = upstream.get("message") or ""
     url = upstream.get("url") or ""
+    msg = upstream.get("message") or ""
+    commit_rel = _dt_to_discord_rel(upstream.get("date_dt"))
 
-    latest_line = f"`{sha_short}` {rel}".strip()
-    desc = "\n".join(x for x in [latest_line, msg, f"<{url}>" if url else ""] if x).strip()
+    # Commit hash hyperlink + relative time
+    # NOTE: Discord embeds support markdown links.
+    commit_line = f"[`{sha_short}`]({url}) • {commit_rel}" if url else f"`{sha_short}` • {commit_rel}"
+    desc = "\n".join(x for x in [commit_line, msg] if x).strip()
 
     embed.add_field(
         name=f"Latest Upstream Info ({upstream.get('repo')}/{upstream.get('branch')})",
         value=desc[:1024] if desc else "Unknown",
         inline=False
     )
-
-    # “Just give me the changes” (files touched in latest commit)
-    files = upstream.get("files") or []
-    stats = upstream.get("stats") or {}
-
-    if files:
-        # keep it short enough for an embed field
-        lines = []
-        for f in files[:10]:
-            fn = f.get("filename") or "?"
-            a = f.get("additions")
-            d = f.get("deletions")
-            if isinstance(a, int) and isinstance(d, int):
-                lines.append(f"• `{fn}` (+{a}/-{d})")
-            else:
-                lines.append(f"• `{fn}`")
-
-        more = len(files) - 10
-        if more > 0:
-            lines.append(f"…and {more} more")
-
-        summary_bits = []
-        if isinstance(stats.get("additions"), int) and isinstance(stats.get("deletions"), int):
-            summary_bits.append(f"Total: +{stats['additions']}/-{stats['deletions']}")
-        if isinstance(stats.get("total"), int):
-            summary_bits.append(f"Δ {stats['total']}")
-
-        header = " | ".join(summary_bits).strip()
-        value = ("\n".join(([header] if header else []) + lines)).strip()
-
-        embed.add_field(
-            name="Changes",
-            value=value[:1024],
-            inline=False
-        )
-    else:
-        embed.add_field(
-            name="Changes",
-            value="No file list available for the latest commit.",
-            inline=False
-        )
 
     embed.set_footer(text="Tip: use !help to get a list of available triggers.")
     return embed
