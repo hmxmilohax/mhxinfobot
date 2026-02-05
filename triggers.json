@@ -564,6 +564,11 @@
         "triggers": ["archive"],
         "text": "Want to learn more about Harmonix games? Check out the [[Archive]](https://docs.google.com/spreadsheets/d/1nMnaiGtHLin-BVsBqc7_vNysCui0jy8oYY-UICtHidg/)",
         "files": []
+    },
+    "response113": {
+        "triggers": ["defaultdance", "chasedance"],
+        "text": "",
+        "files": ["media/defaultdance.mp4"]
     }
 }
 
