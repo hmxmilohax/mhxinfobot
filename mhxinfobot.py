@@ -82,22 +82,47 @@ SCAM_PITCH_KEYWORDS = [
     "saas",
 ]
 
-def get_decomp_info():
-    frogress_json = json.load(urlreq.urlopen("https://progress.decomp.club/data/rb3/SZBE69_B8/dol/"))
-    # remove wrapper sludge
-    frogress_data = frogress_json['rb3']['SZBE69_B8']['dol'][0]
-    # Parse the timestamp into a datetime object
-    dt = datetime.fromtimestamp(frogress_data['timestamp'], tz=timezone.utc)
-    decomp_commit_time = dt.strftime("%B %d %Y, %I:%M:%S %p")
-    return (
-        f"# Rock Band 3 Decompilation\n"
-        f"Last commit: **{decomp_commit_time}** *({frogress_data['git_hash'][0:7]})*\n\n"
-        f"**{frogress_data['measures']['matched_code'] / frogress_data['measures']['matched_code/total'] * 100:.2f}%** matched code\n"
-        f"**{frogress_data['measures']['code'] / frogress_data['measures']['code/total'] * 100:.2f}%** linked code (i.e. fully complete, in-order)\n"
-        f"**{frogress_data['measures']['matched_data'] / frogress_data['measures']['matched_data/total'] * 100:.2f}%** matched data\n"
-        f"**{frogress_data['measures']['matched_functions'] / frogress_data['measures']['matched_functions/total'] * 100:.2f}%** matching functions\n\n"
-        "<https://rb3dx.milohax.org/decomp>"
-    )
+DECOMP_URL = "https://progress.decomp.club/data/rb3/SZBE69_B8/dol/?format=json"
+
+def _fetch_decomp_json() -> dict:
+    # Use requests (you already import it), add headers so you don't look like a bot scraper.
+    headers = {
+        "User-Agent": "mhxinfobot/1.0 (+https://github.com/hmxmilohax/mhxinfobot)",
+        "Accept": "application/json",
+    }
+    r = requests.get(DECOMP_URL, headers=headers, timeout=15)
+    r.raise_for_status()
+    return r.json()
+
+def get_decomp_info() -> str:
+    try:
+        frogress_json = _fetch_decomp_json()
+
+        # remove wrapper sludge
+        frogress_data = frogress_json["rb3"]["SZBE69_B8"]["dol"][0]
+
+        dt = datetime.fromtimestamp(frogress_data["timestamp"], tz=timezone.utc)
+        decomp_commit_time = dt.strftime("%B %d %Y, %I:%M:%S %p")
+
+        m = frogress_data["measures"]
+        return (
+            f"# Rock Band 3 Decompilation\n"
+            f"Last commit: **{decomp_commit_time}** *({frogress_data['git_hash'][0:7]})*\n\n"
+            f"**{m['matched_code'] / m['matched_code/total'] * 100:.2f}%** matched code\n"
+            f"**{m['code'] / m['code/total'] * 100:.2f}%** linked code (i.e. fully complete, in-order)\n"
+            f"**{m['matched_data'] / m['matched_data/total'] * 100:.2f}%** matched data\n"
+            f"**{m['matched_functions'] / m['matched_functions/total'] * 100:.2f}%** matching functions\n\n"
+            "<https://rb3dx.milohax.org/decomp>"
+        )
+
+    except Exception as e:
+        # Never explode inside on_message; return something safe to post.
+        return (
+            "# Rock Band 3 Decompilation\n"
+            f"Couldn’t fetch progress data right now (error: `{type(e).__name__}`).\n"
+            "Try again in a bit."
+        )
+
 
 GITHUB_TOKEN = config.get('github_token')
 HEADERS = {'Authorization': f'token {GITHUB_TOKEN}', 'Accept': 'application/vnd.github.v3+json'}
@@ -586,8 +611,9 @@ async def on_message(message):
                 await send_trigger_list(message.channel, message.author.id)
                 return
 
-            if command in ['hugh', 'progress']:
-                await message.channel.send(get_decomp_info())
+            if command in ["hugh", "progress"]:
+                info = await asyncio.to_thread(get_decomp_info)
+                await message.channel.send(info)
                 return
 
             if command == 'info':
