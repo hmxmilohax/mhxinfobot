@@ -241,7 +241,7 @@
     },
     "response49": {
         "triggers": ["yarg"],
-        "text": "Also try YARG, a Rock Band inspired Unity based rhythm game!\nhttps://discord.gg/yarg\nhttps://yarg.in",
+        "text": "Also try YARG, a Rock Band inspired Unity based rhythm game!\nhttps://discord.gg/sqpu4R552r\nhttps://yarg.in",
         "files": []
     },
     "response50": {
@@ -565,7 +565,7 @@
         "text": "Want to learn more about Harmonix games? Check out the [[Archive]](https://docs.google.com/spreadsheets/d/1nMnaiGtHLin-BVsBqc7_vNysCui0jy8oYY-UICtHidg/)",
         "files": []
     },
-    "response113": {
+    "response114": {
         "triggers": ["defaultdance", "chasedance"],
         "text": "",
         "files": ["media/defaultdance.mp4"]
