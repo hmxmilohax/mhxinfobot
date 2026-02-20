@@ -571,9 +571,9 @@
         "files": ["media/defaultdance.mp4"]
     },
     "response115": {
-        "triggers": ["bcbc4", "xboxmem", "oom"],
-        "text": "It looks like Rock Band 3 Deluxe ran out of memory.\nThis can happen in long/full band sessions, notably with higher song counts (4000+)\n\nLowering your song count under the threshold of around 4000, has seemingly the highest impact on this issue.\nHowever, there are some more options to try if you really do not want to lower your song count.\n\nIn Deluxe Settings can try turning off things like:\n* Streak counter\n* OD counter\n* Lyric display\n* Judgements\n* Timeline\n\nTry setting your venue to \n`Small Venues > Music Video Venues > None`\nin that order to see what works best\n\nTurn off the background in the main menus\nTurn off the transition cutscenes entering/exiting songs",
-        "files": [""]
+      "triggers": ["bcbc4", "xboxmem", "oom"],
+      "text": "It looks like Rock Band 3 Deluxe ran out of memory.\nThis can happen in long/full band sessions, notably with higher song counts (4000+)\n\nLowering your song count under the threshold of around 4000, has seemingly the highest impact on this issue.\nHowever, there are some more options to try if you really do not want to lower your song count.\n\nIn Deluxe Settings can try turning off things like:\n* Streak counter\n* OD counter\n* Lyric display\n* Judgements\n* Timeline\n\nTry setting your venue to \n`Small Venues > Music Video Venues > None`\nin that order to see what works best\n\nTurn off the background in the main menus\nTurn off the transition cutscenes entering/exiting songs\n\nXbox 360 players: You can confirm that this is an out of memory error if you have the latest Enhanced installed and the data error code is `827BCBC4`.\n\nPlayStation 3 players: Even without Deluxe, the PS3 version of Rock Band 3 already has memory issues while playing online. If you're not actively playing online, disconnect your console from the internet.\n\nWii players: Rock Band 3 Deluxe is known to be highly unstable on Wii. The best advice is to try RPCS3.\n\nRPCS3 players: You should already have the High Memory patch installed, or Deluxe would be notifying you already. Check `!himem` for more details.",
+      "files": [""]
     }
 }
 
