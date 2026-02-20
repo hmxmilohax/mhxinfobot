@@ -572,8 +572,8 @@
     },
     "response115": {
         "triggers": ["bcbc4", "xboxmem", "oom"],
-        "text": "",
-        "files": ["It looks like Rock Band 3 Deluxe ran out of memory.\nThis can happen in long/full band sessions, notably with higher song counts (4000+)\n\nLowering your song count under the threshold of around 4000, has seemingly the highest impact on this issue.\nHowever, there are some more options to try if you really do not want to lower your song count.\n\nIn Deluxe Settings can try turning off things like\nStreak counter\nOD counter\nlyric display\nJudgements\nTimeline\n\nTry setting your venue to \nSmall Venues > Music Video Venues > None\nin that order to see what works best\n\nTurn off the background in the main menus\nTurn off the transition cutscenes entering/exiting songs"]
+        "text": "It looks like Rock Band 3 Deluxe ran out of memory.\nThis can happen in long/full band sessions, notably with higher song counts (4000+)\n\nLowering your song count under the threshold of around 4000, has seemingly the highest impact on this issue.\nHowever, there are some more options to try if you really do not want to lower your song count.\n\nIn Deluxe Settings can try turning off things like\nStreak counter\nOD counter\nlyric display\nJudgements\nTimeline\n\nTry setting your venue to \nSmall Venues > Music Video Venues > None\nin that order to see what works best\n\nTurn off the background in the main menus\nTurn off the transition cutscenes entering/exiting songs",
+        "files": [""]
     }
 }
 
