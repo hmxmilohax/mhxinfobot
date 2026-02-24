@@ -328,6 +328,12 @@
       "text": "'Autoplay' de banda completa con RPCS3\n1. Descarga el archivo de `autoplay_demo.yml` y colocalo en `(Carpeta de RPCS3)/config/input_configs/global`\n2. Actívalo como el archivo de configuración en el menú de `Mandos`.\n3. Usa la foto abajo como referencia.\n-#Disculpa a todos los usuarios con teclados de femboy.",
       "link": "response117",
       "files": ["media/autoplay.webp", "media/autoplay_demo.yml"]
+    },
+    "response118": {
+      "triggers": ["charting", "reaper", "charteando"],
+      "text": "# Como configurar a REAPER para chartear\nhttps://guides.milohax.org/es/charting/reaper/",
+      "link": "response118",
+      "files": [""]
     }
 }
 
