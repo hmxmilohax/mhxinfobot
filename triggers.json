@@ -594,6 +594,11 @@
       "triggers": ["oldgames", "nostalgia", "retrogaming"],
       "text": "",
       "files": ["media/retrogaming.jpg"]
+    },
+    "response120": {
+      "triggers": ["wanted", "lawyerup"],
+      "text": "",
+      "files": ["media/wanted.mp4"]
     }
 }
 
