@@ -181,7 +181,7 @@
     },
     "response37": {
         "triggers": ["rpcs3", "rb3pc"],
-        "text": "## How to set up Rock Band 3 for RPCS3\n**Includes instrument configuration, recommended settings, and how to play online.**\n<https://guides.milohax.org/en/rb3pc/intro/disclaimers/>",
+        "text": "## How to set up Rock Band 3 for RPCS3\n**Includes instrument configuration, recommended settings, and how to play online.**\n<https://guides.milohax.org/en/rb3pc/intro/requirements/>",
         "files": []
     },
     "response38": {
@@ -276,7 +276,7 @@
     },
     "response56": {
         "triggers": ["richpresence"],
-        "text": "Want to set up Discord Presence for RPCS3? [[Click here]](https://rb3pc.milohax.org/adv_discordrp)\nFor Xbox 360 hardware:\n### Note: This requires RB3Enhanced to be installed\nThere are a couple of steps to get this working:\n* **Download rb3e_index.html below** and put it in the same place as RB3 on the Xbox.\n* **Grab the latest RB3E nightly (NoDebug)** [RB3Enhanced Nightly](https://nightly.link/RBEnhanced/RB3Enhanced/workflows/build/master)\n* Add this to your `rb3.ini`\n```\n[HTTP]\nEnableHTTPServer = true\n```\nIn the DX repo **on the develop branch** in the `scripts` folder, you will want to add a new line to your `config.ini`, or copy from `config_default.ini` (replacing with the IP to your Xbox)\n```\nxbox_console_ip = 192.168.0.36\n```\nWhen set, the Rich Presence script will attempt to connect to the Xbox when launched first, and if that fails, it will automatically fall back to the RPCS3 Rich Presence like normal.\nTo run Rich Presence, in a command prompt inside the `scripts` folder, run:\n```\npython dx_discordrp.py\n```\nYou will need a couple of packages to run this script:\n```\npip install pypresence requests\n```",
+        "text": "Want to set up Discord Presence for RPCS3 or PS3? [[Click here]](https://guides.milohax.org/en/rb3/richpresence/)\nFor Xbox 360 hardware:\n### Note: This requires RB3Enhanced to be installed\nThere are a couple of steps to get this working:\n* **Download rb3e_index.html below** and put it in the same place as RB3 on the Xbox.\n* **Grab the latest RB3E nightly (NoDebug)** [RB3Enhanced Nightly](https://nightly.link/RBEnhanced/RB3Enhanced/workflows/build/master)\n* Add this to your `rb3.ini`\n```\n[HTTP]\nEnableHTTPServer = true\n```\nIn the DX repo **on the develop branch** in the `scripts` folder, you will want to add a new line to your `config.ini`, or copy from `config_default.ini` (replacing with the IP to your Xbox)\n```\nxbox_console_ip = 192.168.0.36\n```\nWhen set, the Rich Presence script will attempt to connect to the Xbox when launched first, and if that fails, it will automatically fall back to the RPCS3 Rich Presence like normal.\nTo run Rich Presence, in a command prompt inside the `scripts` folder, run:\n```\npython dx_discordrp.py\n```\nYou will need a couple of packages to run this script:\n```\npip install pypresence requests\n```",
         "files": ["media/rb3e_index.html", "media/richpresence.png"]
     },
     "response57": {
@@ -381,7 +381,7 @@
     },
     "response77": {
         "triggers": ["vsyncmeta"],
-        "text": "To have a smooth framerate in RPCS3, it's suggested to:\n* Set RPCS3's `Framelimit` to `Off` in Rock Band 3's Custom Configuration\n* Enable RPCS3's `VSync` in Rock Band 3's Custom Configuration\n* Disable `VSync` within Rock Band 3 Deluxe\nAdditionally, you can use [[RTSS]](https://rb3pc.milohax.org/adv_rtss) but it is more complicated.",
+        "text": "To have a smooth framerate in RPCS3, it's suggested to:\n* Set RPCS3's `Framelimit` to `Off` in Rock Band 3's Custom Configuration\n* Enable RPCS3's `VSync` in Rock Band 3's Custom Configuration\n* Disable `VSync` within Rock Band 3 Deluxe\nAdditionally, you can use [[RTSS]](https://guides.milohax.org/en/rb3pc/advanced/fps) but it is more complicated.",
         "files": ["media/vsyncmeta.png"]
     },
     "response78": {
@@ -496,8 +496,8 @@
         "files": ["media/discgame.png"]
     },
     "response100": {
-        "triggers": ["bestbuild"],
-        "text": "Some newer RPCS3 builds may have performance issues. If you had better performance before, try this build. Install it over your current one.\n- [[Windows]](https://github.com/RPCS3/rpcs3-binaries-win/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_win64.7z)\n- [[Linux x86]](https://github.com/RPCS3/rpcs3-binaries-linux/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_linux64.AppImage)\n- [[Linux ARM]](https://github.com/RPCS3/rpcs3-binaries-linux-arm64/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_linux_aarch64.AppImage)\n- [[macOS x86]](https://github.com/RPCS3/rpcs3-binaries-mac/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_macos.7z)\n- [[macOS ARM]](https://github.com/RPCS3/rpcs3-binaries-mac-arm64/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_macos_arm64.7z)",
+        "triggers": ["recomp"],
+        "text": "# Check out the Guitar Hero 2 Recomp and if you are able, consider contributing!\nhttps://discord.com/channels/961352072140324924/1475161085693923328\nhttps://github.com/YoshiCrystal9/re-gh2",
         "files": []
     },
     "response101": {
@@ -572,8 +572,18 @@
     },
     "response115": {
       "triggers": ["bcbc4", "xboxmem", "oom"],
-      "text": "It looks like Rock Band 3 Deluxe ran out of memory.\nThis can happen in long/full band sessions, notably with higher song counts (4000+)\n\nLowering your song count under the threshold of around 4000, has seemingly the highest impact on this issue.\nHowever, there are some more options to try if you really do not want to lower your song count.\n\nIn Deluxe Settings can try turning off things like:\n* Streak counter\n* OverDrive percentage\n* Lyric display\n* Judgements\n* Song timeline\n*Menu backgrounds\n* Cutscenes entering/exiting songs\n\nTry setting your venues in this order to see what works best:\n`Small Venues > Music Video Venues > None`\n\n**Xbox 360:** You can confirm that this is an out of memory error if you have the latest Enhanced installed and the data error code shown on screen contains `PC:827BCBC4`.\n**PlayStation 3 Hardware:** Even without Deluxe, the PS3 version of Rock Band 3 already has memory issues while playing online. If you're not actively playing online, disconnect your console from the internet.\n**Wii:** Rock Band 3 Deluxe is known to be highly unstable on Wii. The best advice is to try RPCS3.\n**RPCS3:** You should already have the High Memory patch installed, and memory shouldnt be an issue for you, otherwise Deluxe would be notifying you already. Check `!himem` for more details.",
+      "text": "It looks like Rock Band 3 Deluxe ran out of memory.\nThis can happen in long/full band sessions, notably with higher song counts (4000+)\n\nLowering your song count under the threshold of around 4000, has seemingly the highest impact on this issue.\nHowever, there are some more options to try if you really do not want to lower your song count.\n\nIn Deluxe Settings can try turning off things like:\n* Streak counter\n* OverDrive percentage\n* Lyric display\n* Judgements\n* Song timeline\n* Menu backgrounds\n* Cutscenes entering/exiting songs\n\nTry setting your venues in this order to see what works best:\n`Small Venues > Music Video Venues > None`\n\n**Xbox 360: :Xbox360::** You can confirm that this is an out of memory error if you have the latest Enhanced installed and the data error code shown on screen contains `PC:827BCBC4`.\n**PlayStation 3 :ps3::** Even without Deluxe, the PS3 version of Rock Band 3 already has memory issues while playing online. If you're not actively playing online, disconnect your console from the internet.\n**Wii :wii::** Rock Band 3 Deluxe is known to be highly unstable on Wii. The best advice is to try RPCS3.\n**RPCS3 :RPCS3::** You should already have the High Memory patch installed, and memory shouldnt be an issue for you, otherwise Deluxe would be notifying you already. Check `!himem` for more details.",
       "files": [""]
+    },
+    "response116": {
+      "triggers": ["padtar", "gamepad"],
+      "text": "# Using gamepads (and PC keyboard) on RPCS3\nhttps://guides.milohax.org/en/rb3pc/controllers/main/#gamepads",
+      "files": [""]
+    },
+    "response117": {
+      "triggers": ["autoplay", "preview"],
+      "text": "# Full band autoplay on RPCS3\n1. Download the `autoplay_demo.yml` file and place it in `(RPCS3 Folder)/config/input_configs/global`\n2. Load it up as as a profile in the `Pads` menu.\n3. Use the picture below as a reference for controls.",
+      "files": ["media/autoplay.webp", "media/autoplay_demo.yml"]
     }
 }
 

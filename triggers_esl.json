@@ -97,7 +97,7 @@
     },
     "response37": {
         "triggers": ["rpcs3", "rb3pc"],
-        "text": "## Como configurar a Rock Band 3 para RPCS3\n**Incluye instrucciones para instrumentos, ajustes recomendados y tambien como jugar en linea.**\n<https://guides.milohax.org/es/rb3pc/intro/disclaimers>",
+        "text": "## Como configurar a Rock Band 3 para RPCS3\n**Incluye instrucciones para instrumentos, ajustes recomendados y tambien como jugar en linea.**\n<https://guides.milohax.org/es/rb3pc/intro/requirements/>",
         "link": "response37",
         "files": []
     },
@@ -223,7 +223,7 @@
     },
     "response77": {
         "triggers": ["vsyncmeta", "vsyncmetastasis"],
-        "text": "Para la mejor experiencia en RPCS3:\n* Cambia el `Framelimit` de RPCS3 a `Off` en la configuracion de Rock Band 3\n* Activa `VSync` de RPCS3 en la configuracion de Rock Band 3\n* Desactiva`VSync` dentro de el menu de graficos en la configuracion Deluxe\nAlternativamente, puedes usar [[RTSS]](https://rb3pc.milohax.org/adv_rtss_es) per es mas complicado configurarlo.",
+        "text": "Para la mejor experiencia en RPCS3:\n* Cambia el `Framelimit` de RPCS3 a `Off` en la configuracion de Rock Band 3\n* Activa `VSync` de RPCS3 en la configuracion de Rock Band 3\n* Desactiva`VSync` dentro de el menu de graficos en la configuracion Deluxe\nAlternativamente, puedes usar [[RTSS]](https://guides.milohax.org/es/rb3pc/advanced/fps) per es mas complicado configurarlo.",
         "link": "response77",
         "files": ["media/vsyncmetaes.png"]
     },
@@ -235,7 +235,7 @@
     },
     "response79": {
         "triggers": ["padprofiles", "perfilesdepad"],
-        "text": "No es recomendado crear una configuracion personalizada de controles (`Custom Gamepad Configuration`) para Rock Band 3 porque no puedes cambiar el perfil de controles mientras esta corriendo el juego.\nSe puede notar si tienes una configuracion personalizada de controles si tienes un icono de mando al lado de Rock Band 3 en la lista de juegos de RPCS3.\nPuedes borrarlo haciendo click derecho en Rock Band 3 y luego `Remove > Remove Gamepad Configuration`.\nEs recomenado que uses el menu de `Pads` hacia a arriba para crear perfiles de tus configuraciones de instrumentos.\nTambien podras usar [[perfiles de la guia de RPCS3]](https://guides.milohax.org/es/rb3pc/controllers/main/#using-profiles).",
+        "text": "No es recomendado crear una configuracion personalizada de controles (`Custom Gamepad Configuration`) para Rock Band 3 porque no puedes cambiar el perfil de controles mientras esta corriendo el juego.\nSe puede notar si tienes una configuracion personalizada de controles si tienes un icono de mando al lado de Rock Band 3 en la lista de juegos de RPCS3.\nPuedes borrarlo haciendo click derecho en Rock Band 3 y luego `Remove > Remove Gamepad Configuration`.\nEs recomenado que uses el menu de `Pads` hacia a arriba para crear perfiles de tus configuraciones de instrumentos.\nTambien podras usar [[perfiles de la guia de RPCS3]](https://guides.milohax.org/es/rb3pc/controllers/main/#usando-perfiles).",
         "link": "response79",
         "files": ["media/padoverwritees.png"]
     },
@@ -276,8 +276,8 @@
         "files": ["media/discgame.png"]
     },
     "response100": {
-        "triggers": ["bestbuild", "versionvieja"],
-        "text": "Algunas actualizaciones de RPCS3 tiene peor rendimiento. Si tenias mejor rendimiento, antes, puedes intentar una version mas vieja. Instalala sobre la instalacion que tienes.\n- [[Windows]](https://github.com/RPCS3/rpcs3-binaries-win/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_win64.7z)\n- [[Linux x86]](https://github.com/RPCS3/rpcs3-binaries-linux/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_linux64.AppImage)\n- [[Linux ARM]](https://github.com/RPCS3/rpcs3-binaries-linux-arm64/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_linux_aarch64.AppImage)\n- [[macOS x86]](https://github.com/RPCS3/rpcs3-binaries-mac/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_macos.7z)\n- [[macOS ARM]](https://github.com/RPCS3/rpcs3-binaries-mac-arm64/releases/download/build-0e1cad4ca9bbd7b5aaf315a3a11d0eb3c344a0a8/rpcs3-v0.0.36-17840-0e1cad4c_macos_arm64.7z)",
+        "triggers": ["recomp"],
+        "text": "# Puedes ver el proyecto de recompilacion de Guitar Hero 2. Si puedes, considera contribuir!\nhttps://discord.com/channels/961352072140324924/1475161085693923328\nhttps://github.com/YoshiCrystal9/re-gh2",
         "link": "response100",
         "files": []
     },
@@ -310,6 +310,24 @@
         "text": "Tienes problemas conectando tu instrumento para Xbox One?\nVe a `Inicio` > `Configuracion`  > `Aplicaciones` > `Aplicaciones instaladas`\nBusca `Microsoft GameInput` y desinstala la version mas actual.\nToma en cuenta que se puede reinstalar despues de un reinicio.",
         "link": "response107",
         "files": ["media/gameinput.png"]
+    },
+    "response115": {
+        "triggers": ["bcbc4", "xboxmem", "oom", "bodriostation"],
+        "text": "Es probable que Rock Band 3 Deluxe acaba de crashear por insuficiente memoria.\nEsto suele pasar en sesiones largas o de banda completa, especialmente si tienes demasiadas canciones (4000+).\n\nReduciendo la cantidad de música es la mejor manera de evitar este problema.\nTambién puedes intentar esto si no quieres reducir la cantidad de canciones instaladas.\n\nDentro de Configuración Deluxe trata de desactivar cosas como:\n* Contador de racha\n* Porcentaje de Sobrecarga\n* Mostrar letra\n* Medidor de precisión\n* Barra de progreso del tema\n* Fondos de menú\n* Transiciones cinemáticas\n\nTambién trata de cambiar el escenarios en esta orden para ver que funciona mejor:\n`Escenarios pequeños > vídeos musicales > [Ninguno]`\n\n**Xbox 360: :Xbox360::** Puedes confirmar si es un falta de memoria si tienes una versión de Enhanced instalada y el código de error es `PC:827BCBC4`.\n**PlayStation 3 :ps3::** Sin Deluxe, la versión de PlayStation 3 de Rock Band 3 ya tenia problemas con estabilidad. Si no estas jugando multiplayer, se recomienda que desconectes la consola del internet.\n**Wii :wii::** Rock Band 3 Deluxe no es estable en Wii. Si tienes otra plataforma para jugar Rock Band 3, se recomienda usar eso.\n**RPCS3 :RPCS3::** Deberías de tener el parche de memoria instalado. Escribe `!memoria` para mas información.",
+        "link": "response115",
+        "files": [""]
+    },
+    "response116": {
+      "triggers": ["padtar", "gamepad", "mando"],
+      "text": "# Usando mandos (y teclados de PC) con RPCS3\nhttps://guides.milohax.org/es/rb3pc/controllers/main/#mandos",
+      "link": "response116",
+      "files": [""]
+    },
+    "response117": {
+      "triggers": ["autoplay", "preview", "previz"],
+      "text": "'Autoplay' de banda completa con RPCS3\n1. Descarga el archivo de `autoplay_demo.yml` y colocalo en `(Carpeta de RPCS3)/config/input_configs/global`\n2. Actívalo como el archivo de configuración en el menú de `Mandos`.\n3. Usa la foto abajo como referencia.\n-#Disculpa a todos los usuarios con teclados de femboy.",
+      "link": "response117",
+      "files": ["media/autoplay.webp", "media/autoplay_demo.yml"]
     }
 }
 
