@@ -589,6 +589,11 @@
       "triggers": ["charting", "reaper"],
       "text": "# How to set up REAPER to chart\nhttps://guides.milohax.org/en/charting/reaper/",
       "files": [""]
+    },
+    "response119": {
+      "triggers": ["oldgames", "nostalgia", "retrogaming"],
+      "text": "",
+      "files": ["media/retrogaming.jpg"]
     }
 }
 
