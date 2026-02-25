@@ -145,7 +145,7 @@
     },
     "response52": {
         "triggers": ["decomp"],
-        "text": "# Puedes ver el proyecto de decompilacion para Rock Band 3 Decomp. Si puedes, considera contribuir!\nhttps://discord.com/channels/961352072140324924/1149118233555779595\nhttps://rb3dx.milohax.org/decomp",
+        "text": "# Puedes ver el proyecto de decompilacion de Rock Band 3 y de Dance Central. Si puedes, considera contribuir!\nhttps://discord.com/channels/961352072140324924/1149118233555779595\nhttps://rb3dx.milohax.org/decomp\nhttps://github.com/rjkiv/dc3-decomp",
         "link": "response52",
         "files": []
     },
@@ -277,7 +277,7 @@
     },
     "response100": {
         "triggers": ["recomp"],
-        "text": "# Puedes ver el proyecto de recompilacion de Guitar Hero 2. Si puedes, considera contribuir!\nhttps://discord.com/channels/961352072140324924/1475161085693923328\nhttps://github.com/YoshiCrystal9/re-gh2",
+        "text": "# Puedes ver el proyecto de recompilacion de Guitar Hero 2 y Rock Band 3. Si puedes, considera contribuir!\nhttps://discord.com/channels/961352072140324924/1475161085693923328\nhttps://github.com/YoshiCrystal9/re-gh2\nhttps://github.com/ihatecompvir/band3_recomp",
         "link": "response100",
         "files": []
     },
