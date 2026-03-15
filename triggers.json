@@ -556,7 +556,7 @@
         "files": []
     },
     "response113": {
-        "triggers": ["mhxarchive"],
+        "triggers": ["hmxarchive", "archive"],
         "text": "Want to learn more about Harmonix games? Check out the [[Archive]](https://docs.google.com/spreadsheets/d/1nMnaiGtHLin-BVsBqc7_vNysCui0jy8oYY-UICtHidg/)",
         "files": []
     },
