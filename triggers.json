@@ -556,8 +556,13 @@
         "files": []
     },
     "response113": {
-        "triggers": ["archive"],
+        "triggers": ["hmxarchive", "archive"],
         "text": "Want to learn more about Harmonix games? Check out the [[Archive]](https://docs.google.com/spreadsheets/d/1nMnaiGtHLin-BVsBqc7_vNysCui0jy8oYY-UICtHidg/)",
+        "files": []
+    },
+    "response114": {
+        "triggers": ["nhxarchive"],
+        "text": "Looking for more Guitar Hero/Rock Band clones to spice up your library?\nCheck out this clone preservation spreadsheet where you can find a bunch of old/unreleased/active clones that you might not have ever heard of!\n\n[Archive](https://docs.google.com/spreadsheets/d/1dVs9DKb4bZKWIqGN1hhuxyi6499E9Ens_PYcIHPYii8/edit?usp=sharing)",
         "files": []
     },
     "response115": {
