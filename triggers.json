@@ -96,7 +96,7 @@
     },
     "response20": {
         "triggers": ["mem", "himem", "memory"],
-        "text": "# RPCS3 High Memory Mode #\nThis will increase your song limit to 16,000 and should allow for better stability and less crashes by allowing RB3 to use extra memory in your system.\n\nStep 1: Right click Rock Band 3 and select `Change Custom Configuration`\nStep 2: Enable `Debug Console Mode` under the Advanced tab\nStep 3: Download the dx_high_memory.dta file at the bottom of this post into: `dev_hdd0/game/BLUS30463/USRDIR`\n\n*if you already installed the pre-made recommended configuration from the rb3pc guide, you will already have this*\n\nDO NOT ATTEMPT TO USE THIS ON HARDWARE",
+        "text": "# RPCS3 High Memory Mode #\nThis will increase your song limit to 16,000 and should allow for better stability and less crashes by allowing RB3 to use extra memory in your system.\n\nStep 1: Right click Rock Band 3 and select `Change Custom Configuration`\nStep 2: Enable `Debug Console Mode` under the Advanced tab\nStep 3: Download the `dx_high_memory.dta` file at the bottom of this post.\nStep 4: Right click on Rock Band 3 in RPCS3 and go to `Open Folder` > `Open Game Data Folder`\nStep 5: Drag the `dx_high_memory.dta` file into `USRDIR`\n\n*if you already installed the pre-made recommended configuration from the rb3pc guide, you will already have this*\n\nDO NOT ATTEMPT TO USE THIS ON HARDWARE",
         "files": ["media/mem.png", "media/dx_high_memory.dta"]
     },
     "response21": {
@@ -582,7 +582,7 @@
     },
     "response118": {
       "triggers": ["charting", "reaper"],
-      "text": "# How to set up REAPER to chart\nhttps://guides.milohax.org/en/charting/reaper/",
+      "text": "# How to set up REAPER to chart\nhttps://guides.milohax.org/en/charting/reaper/intro/",
       "files": [""]
     },
     "response119": {

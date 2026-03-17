@@ -1,15 +1,21 @@
 {
+    "response4": {
+        "triggers": ["arguing", "pelea", "peleando"],
+        "text": "",
+        "link": "response4",
+        "files": ["media/arguinges.mp4"]
+    },
     "response5": {
         "triggers": ["charname", "text"],
-        "text": "Se te quedo atorado RPCS3 cuando estabas nombrado algo?\nDesconecta y reconecta tu control. Tambien puedes desactivar `Native Interface` en la configuracion personalizada de Rock Band 3.",
+        "text": "Se te quedo atorado RPCS3 cuando estabas nombrado algo?\nDesconecta y reconecta tu control. Tambien puedes desactivar `Utilizar interfaz nativa` en la configuracion personalizada de Rock Band 3.",
         "link": "response5",
         "files": ["media/charname.png"]
     },
     "response6": {
         "triggers": ["customconfig", "config", "configs", "configuracion"],
-        "text": "Para subir el archivo de configuracion:\n* Haz click derecho en el juego\n* Ve a `Open Folder` > `Open Custom Config Folder`\n* Para Rock Band 2, manda `config_BLUS30147.yml`\n* Para Rock Band 3, manda `config_BLUS30463.yml`",
+        "text": "Para subir el archivo de configuracion:\n* Haz click derecho en el juego\n* Ve a `Abrir carpeta` > `Abrir carpeta de configuraciones personalizadas`\n* Para Rock Band 2, manda `config_BLUS30147.yml`\n* Para Rock Band 3, manda `config_BLUS30463.yml`",
         "link": "response6",
-        "files": ["media/customconfig.png"]
+        "files": ["media/customconfiges.png"]
     },
     "response8": {
         "triggers": ["dxsettings"],
@@ -37,15 +43,15 @@
     },
     "response18": {
         "triggers": ["log", "logs", "dejaver", "analizar", "historial"],
-        "text": "Para mandar un historial, encuentra el problema y,\nen la pantalla principal de RPCS3, ve a `File` > `Exit and Save Log`.\nGuarda el archivo donde sea conveniente y mandalo con un mensaje de `!log` para que el bot lo pueda ver.",
+        "text": "Para mandar un historial, encuentra el problema y,\nen la pantalla principal de RPCS3, ve a `Archivo` > `Salir y guardar registro`.\nGuarda el archivo donde sea conveniente y mandalo con un mensaje de `!log` para que el bot lo pueda ver.",
         "link": "response18",
         "files": ["media/savelog.gif"]
     },
     "response20": {
         "triggers": ["mem", "himem", "memory", "memoria", "memalta"],
-        "text": "# Modo de alta memoria para RPCS3 #\nEsto va aumentar el numero de canciones a 16.000 y tambien ayudada con la estabilidad de Rock Band 3 gracias a la memoria adicional.\n\nPaso 1: Haz click en Rock Band 3 y selecciona `Change Custom Configuration`\nPaso 2: En la pestana de `Advanced`, activa `Debug Console Mode`\nPaso 3: Descarga el archivo `dx_high_memory.dta` abajo de este mensaje\nPaso 4: Haz click derecho en Rock Band 3 en RPCS3 y luego en `Open Folder` > `Open Game Data Folder`\nPaso 5: Arrastra el archivo `dx_high_memory.dta` dentro de `USRDIR`\n\n*Si usaste una Configuracion Rapida de la guia rb3pc, ya tienes esto.*\n\nNO INTENTES USAR ESTE ARCHIVO EN UNA CONSOLA",
+        "text": "# Modo de alta memoria para RPCS3 #\nEsto va aumentar el numero de canciones a 16.000 y tambien ayudada con la estabilidad de Rock Band 3 gracias a la memoria adicional.\n\nPaso 1: Haz click en Rock Band 3 y selecciona `Cambiar configuracion personalizada`\nPaso 2: En la pestana de `Avanzada`, activa `Modo de consola de depuracion`\nPaso 3: Descarga el archivo `dx_high_memory.dta` abajo de este mensaje\nPaso 4: Haz click derecho en Rock Band 3 en RPCS3 y luego en `Abrir carpeta` > `Abrir carpeta Datos de juego`\nPaso 5: Arrastra el archivo `dx_high_memory.dta` dentro de `USRDIR`\n\n*Si usaste una Configuracion Rapida de la guia rb3pc, ya tienes esto.*\n\nNO INTENTES USAR ESTE ARCHIVO EN UNA CONSOLA",
         "link": "response20",
-        "files": ["media/mem.png", "media/dx_high_memory.dta"]
+        "files": ["media/memes.png", "media/dx_high_memory.dta"]
     },
     "response21": {
         "triggers": ["mididrums", "mididrumkit", "bateriamidi"],
@@ -157,13 +163,13 @@
     },
     "response58": {
         "triggers": ["wcb", "wcbes", "buffers", "colorbuffers", "writecolorbuffers"],
-        "text": "Probablemente instalaste este juego sin seguir los pasos en la guia para RPCS3.\nPuedes evitar muchos problemas siguiendo los pasos de configuracion rapida aqui\nhttps://guides.milohax.org/es/rb3pc/intro/quickconfig\n\nSi solo quieres arreglar esto en especifico, necesitas activar `Write Color Buffers` bajo la pestana de `GPU` en la configuracion personalizada de Rock Band 3",
+        "text": "Probablemente instalaste este juego sin seguir los pasos en la guia para RPCS3.\nPuedes evitar muchos problemas siguiendo los pasos de configuracion rapida aqui\nhttps://guides.milohax.org/es/rb3pc/intro/quickconfig\n\nSi solo quieres arreglar esto en especifico, necesitas activar `Escribir buferes de color` bajo la pestana de `GPU` en la configuracion personalizada de Rock Band 3",
         "link": "response58",
         "files": ["media/wcbon.png"]
     },
     "response63": {
         "triggers": ["dwd"],
-        "text": "Probablemente instalaste este juego sin seguir los pasos en la guia para RPCS3.\nPuedes evitar muchos problemas siguiendo los pasos de configuracion rapida aqui\nhttps://guides.milohax.org/es/rb3pc/intro/quickconfig\n\nSi solo quieres arreglar el crasheo despues de canciones, necesitas cambiar `Driver Wake-Up Delay` a `20` o a un multiple de 20 bajo el apartado de `Advanced` en la configuracion personalizada de Rock Band 3.",
+        "text": "Probablemente instalaste este juego sin seguir los pasos en la guia para RPCS3.\nPuedes evitar muchos problemas siguiendo los pasos de configuracion rapida aqui\nhttps://guides.milohax.org/es/rb3pc/intro/quickconfig\n\nSi solo quieres arreglar el crasheo despues de canciones, necesitas cambiar `Retardo para llamar al controlador` a `20` o a un multiple de 20 bajo el apartado de `Avanzada` en la configuracion personalizada de Rock Band 3.",
         "link": "response63",
         "files": ["media/dwd.png"]
     },
@@ -171,13 +177,13 @@
         "triggers": ["global", "globales"],
         "text": "Cualquier ajuste a Rock Band 3 debe de ser hecho en la configuracion personalizada del juego, no en la global.",
         "link": "response64",
-        "files": ["media/custnotglobal_es.png"]
+        "files": ["media/custnotglobales.png"]
     },
     "response65": {
         "triggers": ["netset"],
-        "text": "Probablemente instalaste este juego sin seguir los pasos en la guia para RPCS3.\nPuedes evitar muchos problemas siguiendo los pasos de configuracion rapida aqui\nhttps://guides.milohax.org/es/rb3pc/intro/quickconfig\n\nSi solo quieres arreglar lo del juego congelandose en la biblioteca de musica, cambia `Network Status` a `Connected` bajo la pestana de Network en la configuracion de Rock Band 3.",
+        "text": "Probablemente instalaste este juego sin seguir los pasos en la guia para RPCS3.\nPuedes evitar muchos problemas siguiendo los pasos de configuracion rapida aqui\nhttps://guides.milohax.org/es/rb3pc/intro/quickconfig\n\nSi solo quieres arreglar lo del juego congelandose en la biblioteca de musica, cambia `Estado de la red` a `Conectado` bajo la pestana de Network en la configuracion de Rock Band 3.",
         "link": "response65",
-        "files": ["media/netset.png"]
+        "files": ["media/netsetes.png"]
     },
     "response66": {
         "triggers": ["content", "confiles", "livefiles"],
@@ -217,25 +223,25 @@
     },
     "response76": {
         "triggers": ["caches"],
-        "text": "Con el paso del tiempo, actualizaciones de RPCS3 pueden causar problemas con tus archivos de cache. Puedes generar nuevos.\nPara resolver esto, haz click derecho a Rock Band 3 en tu lista de juegos y luego ve a `Remove`. De ahi puedes elegir cual cache quieres borrar.",
+        "text": "Con el paso del tiempo, actualizaciones de RPCS3 pueden causar problemas con tus archivos de cache. Puedes generar nuevos.\nPara resolver esto, haz click derecho a Rock Band 3 en tu lista de juegos y luego ve a `Eliminar`. De ahi puedes elegir cual cache quieres borrar.",
         "link": "response76",
-        "files": ["media/caches.png"]
+        "files": ["media/cacheses.png"]
     },
     "response77": {
         "triggers": ["vsyncmeta", "vsyncmetastasis"],
-        "text": "Para la mejor experiencia en RPCS3:\n* Cambia el `Framelimit` de RPCS3 a `Off` en la configuracion de Rock Band 3\n* Activa `VSync` de RPCS3 en la configuracion de Rock Band 3\n* Desactiva`VSync` dentro de el menu de graficos en la configuracion Deluxe\nAlternativamente, puedes usar [[RTSS]](https://guides.milohax.org/es/rb3pc/advanced/fps) per es mas complicado configurarlo.",
+        "text": "Para la mejor experiencia en RPCS3:\n* Cambia el `Limit. fotogramas` de RPCS3 a `Desactivado` en la configuracion de Rock Band 3\n* Activa `Sincronizacion vertical` de RPCS3 en la configuracion de Rock Band 3\n* Desactiva `VSync` dentro de el menu de graficos en la configuracion Deluxe\nAlternativamente, puedes usar [[RTSS]](https://guides.milohax.org/es/rb3pc/advanced/fps) per es mas complicado configurarlo.",
         "link": "response77",
         "files": ["media/vsyncmetaes.png"]
     },
     "response78": {
         "triggers": ["l2", "L2"],
-        "text": "Tu guitarra de Guitar Hero esta auto-rasgueando/haciendo auto-strum? Simplemente borra el boton que tienes en `L2` en el menu de Pads.",
+        "text": "Tu guitarra de Guitar Hero esta auto-rasgueando/haciendo auto-strum? Simplemente borra el boton que tienes en `L2` en el menu de Mados.",
         "link": "response78",
         "files": ["media/l2unmap.gif"]
     },
     "response79": {
         "triggers": ["padprofiles", "perfilesdepad"],
-        "text": "No es recomendado crear una configuracion personalizada de controles (`Custom Gamepad Configuration`) para Rock Band 3 porque no puedes cambiar el perfil de controles mientras esta corriendo el juego.\nSe puede notar si tienes una configuracion personalizada de controles si tienes un icono de mando al lado de Rock Band 3 en la lista de juegos de RPCS3.\nPuedes borrarlo haciendo click derecho en Rock Band 3 y luego `Remove > Remove Gamepad Configuration`.\nEs recomenado que uses el menu de `Pads` hacia a arriba para crear perfiles de tus configuraciones de instrumentos.\nTambien podras usar [[perfiles de la guia de RPCS3]](https://guides.milohax.org/es/rb3pc/controllers/main/#usando-perfiles).",
+        "text": "No es recomendado crear una configuracion personalizada de controles para Rock Band 3 porque no puedes cambiar el perfil de controles mientras esta corriendo el juego.\nSe puede notar si tienes una configuracion personalizada de controles si tienes un icono de mando al lado de Rock Band 3 en la lista de juegos de RPCS3.\nPuedes borrarlo haciendo click derecho en Rock Band 3 y luego `Eliminar > Eliminar configuracion de mandos personalizada`.\nEs recomenado que uses el menu de `Mandos` hacia a arriba para crear perfiles de tus configuraciones de instrumentos.\nTambien podras usar [[perfiles de la guia de RPCS3]](https://guides.milohax.org/es/rb3pc/controllers/main/#usando-perfiles).",
         "link": "response79",
         "files": ["media/padoverwritees.png"]
     },
@@ -265,13 +271,13 @@
     },
     "response98": {
         "triggers": ["gamedata"],
-        "text": "Quieres entrar a la carpeta de los datos del juego en RPCS3?\nHaz click derecho en Rock Band 3 en RPCS3 y luego en `Open Folder` > `Open Game Data Folder`",
+        "text": "Quieres entrar a la carpeta de los datos del juego en RPCS3?\nHaz click derecho en Rock Band 3 en RPCS3 y luego en `Abrir carpeta` > `Abrir carpeta Datos de juego`",
         "link": "response98",
         "files": ["media/gamedata.png"]
     },
     "response99": {
         "triggers": ["discgame"],
-        "text": "Quieres entrar a la carpeta del disco en RPCS3?\nHaz click derecho en Rock Band 3 en RPCS3 y luego en `Open Folder` > `Open Disc Game Folder`",
+        "text": "Quieres entrar a la carpeta del disco en RPCS3?\nHaz click derecho en Rock Band 3 en RPCS3 y luego en `Abrir carpeta` > `Abrir carpeta de juego en disco`",
         "link": "response99",
         "files": ["media/discgame.png"]
     },
@@ -297,7 +303,7 @@
         "triggers": ["rpcn"],
         "text": "Estas listo para jugar en linea? [[Haz click aqui para mas informacion!]](https://guides.milohax.org/es/rb3pc/online/intro/)\nSi no estas usando una configuracion de la guia de RPCS3, cambia estas cosas en la configuracion de RB3.",
         "link": "response103",
-        "files": ["media/rpcn.png"]
+        "files": ["media/rpcnsettingses.png"]
     },
     "response104": {
         "triggers": ["drums", "drums", "bateria"],
@@ -313,7 +319,7 @@
     },
     "response115": {
         "triggers": ["bcbc4", "xboxmem", "oom", "bodriostation"],
-        "text": "Es probable que Rock Band 3 Deluxe acaba de crashear por insuficiente memoria.\nEsto suele pasar en sesiones largas o de banda completa, especialmente si tienes demasiadas canciones (4000+).\n\nReduciendo la cantidad de música es la mejor manera de evitar este problema.\nTambién puedes intentar esto si no quieres reducir la cantidad de canciones instaladas.\n\nDentro de Configuración Deluxe trata de desactivar cosas como:\n* Contador de racha\n* Porcentaje de Sobrecarga\n* Mostrar letra\n* Medidor de precisión\n* Barra de progreso del tema\n* Fondos de menú\n* Transiciones cinemáticas\n\nTambién trata de cambiar el escenarios en esta orden para ver que funciona mejor:\n`Escenarios pequeños > vídeos musicales > [Ninguno]`\n\n**Xbox 360: :Xbox360::** Puedes confirmar si es un falta de memoria si tienes una versión de Enhanced instalada y el código de error es `PC:827BCBC4`.\n**PlayStation 3 :ps3::** Sin Deluxe, la versión de PlayStation 3 de Rock Band 3 ya tenia problemas con estabilidad. Si no estas jugando multiplayer, se recomienda que desconectes la consola del internet.\n**Wii :wii::** Rock Band 3 Deluxe no es estable en Wii. Si tienes otra plataforma para jugar Rock Band 3, se recomienda usar eso.\n**RPCS3 :RPCS3::** Deberías de tener el parche de memoria instalado. Escribe `!memoria` para mas información.",
+        "text": "Es probable que Rock Band 3 Deluxe acaba de crashear por insuficiente memoria.\nEsto suele pasar en sesiones largas o de banda completa, especialmente si tienes demasiadas canciones (4000+).\n\nReduciendo la cantidad de música es la mejor manera de evitar este problema.\nTambién puedes intentar esto si no quieres reducir la cantidad de canciones instaladas.\n\nDentro de Configuración Deluxe trata de desactivar cosas como:\n* Contador de racha\n* Porcentaje de Sobrecarga\n* Mostrar letra\n* Medidor de precisión\n* Barra de progreso del tema\n* Fondos de menú\n* Transiciones cinemáticas\n\nTambién trata de cambiar el escenarios en esta orden para ver que funciona mejor:\n`Escenarios pequeños > vídeos musicales > [Ninguno]`\n\n**Xbox 360: <:Xbox360:1215133323039346739>:** Puedes confirmar si es un falta de memoria si tienes una versión de Enhanced instalada y el código de error es `PC:827BCBC4`.\n**PlayStation 3 <:ps3:1441227623618314250>:** Sin Deluxe, la versión de PlayStation 3 de Rock Band 3 ya tenia problemas con estabilidad. Si no estas jugando multiplayer, se recomienda que desconectes la consola del internet.\n**Wii :<:wii:1474320980082950298>:** Rock Band 3 Deluxe no es estable en Wii. Si tienes otra plataforma para jugar Rock Band 3, se recomienda usar eso.\n**RPCS3 <:RPCS3:1215131652703916052>:** Deberías de tener el parche de memoria instalado. Escribe `!memoria` para mas información.",
         "link": "response115",
         "files": [""]
     },
@@ -331,7 +337,7 @@
     },
     "response118": {
       "triggers": ["charting", "reaper", "charteando"],
-      "text": "# Como configurar a REAPER para chartear\nhttps://guides.milohax.org/es/charting/reaper/",
+      "text": "# Como configurar a REAPER para chartear\nhttps://guides.milohax.org/es/charting/reaper/intro/",
       "link": "response118",
       "files": [""]
     }
