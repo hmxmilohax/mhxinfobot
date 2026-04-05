@@ -577,7 +577,7 @@
     },
     "response117": {
       "triggers": ["autoplay", "preview"],
-      "text": "# Full band autoplay on RPCS3\n1. Download the `autoplay_demo.yml` file and place it in `(RPCS3 Folder)/config/input_configs/global`\n2. Load it up as as a profile in the `Pads` menu.\n3. Use the picture below as a reference for controls.\n-#Sorry femboy keyboard owners.",
+      "text": "# Full band autoplay on RPCS3\n1. Download the `autoplay_demo.yml` file and place it in `(RPCS3 Folder)/config/input_configs/global`\n2. Load it up as as a profile in the `Pads` menu.\n3. Use the picture below as a reference for controls.\n-# Sorry femboy keyboard owners.",
       "files": ["media/autoplay.webp", "media/autoplay_demo.yml"]
     },
     "response118": {
