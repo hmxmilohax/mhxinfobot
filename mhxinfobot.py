@@ -18,6 +18,8 @@ from datetime import datetime, timedelta, timezone
 with open('config.json') as config_file:
     config = json.load(config_file)
 
+RESTRICTED_GUILDS = set(config.get("restricted_guilds", []))
+
 # --- Spam watchdog config ---
 SPAM_REPORT_CHANNEL_ID = 961395552329818142
 
@@ -81,6 +83,9 @@ SCAM_PITCH_KEYWORDS = [
     "multimodal",
     "saas",
 ]
+
+def is_restricted_guild(message: discord.Message) -> bool:
+    return bool(message.guild and message.guild.id in RESTRICTED_GUILDS)
 
 DECOMP_URL = "https://progress.decomp.club/data/rb3/SZBE69_B8/dol/?format=json"
 
@@ -559,13 +564,18 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    # --- Spam watchdog (ban + report) ---
+    # --- Spam watchdog runs in every guild the bot lives in ---
     try:
         if await spam_watchdog(message):
             return
     except Exception as e:
         # Don’t let watchdog errors break the bot
         print(f"Spam watchdog error: {e}")
+
+    # --- Block commands/triggers in restricted guilds only ---
+    # Spam watchdog already ran above, so restricted guilds still get protection.
+    if is_restricted_guild(message):
+        return
 
     # Handle publishing messages in a specific channel
     if message.channel.id == 979895152367771668:
@@ -624,18 +634,17 @@ async def on_message(message):
             if prefix in ['!']:
                 # Process English triggers
                 await process_trigger(message.channel, command, triggers_map, esl_triggers_with_exclamation_map)
-                return  # Exit after processing a command
+                return
             elif prefix == '¡':
                 # Process ESL triggers
                 await process_esl_trigger(message.channel, command, triggers_esl_map)
-                return  # Exit after processing a command
+                return
 
 @tasks.loop(hours=24)
 async def check_actions_staleness():
     """
-    Checks all repos under hmxmilohax (minus IGNORED_REPOS) + any EXTRA_REPOS
-    for their most recent GitHub Actions run. If the latest run is 89 days or older,
-    reports it to the designated channel.
+    Checks all repos under hmxmilohax (minus IGNORED_REPOS + stale_repo_ignore_list) 
+    + any EXTRA_REPOS for their most recent GitHub Actions run.
     """
     stale = []
 
@@ -643,12 +652,18 @@ async def check_actions_staleness():
     repos_url = "https://api.github.com/users/hmxmilohax/repos?per_page=100"
     resp = requests.get(repos_url, headers=HEADERS)
     resp.raise_for_status()
+    
+    # Get the config ignore list
+    config_ignored = [r.lower() for r in config.get('stale_repo_ignore_list', [])]
+    
+    # Combine hardcoded IGNORED_REPOS with config ignore list
+    all_ignored = set([r.lower() for r in IGNORED_REPOS] + config_ignored)
 
     # build a list of (owner, name), skipping ignored
     monitored = [
         ("hmxmilohax", r["name"])
         for r in resp.json()
-        if r["name"] not in IGNORED_REPOS
+        if r["name"].lower() not in all_ignored
     ]
 
     # 2) Add any extras from config
@@ -657,6 +672,11 @@ async def check_actions_staleness():
             owner, name = repo_full.split("/", 1)
         else:
             owner, name = "hmxmilohax", repo_full
+            
+        # Check if this extra repo is in the ignore list
+        if name.lower() in all_ignored:
+            continue
+            
         if (owner, name) not in monitored:
             monitored.append((owner, name))
 
