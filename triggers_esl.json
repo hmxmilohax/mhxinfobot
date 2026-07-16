@@ -19,7 +19,7 @@
     },
     "response8": {
         "triggers": ["dxsettings"],
-        "text": "Para mandar el archivo `dx_settings.dta`, puedes encontrarlo aqui:\nXbox 360: La carpeta donde tienes RB3 instalado\nPS3/RPCS3: `dev_hdd0\\game\\BLUS30463\\USRDIR`",
+        "text": "Para mandar el archivo `dx_settings.dta`, puedes encontrarlo aqui:\nXbox 360: La carpeta donde tienes RB3 instalado\nPS3: `dev_hdd0\\game\\BLUS30463\\USRDIR`\nRPCS3: Haz click derecho en Rock Band 3 en RPCS3 > `Abrir carpeta` > `Abrir carpeta Datos de juego` > `USRDIR",
         "link": "response8",
         "files": []
     },
@@ -37,9 +37,9 @@
     },
     "response17": {
         "triggers": ["keynav", "octave", "octava"],
-        "text": "https://guides.milohax.org/_astro/rbkeysoctshift.CWt41hXk_2gwpxS.webp",
+        "text": "",
         "link": "response17",
-        "files": []
+        "files": ["media/rbkeysoctshift.webp"]
     },
     "response18": {
         "triggers": ["log", "logs", "dejaver", "analizar", "historial"],
@@ -115,7 +115,7 @@
     },
     "response40": {
         "triggers": ["songs", "canciones"],
-        "text": "# Lista de DLCs para Rock Band y Guitar Hero\n<https://bit.ly/ArbysMealDeals>\n## Tambien mira esta lista de paquetes hechos por la comunidad para jugar en linea.\n<https://docs.google.com/spreadsheets/d/1uFJDQPMLa-FspQ6WtbotTIy6u1YSB79i2sp9nSZVSfc>\nLas puedes [[descargar de aqui]](https://discord.com/channels/961352072140324924/1148300784748994560).\n### Igualmente, esta este repo de Github de customs hechas por la comunidad de RB2 Deluxe.\n<https://github.com/Rock-Band-Road-Crew/rbrc-customs/tree/main>\n### Si estas buscando canciones ''perdidas'' de versiones beta, mire el Github para canciones perdidas\n<https://github.com/exoticri/rock-band-3-lost-songs>",
+        "text": "# Quieres mas DLC? [[Haz click aqui para la pagina de DLCs para Rock Band y Guitar Hero]](https://bit.ly/ArbysMealDeals)\n## Tambien mira esta lista de paquetes hechos por la comunidad para jugar en linea.\n<https://docs.google.com/spreadsheets/d/1uFJDQPMLa-FspQ6WtbotTIy6u1YSB79i2sp9nSZVSfc>\nLas puedes [[descargar de aqui]](https://discord.com/channels/961352072140324924/1148300784748994560).\n### Igualmente, esta este repo de Github de customs hechas por la comunidad de RB2 Deluxe.\n<https://github.com/Rock-Band-Road-Crew/rbrc-customs/tree/main>\n### Si estas buscando canciones ''perdidas'' de versiones beta, mire el Github para canciones perdidas\n<https://github.com/exoticri/rock-band-3-lost-songs>",
         "link": "response40",
         "files": []
     },
@@ -157,19 +157,19 @@
     },
     "response57": {
         "triggers": ["teleport", "teleporting", "teleportacion", "floating", "hair", "pelo"],
-        "text": "Los errores y problemas con accesorios y instrumentos volando **son parte de la version vanilla de Rock Band 3 para Pleb 3**. El emulador **RPCS3** lo hace peor.\nAbajo hay una pagina con un parche para arreglar las guitarras y cuales cosas puedes evadir para evitar tener errores visuales.\nhttps://guides.milohax.org/es/rb3/teleport/",
+        "text": "Los errores y problemas con accesorios y instrumentos volando _son parte de la version vanilla_ de Rock Band 3 para PS3. _Emulando con RPCS3 lo hace peor_.\nAbajo hay una pagina con un parche para arreglar las guitarras y cuales cosas puedes evadir para evitar tener errores visuales.\nhttps://guides.milohax.org/es/rb3/teleport/\nSi tu copia es de Arbys, no es necesario hacer esto.",
         "link": "response57",
         "files": []
     },
     "response58": {
         "triggers": ["wcb", "wcbes", "buffers", "colorbuffers", "writecolorbuffers"],
-        "text": "Probablemente instalaste este juego sin seguir los pasos en la guia para RPCS3.\nPuedes evitar muchos problemas siguiendo los pasos de configuracion rapida aqui\nhttps://guides.milohax.org/es/rb3pc/intro/quickconfig\n\nSi solo quieres arreglar esto en especifico, necesitas activar `Escribir buferes de color` bajo la pestana de `GPU` en la configuracion personalizada de Rock Band 3",
+        "text": "# Es muy probable que instalaste este juego sin seguir la guia de RPCS3.\n## Puedes evitar muchos problemas [[siguiendo los pasos de configuracion rapida aqui]](https://guides.milohax.org/es/rb3pc/intro/quickconfig)\n\nSi solo quieres arreglar esto en especifico, necesitas activar `Escribir buferes de color` bajo la pestana de `GPU` en la configuracion personalizada de Rock Band 3",
         "link": "response58",
         "files": ["media/wcbon.png"]
     },
     "response63": {
         "triggers": ["dwd"],
-        "text": "Probablemente instalaste este juego sin seguir los pasos en la guia para RPCS3.\nPuedes evitar muchos problemas siguiendo los pasos de configuracion rapida aqui\nhttps://guides.milohax.org/es/rb3pc/intro/quickconfig\n\nSi solo quieres arreglar el crasheo despues de canciones, necesitas cambiar `Retardo para llamar al controlador` a `20` o a un multiple de 20 bajo el apartado de `Avanzada` en la configuracion personalizada de Rock Band 3.",
+        "text": "# Es muy probable que instalaste este juego sin seguir la guia de RPCS3.\n## Puedes evitar muchos problemas [[siguiendo los pasos de configuracion rapida aqui]](https://guides.milohax.org/es/rb3pc/intro/quickconfig)\n\nSi solo quieres arreglar el crasheo despues de canciones, necesitas cambiar `Retardo para llamar al controlador` a `20` o a un multiple de 20 bajo el apartado de `Avanzada` en la configuracion personalizada de Rock Band 3.",
         "link": "response63",
         "files": ["media/dwd.png"]
     },
@@ -181,7 +181,7 @@
     },
     "response65": {
         "triggers": ["netset"],
-        "text": "Probablemente instalaste este juego sin seguir los pasos en la guia para RPCS3.\nPuedes evitar muchos problemas siguiendo los pasos de configuracion rapida aqui\nhttps://guides.milohax.org/es/rb3pc/intro/quickconfig\n\nSi solo quieres arreglar lo del juego congelandose en la biblioteca de musica, cambia `Estado de la red` a `Conectado` bajo la pestana de Network en la configuracion de Rock Band 3.",
+        "text": "# Es muy probable que instalaste este juego sin seguir la guia de RPCS3.\n## Puedes evitar muchos problemas [[siguiendo los pasos de configuracion rapida aqui]](https://guides.milohax.org/es/rb3pc/intro/quickconfig)\n\nSi solo quieres arreglar lo del juego congelandose en la biblioteca de musica, cambia `Estado de la red` a `Conectado` bajo la pestana de Network en la configuracion de Rock Band 3.",
         "link": "response65",
         "files": ["media/netsetes.png"]
     },
@@ -301,7 +301,7 @@
     },
     "response103": {
         "triggers": ["rpcn"],
-        "text": "Estas listo para jugar en linea? [[Haz click aqui para mas informacion!]](https://guides.milohax.org/es/rb3pc/online/intro/)\nSi no estas usando una configuracion de la guia de RPCS3, cambia estas cosas en la configuracion de RB3.",
+        "text": "# Estas listo para jugar en linea? [[Haz click aqui para mas informacion!]](https://guides.milohax.org/es/rb3pc/online/intro/)\n## La [[guia de RPCS3 tiene configuraciones con ajustes pre-hechos]](https://guides.milohax.org/en/rb3pc/intro/quickconfig) para conectar tu juego al internet.\n\nSi no estas usando una configuracion de la guia de RPCS3, cambia estas cosas en la configuracion de RB3.",
         "link": "response103",
         "files": ["media/rpcnsettingses.png"]
     },
@@ -331,7 +331,7 @@
     },
     "response117": {
       "triggers": ["autoplay", "preview", "previz"],
-      "text": "'Autoplay' de banda completa con RPCS3\n1. Descarga el archivo de `autoplay_demo.yml` y colocalo en `(Carpeta de RPCS3)/config/input_configs/global`\n2. Actívalo como el archivo de configuración en el menú de `Mandos`.\n3. Usa la foto abajo como referencia.\n-#Disculpa a todos los usuarios con teclados de femboy.",
+      "text": "'Autoplay' de banda completa con RPCS3\n1. Descarga el archivo de `autoplay_demo.yml` y colocalo en `(Carpeta de RPCS3)/config/input_configs/global`\n2. Actívalo como el archivo de configuración en el menú de `Mandos`.\n3. Usa la foto abajo como referencia.\n-# Disculpa a todos los usuarios con teclados de femboy.",
       "link": "response117",
       "files": ["media/autoplay.webp", "media/autoplay_demo.yml"]
     },
@@ -340,6 +340,21 @@
       "text": "# Como configurar a REAPER para chartear\nhttps://guides.milohax.org/es/charting/reaper/intro/",
       "link": "response118",
       "files": [""]
+    },
+    "response120": {
+      "triggers": ["filezilla"],
+      "text": "Tienes problemas con archivos despues de usar FileZilla?\nAsegurate de desactivar `Tratar archivos sin extension como archivos ASCII` dentro de `Edicion > Opciones > Transferencias > FTP: Tipos de archivo`\n\nSe recomienda cambiar a WinSCP (Windows), Cyberduck (macOS) o usar las funciones nativas para FTP dentro de KDE Dolphin/GNOME Nautilus on Linux.",
+      "files": ["media/filezillaes.webp"]
+    },
+    "response121": {
+      "triggers": ["ports", "portforward", "puertos"],
+      "text": "El online de Rock Band 3 requiere que abras puertos para la mejor experiencia.\n\n* Protocolo: `UDP`\n* Puerto: `9103`",
+      "files": ["media/portses.webp"]
+    },
+    "response122": {
+        "triggers": ["midikeys", "midikeyboard", "tecladomidi"],
+        "text": "# Como usar tu teclado MIDI con RPCS3\nhttps://guides.milohax.org/es/rb3pc/controllers/keys/midi/",
+        "link": "response21",
+        "files": []
     }
 }
-

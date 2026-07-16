@@ -36,7 +36,7 @@
     },
     "response8": {
         "triggers": ["dxsettings"],
-        "text": "To send your `dx_settings.dta` file, send the file located:\nXbox 360: Your Rock Band 3 installation directory\nPS3/RPCS3: `dev_hdd0\\game\\BLUS30463\\USRDIR`",
+        "text": "To send your `dx_settings.dta` file, send the file located:\nXbox 360: Your Rock Band 3 installation directory\nPS3: `dev_hdd0\\game\\BLUS30463\\USRDIR`\nRPCS3: Right click Rock Band 3 > `Open Folder` > `Open Game Data Folder` > `USRDIR`",
         "files": []
     },
     "response9": {
@@ -61,7 +61,7 @@
     },
     "response13": {
         "triggers": ["gocentral"],
-        "text": "There is a single IP address for all platforms to keep things easy and simple:\n`45.33.44.103`\nIf you need to use a domain, use the gocentral-`platform`.rbenhanced.rocks domain. For example:\n`gocentral-xbox.rbenhanced.rocks`\n`gocentral-wii.rbenhanced.rocks`\n`gocentral-ps3.rbenhanced.rocks`\nSee the guide in https://discord.com/channels/953085263008129064/1076031372185042984 for information about how to connect on your preferred platform. https://discord.gg/wyMHERMZvE",
+        "text": "There is a single IP address for all platforms to keep things easy and simple:\n`45.33.44.103`\nIf you need to use a domain, use the gocentral-`platform`.rbenhanced.rocks domain. For example:\n`gocentral-xbox.rbenhanced.rocks`\n`gocentral-wii.rbenhanced.rocks`\n`gocentral-ps3.rbenhanced.rocks`\nRPCS3 users, please use `!rpcn`\nSee the guide in https://discord.com/channels/953085263008129064/1076031372185042984 for information about how to connect on your preferred platform. https://discord.gg/wyMHERMZvE",
         "files": []
     },
     "response14": {
@@ -81,8 +81,8 @@
     },
     "response17": {
         "triggers": ["keynav", "octave"],
-        "text": "https://guides.milohax.org/_astro/rbkeysoctshift.CWt41hXk_2gwpxS.webp",
-        "files": []
+        "text": "",
+        "files": ["media/rbkeysoctshift.webp"]
     },
     "response18": {
         "triggers": ["log", "logs"],
@@ -101,7 +101,7 @@
     },
     "response21": {
         "triggers": ["mididrums", "mididrumkit"],
-        "text": "# Using Midi Drums Over USB on RPCS3\nhttps://guides.milohax.org/en/rb3pc/controllers/drums/midi/",
+        "text": "# Using MIDI drums with RPCS3\nhttps://guides.milohax.org/en/rb3pc/controllers/drums/midi/",
         "files": []
     },
     "response22": {
@@ -176,7 +176,7 @@
     },
     "response36": {
         "triggers": ["rhythmverse"],
-        "text": "# RhythmVerse\nhttps://rhythmverse.co/songfiles/game/rb3",
+        "text": "# RhythmVerse\nhttps://rhythmverse.co/songfiles/game/rb3xbox",
         "files": []
     },
     "response37": {
@@ -196,7 +196,7 @@
     },
     "response40": {
         "triggers": ["songs"],
-        "text": "# Looking to add some DLC? Check the Rock Band & Guitar Hero Song Spreadsheet\n<https://bit.ly/ArbysMealDeals>\n## Also check out the bangers packs, curated compilations of online-ready customs!\n<https://docs.google.com/spreadsheets/d/1uFJDQPMLa-FspQ6WtbotTIy6u1YSB79i2sp9nSZVSfc>\nYou can find [[download links here]](https://discord.com/channels/961352072140324924/1148300784748994560).\n### Also check out the really great GitHub repo of songs authors from the RB2 Deluxe community have put together!\n<https://github.com/Rock-Band-Road-Crew/rbrc-customs/tree/main>\n### Also check out the really great GitHub repo of various lost songs for Rock Band 3!\n<https://github.com/exoticri/rock-band-3-lost-songs>",
+        "text": "# Looking to add some DLC? [[Click here for the Rock Band & Guitar Hero Song Spreadsheet]](https://bit.ly/ArbysMealDeals)\n## Also check out the bangers packs, curated compilations of online-ready customs!\n<https://docs.google.com/spreadsheets/d/1uFJDQPMLa-FspQ6WtbotTIy6u1YSB79i2sp9nSZVSfc>\nYou can find [[download links here]](https://discord.com/channels/961352072140324924/1148300784748994560).\n### Also check out the really great GitHub repo of songs authors from the RB2 Deluxe community have put together!\n<https://github.com/Rock-Band-Road-Crew/rbrc-customs/tree/main>\n### Also check out the really great GitHub repo of various lost songs for Rock Band 3!\n<https://github.com/exoticri/rock-band-3-lost-songs>",
         "files": []
     },
     "response41": {
@@ -281,12 +281,12 @@
     },
     "response57": {
         "triggers": ["teleport", "teleporting", "floating", "hair"],
-        "text": "Glitching/teleporting instruments is a vanilla Rock Band 3 bug present in **PS3**, made worse in **RPCS3**.\nLinked below is a file you can extract and patch your\n**Vanilla Base RB3 extracted disc game files**\nto fix the issue for all guitars, basses, hairs, mics, hats, and masks.\n[PS3 Glitch Patch Files](https://github.com/hmxmilohax/rock-band-3-deluxe/raw/develop/dependencies/ps3_patcher/rb3_ps3_guitar_glitch_fix.7z)",
+        "text": "Glitching/teleporting instruments is a _vanilla Rock Band 3 bug_ present in PS3, _made worse in RPCS3_.\nLinked below is a file you can extract and patch your **Vanilla Base RB3 extracted disc game files** to fix the issue for all guitars, basses, hairs, mics, hats, and masks.\n[PS3 Glitch Patch Files](https://github.com/hmxmilohax/rock-band-3-deluxe/raw/develop/dependencies/ps3_patcher/rb3_ps3_guitar_glitch_fix.7z).\n**If you downloaded your copy from Arbys, you don't need to do this**.",
         "files": []
     },
     "response58": {
         "triggers": ["wcb", "buffers", "colorbuffers", "writecolorbuffers"],
-        "text": "You probably installed this game without following the RPCS3 guide.\nYou can avoid many issues by following the quick configuration steps here\nhttps://guides.milohax.org/en/rb3pc/intro/quickconfig/\n\nIf you just want to fix this specifically, you need to enable 'Write Color Buffers' under the GPU tab in Rock Band 3's Custom Configuration.",
+        "text": "# You probably installed this game without following the RPCS3 guide.\n## You can avoid many issues by [[following the quick configuration steps here]](https://guides.milohax.org/en/rb3pc/intro/quickconfig/)\n\nIf you just want to fix this specifically, you need to enable 'Write Color Buffers' under the GPU tab in Rock Band 3's Custom Configuration.",
         "files": ["media/wcbon.png"]
     },
     "response59": {
@@ -311,7 +311,7 @@
     },
     "response63": {
         "triggers": ["dwd"],
-        "text": "You probably installed this game without following the RPCS3 guide.\nYou can avoid many issues by following the quick configuration steps here\nhttps://guides.milohax.org/en/rb3pc/intro/quickconfig/\n\nIf you just want to fix this specifically, you need to set Driver Wake-Up Delay 20 or a multiple of 20 under the Advanced tab in Rock Band 3's Custom Configuration.",
+        "text": "# You probably installed this game without following the RPCS3 guide.\n## You can avoid many issues by [[following the quick configuration steps here]](https://guides.milohax.org/en/rb3pc/intro/quickconfig/)\n\nIf you just want to fix this specifically, you need to set Driver Wake-Up Delay 20 or a multiple of 20 under the Advanced tab in Rock Band 3's Custom Configuration.",
         "files": ["media/dwd.png"]
     },
     "response64": {
@@ -321,7 +321,7 @@
     },
     "response65": {
         "triggers": ["netset"],
-        "text": "You probably installed this game without following the RPCS3 guide.\nYou can avoid many issues by following the quick configuration steps here\nhttps://guides.milohax.org/en/rb3pc/intro/quickconfig/\n\nIf you just want to fix this specifically, set `Network Status` to `Connected` under the Network tab in Rock Band 3's Custom Configuration.",
+        "text": "# You probably installed this game without following the RPCS3 guide.\n## You can avoid many issues by [[following the quick configuration steps here]](https://guides.milohax.org/en/rb3pc/intro/quickconfig/)\n\nIf you just want to fix this specifically, set `Network Status` to `Connected` under the Network tab in Rock Band 3's Custom Configuration.",
         "files": ["media/netset.png"]
     },
     "response66": {
@@ -452,7 +452,7 @@
     },
     "response91": {
         "triggers": ["wii"],
-        "text": "",
+        "text": "# Please note that Wii support has officially ceased and is strictly used for development. We apologize for any inconvenience.",
         "files": ["media/wii.png"]
     },
     "response92": {
@@ -512,7 +512,7 @@
     },
     "response103": {
         "triggers": ["rpcn"],
-        "text": "Want to hop online on RPCS3? [[Click here for more information!]](https://guides.milohax.org/en/rb3pc/online/intro/)\nIf you're not using a Quick Configuration from `!rpcs3`, you will need to adjust the following settings in RB3's Custom Config",
+        "text": "# Want to hop online on RPCS3? [[Click here for more information!]](https://guides.milohax.org/en/rb3pc/online/intro/)\n## The [[RPCS3 Guide has premade profiles]](https://guides.milohax.org/en/rb3pc/intro/quickconfig) with all of the networking configuration ready to go!\n\n Otherwise, you will need to adjust the following settings under the `Network` tab in RB3's Custom Config\n\n* Network Status: `Connected`\n* IP/Hosts switches: ```rb3ps3live.hmxservices.com=45.33.44.103```\n* PSN Status: `Connected`.",
         "files": ["media/rpcnsettings.png"]
     },
     "response104": {
@@ -589,6 +589,20 @@
       "triggers": ["oldgames", "nostalgia", "retrogaming"],
       "text": "",
       "files": ["media/retrogaming.jpg"]
+    },
+    "response120": {
+      "triggers": ["filezilla"],
+      "text": "Having issues with files after using FileZilla?\nMake sure to disable `Treat files without extension as ASCII file` in `Edit > Options > Settings > Transfer > FTP: File Types`\n\nIt's recommended to ditch FileZilla y swap to WinSCP (Windows), Cyberduck (macOS), or use the built in FTP features in KDE Dolphin/GNOME Nautilus on Linux.",
+      "files": ["media/filezilla.webp"]
+    },
+    "response121": {
+      "triggers": ["ports", "portforward"],
+      "text": "Rock Band 3's multiplayer requires port forwarding for the best experience.\n\n* Protocol: `UDP`\n* Port: `9103`",
+      "files": ["media/ports.webp"]
+    },
+    "response122": {
+        "triggers": ["midikeys", "midikeyboard"],
+        "text": "# Using MIDI keyboards with RPCS3\nhttps://guides.milohax.org/en/rb3pc/controllers/keys/midi/",
+        "files": []
     }
 }
-
