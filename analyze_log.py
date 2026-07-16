@@ -225,6 +225,7 @@ def analyze_log_file(log_file_path):
                 buffer_duration = int(match.group(1))
                 if buffer_duration >= 100:
                     game_issues[f"- **Audio Buffer is quite high.** Yours is set to `{buffer_duration}` ms. Consider lowering it to at least `32` ms under the `Audio` tab in RB3's Custom Configuration."].append(f"L-{i}")
+            
             if (
                 "/dev_hdd0/game/BLUS30463/USRDIR/HMX0" in line
                 and "/dev_hdd0/game/BLUS30463/USRDIR/HMX0756" not in line
