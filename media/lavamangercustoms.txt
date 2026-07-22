@@ -1,0 +1,35 @@
+*This guide assumes you have RB3E installed, and does NOT work concurrently with WAD DLC*
+
+*Nautilus is HIGHLY RECOMMENDED, as it fixes album art and venues*
+https://github.com/trojannemo/Nautilus
+
+Download LavaManager from: https://github.com/InvoxiPlayGames/LavaManager/releases/tag/0.1
+
+Run LavaManager, and target the RB3 folder on your SD card. Import your Custom CON file. Hit Finalize.
+
+Your song is now imported, however the album art will be broken. 
+
+To fix it:
+
+Open up your custom's CON using CON Explorer in Nautilus. Copy out the .PNG and paste it to "RB3/songs/**yourcustomsname**/gen".
+Now open Advanced Art Converter, and drag the .png onto it. On the Xbox 360 tab, hit "Convert all Xbox 360 Files". Now on the Wii tab, hit "Convert all input files to _png_wii".
+Delete the .png and png_xbox.
+
+(if venue broken)
+
+Using Nautilus, run Milomod. Drag your custom's midi file onto the window to import it. Drag your customs MILO in the gen folder next.
+Select the songs animation genre.
+Make sure "remove venue from midi" is enabled.
+Hit Convert Milo. Overwrite your customs MILO file with the one MiloMod generated.
+
+
+
+
+
+
+
+
+
+
+
+

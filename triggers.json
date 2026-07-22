@@ -96,7 +96,7 @@
     },
     "response20": {
         "triggers": ["mem", "himem", "memory"],
-        "text": "# RPCS3 High Memory Mode #\nThis will increase your song limit to 16,000 and should allow for better stability and less crashes by allowing RB3 to use extra memory in your system.\n\nStep 1: Right click Rock Band 3 and select `Change Custom Configuration`\nStep 2: Enable `Debug Console Mode` under the Advanced tab\nStep 3: Download the `dx_high_memory.dta` file at the bottom of this post.\nStep 4: Right click on Rock Band 3 in RPCS3 and go to `Open Folder` > `Open Game Data Folder`\nStep 5: Drag the `dx_high_memory.dta` file into `USRDIR`\n\n*if you already installed the pre-made recommended configuration from the rb3pc guide, you will already have this*\n\nDO NOT ATTEMPT TO USE THIS ON HARDWARE",
+        "text": "# You probably installed this game without following the RPCS3 guide.\n## You can avoid many issues by [[following the quick configuration steps here]](https://guides.milohax.org/en/rb3pc/intro/quickconfig/)\n\nIf you're absolutely sure you want ignore this suggestion:\nStep 1: Right click Rock Band 3 and select `Change Custom Configuration`\nStep 2: Enable `Debug Console Mode` under the Advanced tab\nStep 3: Download the `dx_high_memory.dta` file at the bottom of this post.\nStep 4: Right click on Rock Band 3 in RPCS3 and go to `Open Folder` > `Open Game Data Folder`\nStep 5: Drag the `dx_high_memory.dta` file into `USRDIR`\n\n*If you already installed the pre-made recommended configuration from the rb3pc guide, you will already have this*\n\nDO NOT ATTEMPT TO USE THIS ON HARDWARE",
         "files": ["media/mem.png", "media/dx_high_memory.dta"]
     },
     "response21": {
@@ -236,8 +236,8 @@
     },
     "response48": {
         "triggers": ["wiicustoms"],
-        "text": "Wii Customs Part 1. Everything in this post is a one-time thing:\n- You need an SD card formatted FAT32. You cannot store the game itself on the SD card.\n- You will need to use a CIOS or patched IOS to play customs. (CIOS only, if using Wii U. Most guides install the correct CIOS for RB3 in slot 249. Use a loader to force that IOS to be used when launching the game. CIOS USB support can be iffy.)\n- If you're on a USA console (PAL console we'll have to dig up the proper files), I'm going to recommend packing customs in sZHE. Go to this page: https://gitlab.com/rock-band-customs/wii-vwii-dolphin/-/tree/DLC_Packers_NTSC, create a folder for packing customs on your computer and download all the files inside the \"sZHE\" folder on this page and place them inside. Also download all files within the \"basefiles\" and place them inside that folder as well. Also go into the ticket wads folder and download sZHE.wad.\n- On your Wii, you need to extract your console keys with a homebrew called xyzzy mod. You also want to install the sZHE wad with your favourite wad manager, such as wiimodlite. But don't just install it, also uninstall it, and then install it again. If then you see error -1022, it probably worked.\n- In Rock Band 3, you need to enable SD Card mode. If it doesn't automatically ask you, try enabling it in the options, and if it says \"An Unknown Error Occurred\" then you need to have downloaded something from the Wii Shop at some point. The Skyward Sword save fix channel is still available to purchase. You can delete the channel after, you just have to download something. If visiting the shop asks you to update, do it I guess?, and hopefully nothing breaks.\n- On your computer look into the keys.txt you extracted and find your Console id (NOT ng_id), an 8-character hexadecimal string, and paste that into the ng_id.txt file in your packer. Make sure it's only those 8 characters, no extra new lines or spaces or anything.\n\nWii Customs Part 2. This post you'll do on a per-song basis. I'm assuming you will find customs as xbox con files.\n- You need a program called \"Nautilus\". Run the con file for the custom you want to add through the Wii converter. This program has a few bugs it'll probably do a good enough job for about 90% of cases. The specifics of how you will perfectly convert every type of con file you might find lying around is too much to cover. It's possible to convert just about anything, but some knowhow might be required.\n- It will output two folders; put them into your packing folder. You need to chose a slot number, start by using slot 002 for the meta folder for your first song, and 003 for the song folder. Rename the folder to change the first 3-digit number to the slots you've chosen. There's an 8-digit number that also has to be renamed, in sZHE (or the other custom generation, sZGE) this number is always a direct conversion from the 3-digit decimal number to 8-digit hexidecimal.\n- Go into the meta file and find songs.dta and edit it with your text editor. You need to edit the filepath in the 'name' near the top of the file to match the generation (sZHE in your case) and slot number of the meta folder (002 for your first song) (the Wii converter defaults to sZAE and 000). Also run rb3wiicustoms manager after completing these steps. It will pop up and alert you if the decimal and hexadecimal numbers don't match.\n- Then you pack the song by first running packerscriptcreator, and then running the packdlc.bat file that it edits for you.\n- Place the .bin files that are created onto the correct place on your sd card, private/wii/data/sZHE. Any app files that were created in the packing process can be deleted, but be careful not to delete 00000001.app.\n\nAnd that's it, hopefully the song will be playable now if you put the SD card in and go in-game.\n\nThere's a part 3 that goes over the finer specifics of converting cons to Wii but nobody has time to write that tbh.\n\nGood luck!",
-        "files": ["media/goodluck.png"]
+        "text": "Here's how to install customs via LavaManager. For any further Wii support, please visit the [[Wiimmfi Discord Server]](https://discord.gg/nca44zKqF9)",
+        "files": ["media/lavamangercustoms.txt"]
     },
     "response49": {
         "triggers": ["yarg"],
@@ -567,7 +567,7 @@
     },
     "response115": {
       "triggers": ["bcbc4", "xboxmem", "oom"],
-      "text": "It looks like Rock Band 3 Deluxe ran out of memory.\nThis can happen in long/full band sessions, notably with higher song counts (4000+)\n\nLowering your song count under the threshold of around 4000, has seemingly the highest impact on this issue.\nHowever, there are some more options to try if you really do not want to lower your song count.\n\nIn Deluxe Settings can try turning off things like:\n* Streak counter\n* OverDrive percentage\n* Lyric display\n* Judgements\n* Song timeline\n* Menu backgrounds\n* Cutscenes entering/exiting songs\n\nTry setting your venues in this order to see what works best:\n`Small Venues > Music Video Venues > None`\n\n**Xbox 360: <:Xbox360:1215133323039346739>:** You can confirm that this is an out of memory error if you have the latest Enhanced installed and the data error code shown on screen contains `PC:827BCBC4`.\n**PlayStation 3 <:ps3:1441227623618314250>:** Even without Deluxe, the PS3 version of Rock Band 3 already has memory issues while playing online. If you're not actively playing online, disconnect your console from the internet.\n**Wii <:wii:1474320980082950298>:** Rock Band 3 Deluxe is known to be highly unstable on Wii. The best advice is to try RPCS3.\n**RPCS3 <:RPCS3:1215131652703916052>:** You should already have the High Memory patch installed, and memory shouldnt be an issue for you, otherwise Deluxe would be notifying you already. Check `!himem` for more details.",
+      "text": "It looks like Rock Band 3 Deluxe ran out of memory.\nThis can happen in long/full band sessions, notably with higher song counts (4000+)\n\nLowering your song count under the threshold of around 4000, has seemingly the highest impact on this issue.\nHowever, there are some more options to try if you really do not want to lower your song count.\n\nIn Deluxe Settings can try turning off things like:\n* Streak counter\n* OverDrive percentage\n* Lyric display\n* Judgements\n* Song timeline\n* Menu backgrounds\n* Cutscenes entering/exiting songs\n\nTry setting your venues in this order to see what works best:\n`Small Venues > Music Video Venues > None`\n\n**Xbox 360: <:Xbox360:1215133323039346739>:** You can confirm that this is an out of memory error if you have the latest Enhanced installed and the data error code shown on screen contains `PC:827BCBC4`.\n**PlayStation 3 <:ps3:1441227623618314250>:** Even without Deluxe, the PS3 version of Rock Band 3 already had memory issues while playing online. If you're not actively playing online, disconnect your console from the internet.\n**RPCS3 <:RPCS3:1215131652703916052>:** You should already have the High Memory patch installed, and memory shouldnt be an issue for you, otherwise Deluxe would be notifying you already. Check `!himem` for more details.",
       "files": [""]
     },
     "response116": {
@@ -592,7 +592,7 @@
     },
     "response120": {
       "triggers": ["filezilla"],
-      "text": "Having issues with files after using FileZilla?\nMake sure to disable `Treat files without extension as ASCII file` in `Edit > Options > Settings > Transfer > FTP: File Types`\n\nIt's recommended to ditch FileZilla y swap to WinSCP (Windows), Cyberduck (macOS), or use the built in FTP features in KDE Dolphin/GNOME Nautilus on Linux.",
+      "text": "Having issues with files after using FileZilla?\nMake sure to disable `Treat files without extension as ASCII file` in `Edit > Options > Settings > Transfer > FTP: File Types`\n\nIt's recommended to ditch FileZilla and swap to [[WinSCP (Windows)]](https://winscp.net/eng/index.php), [[Cyberduck (macOS)]](https://cyberduck.io/), or use the built in FTP features in KDE Dolphin/GNOME Nautilus on Linux.",
       "files": ["media/filezilla.webp"]
     },
     "response121": {
@@ -604,5 +604,20 @@
         "triggers": ["midikeys", "midikeyboard"],
         "text": "# Using MIDI keyboards with RPCS3\nhttps://guides.milohax.org/en/rb3pc/controllers/keys/midi/",
         "files": []
+    },
+    "response123": {
+        "triggers": ["crystal", "getinthecrystal"],
+        "text": "",
+        "files": ["media/crystal.mp4"]
+    },
+    "response124": {
+        "triggers": ["calconvert"],
+        "text": "Having issues calibration between games on console? Check out [[calconvert]](https://lunalawl.github.io/calconvert/)!\n\nThis utility helps you convert calibration numbers between games & consoles.",
+        "files": [""]
+    },
+    "response125": {
+        "triggers": ["psn"],
+        "text": "Want to hop online on PS3? Make sure your firmware is up to date and change your settings to the following in Settings > Network > Internet Connection Settings > Custom:\n\n* Primary DNS: `45.33.44.103`\n* Secondary DNS: `1.1.1.1`.",
+        "files": [""]
     }
 }

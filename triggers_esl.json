@@ -301,7 +301,7 @@
     },
     "response103": {
         "triggers": ["rpcn"],
-        "text": "# Estas listo para jugar en linea? [[Haz click aqui para mas informacion!]](https://guides.milohax.org/es/rb3pc/online/intro/)\n## La [[guia de RPCS3 tiene configuraciones con ajustes pre-hechos]](https://guides.milohax.org/en/rb3pc/intro/quickconfig) para conectar tu juego al internet.\n\nSi no estas usando una configuracion de la guia de RPCS3, cambia estas cosas en la configuracion de RB3.",
+        "text": "# Estas listo para jugar en linea en RPCS3? [[Haz click aqui para mas informacion!]](https://guides.milohax.org/es/rb3pc/online/intro/)\n## La [[guia de RPCS3 tiene configuraciones con ajustes pre-hechos]](https://guides.milohax.org/en/rb3pc/intro/quickconfig) para conectar tu juego al internet.\n\nSi no estas usando una configuracion de la guia de RPCS3, cambia estas cosas en la configuracion de RB3.\n\n* Estado de la red: `Conectado`\n* Cambio de IP/hosts: ```rb3ps3live.hmxservices.com=45.33.44.103```\n* Estado de PSN: `RPCN`",
         "link": "response103",
         "files": ["media/rpcnsettingses.png"]
     },
@@ -319,7 +319,7 @@
     },
     "response115": {
         "triggers": ["bcbc4", "xboxmem", "oom", "bodriostation"],
-        "text": "Es probable que Rock Band 3 Deluxe acaba de crashear por insuficiente memoria.\nEsto suele pasar en sesiones largas o de banda completa, especialmente si tienes demasiadas canciones (4000+).\n\nReduciendo la cantidad de música es la mejor manera de evitar este problema.\nTambién puedes intentar esto si no quieres reducir la cantidad de canciones instaladas.\n\nDentro de Configuración Deluxe trata de desactivar cosas como:\n* Contador de racha\n* Porcentaje de Sobrecarga\n* Mostrar letra\n* Medidor de precisión\n* Barra de progreso del tema\n* Fondos de menú\n* Transiciones cinemáticas\n\nTambién trata de cambiar el escenarios en esta orden para ver que funciona mejor:\n`Escenarios pequeños > vídeos musicales > [Ninguno]`\n\n**Xbox 360: <:Xbox360:1215133323039346739>:** Puedes confirmar si es un falta de memoria si tienes una versión de Enhanced instalada y el código de error es `PC:827BCBC4`.\n**PlayStation 3 <:ps3:1441227623618314250>:** Sin Deluxe, la versión de PlayStation 3 de Rock Band 3 ya tenia problemas con estabilidad. Si no estas jugando multiplayer, se recomienda que desconectes la consola del internet.\n**Wii :<:wii:1474320980082950298>:** Rock Band 3 Deluxe no es estable en Wii. Si tienes otra plataforma para jugar Rock Band 3, se recomienda usar eso.\n**RPCS3 <:RPCS3:1215131652703916052>:** Deberías de tener el parche de memoria instalado. Escribe `!memoria` para mas información.",
+        "text": "Es probable que Rock Band 3 Deluxe acaba de crashear por insuficiente memoria.\nEsto suele pasar en sesiones largas o de banda completa, especialmente si tienes demasiadas canciones (4000+).\n\nReduciendo la cantidad de música es la mejor manera de evitar este problema.\nTambién puedes intentar esto si no quieres reducir la cantidad de canciones instaladas.\n\nDentro de Configuración Deluxe trata de desactivar cosas como:\n* Contador de racha\n* Porcentaje de Sobrecarga\n* Mostrar letra\n* Medidor de precisión\n* Barra de progreso del tema\n* Fondos de menú\n* Transiciones cinemáticas\n\nTambién trata de cambiar el escenarios en esta orden para ver que funciona mejor:\n`Escenarios pequeños > vídeos musicales > [Ninguno]`\n\n**Xbox 360: <:Xbox360:1215133323039346739>:** Puedes confirmar si es un falta de memoria si tienes una versión de Enhanced instalada y el código de error es `PC:827BCBC4`.\n**PlayStation 3 <:ps3:1441227623618314250>:** Sin Deluxe, la versión de PlayStation 3 de Rock Band 3 ya tenia problemas con estabilidad. Si no estas jugando multiplayer, se recomienda que desconectes la consola del internet.\n**RPCS3 <:RPCS3:1215131652703916052>:** Deberías de tener el parche de memoria instalado. Escribe `!memoria` para mas información.",
         "link": "response115",
         "files": [""]
     },
@@ -343,18 +343,38 @@
     },
     "response120": {
       "triggers": ["filezilla"],
-      "text": "Tienes problemas con archivos despues de usar FileZilla?\nAsegurate de desactivar `Tratar archivos sin extension como archivos ASCII` dentro de `Edicion > Opciones > Transferencias > FTP: Tipos de archivo`\n\nSe recomienda cambiar a WinSCP (Windows), Cyberduck (macOS) o usar las funciones nativas para FTP dentro de KDE Dolphin/GNOME Nautilus on Linux.",
+      "text": "Tienes problemas con archivos despues de usar FileZilla?\nAsegurate de desactivar `Tratar archivos sin extension como archivos ASCII` dentro de `Edicion > Opciones > Transferencias > FTP: Tipos de archivo`\n\nSe recomienda cambiar a [[WinSCP (Windows)]](https://winscp.net/eng/docs/lang:es), [[Cyberduck (macOS)]](https://cyberduck.io/) o usar las funciones nativas para FTP dentro de KDE Dolphin/GNOME Nautilus on Linux.",
+      "link": "response120",
       "files": ["media/filezillaes.webp"]
     },
     "response121": {
       "triggers": ["ports", "portforward", "puertos"],
       "text": "El online de Rock Band 3 requiere que abras puertos para la mejor experiencia.\n\n* Protocolo: `UDP`\n* Puerto: `9103`",
+      "link": "response121",
       "files": ["media/portses.webp"]
     },
     "response122": {
         "triggers": ["midikeys", "midikeyboard", "tecladomidi"],
         "text": "# Como usar tu teclado MIDI con RPCS3\nhttps://guides.milohax.org/es/rb3pc/controllers/keys/midi/",
-        "link": "response21",
+        "link": "response122",
         "files": []
+    },
+    "response123": {
+        "triggers": ["crystal", "getinthecrystal", "cristal", "metetealcristal"],
+        "text": "",
+        "link": "response123",
+        "files": ["media/crystales.mp4"]
+    },
+    "response124": {
+        "triggers": ["calconvert"],
+        "text": "Estas teniendo problemas calibrando entre juegos en consola? Visita la pagina de [[calconvert]](https://lunalawl.github.io/calconvert/)!\n\nEste sitio te ayuda convertir numeros entre consolas y juegos.",
+        "link": "response124",
+        "files": [""]
+    },
+    "response125": {
+        "triggers": ["psn"],
+        "text": "Estas listo para jugar en linea en PS3? Asegurate que tu firmware este actualizada y cambia este dentro de Ajustes > Ajustes de red > Ajustes de conexión a Internet > Personalizados.\n\n* DNS Primario: `45.33.44.103`\n* DNS Secundario: `1.1.1.1`",
+        "link": "response125",
+        "files": [""]
     }
 }
