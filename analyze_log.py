@@ -1,7 +1,60 @@
+import os
 import re
 from collections import defaultdict
 
+try:
+    import rb3_crash
+except Exception:  # never let the crash module stop log analysis
+    rb3_crash = None
+
+
 def analyze_log_file(log_file_path):
+    """Analyze an RPCS3 log or an RB3Enhanced Xbox 360 .exc crash dump.
+    Returns (summary_markdown, debug_txt_path_or_None)."""
+    with open(log_file_path, 'rb') as fh:
+        head = fh.read(4)
+    if head[:3] == b'3EX':
+        if rb3_crash is None:
+            return "**Error**: crash analysis module is unavailable.", None
+        summary, debug = rb3_crash.analyze_exc(log_file_path)
+        debug_path = None
+        if debug:
+            debug_path = log_file_path + ".debug.txt"
+            with open(debug_path, "w", encoding="utf-8") as f:
+                f.write(debug)
+        return summary, debug_path
+
+    result = _analyze_rpcs3_config(log_file_path)
+    if isinstance(result, str):
+        return result, None
+    summary, debug_path = result
+
+    if rb3_crash is None:
+        return summary, debug_path
+    try:
+        with open(log_file_path, 'rb') as fh:
+            lines = fh.read().decode('utf-8', errors='replace').lstrip('\ufeff').splitlines()
+        crash_summary, crash_debug = rb3_crash.analyze_rpcs3(lines)
+    except Exception as e:
+        crash_summary, crash_debug = '', f'crash analysis failed: {e!r}\n'
+
+    if crash_summary:
+        # the specific diagnosis replaces the generic "Crash detected" line
+        summary = "\n".join(l for l in summary.splitlines() if "**Crash detected.**" not in l)
+        summary = re.sub(r"^## Critical :exclamation:\n_Guaranteed to be a problem!_\n(?=\n|##|$)", "", summary)
+        summary = crash_summary.rstrip("\n") + "\n\n" + summary.lstrip("\n")
+    if crash_debug:
+        old = ''
+        if debug_path and os.path.exists(debug_path):
+            with open(debug_path, encoding="utf-8") as f:
+                old = f.read()
+        debug_path = debug_path or (log_file_path + ".debug.txt")
+        with open(debug_path, "w", encoding="utf-8") as f:
+            f.write(crash_debug + ("\n" + old if old else ""))
+    return summary, debug_path
+
+
+def _analyze_rpcs3_config(log_file_path):
     # Initialize variables
     custom_config_found = False
     last_core_index = -1

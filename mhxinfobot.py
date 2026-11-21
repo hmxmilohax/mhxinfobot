@@ -513,8 +513,8 @@ async def handle_log_file(message):
     session_hash = generate_session_hash()
 
     # Check if the file is a valid log or gzipped log file
-    if not log_file.filename.endswith((".log", ".log.gz")):
-        await message.channel.send("Invalid file type. Please upload a `.log` or `.log.gz` file.")
+    if not log_file.filename.lower().endswith((".log", ".log.gz", ".exc")):
+        await message.channel.send("Invalid file type. Please upload a `.log`, `.log.gz`, or Xbox 360 `.exc` crash file.")
         return
 
     # Generate a unique log file name by appending the session hash
