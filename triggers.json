@@ -121,7 +121,7 @@
     },
     "response25": {
         "triggers": ["nightly", "beta"],
-        "text": "# Rock Band 3 Deluxe Nightly Builds\n### These are updated every time changes are pushed to the `develop` branch, which is very often, usually multiple times a day.\nHelp us find bugs before releases are made!\n***May contain bugs***, *not recommended for long events or parties.*\nhttps://nightly.link/hmxmilohax/rock-band-3-deluxe/workflows/build/develop",
+        "text": "# Rock Band 3 Deluxe Nightly Builds\n### These are updated every time changes are pushed to the `develop` branch, which is very often, usually multiple times a day.\nHelp us find bugs before releases are made!\n***May contain bugs***, *not recommended for long events or parties.*\nhttps://github.com/hmxmilohax/rock-band-3-deluxe/releases/tag/nightly",
         "files": []
     },
     "response26": {
